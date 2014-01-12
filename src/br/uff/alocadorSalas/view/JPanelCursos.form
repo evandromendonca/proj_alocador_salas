@@ -30,7 +30,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panelBotoesAcao" alignment="1" pref="0" max="32767" attributes="0"/>
+                  <Component id="panelBotoesAcao" alignment="1" pref="680" max="32767" attributes="0"/>
                   <Component id="painelPesquisaCursos" alignment="1" max="32767" attributes="0"/>
                   <Component id="painelConfiguracaoCursos" alignment="1" pref="680" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
@@ -280,6 +280,9 @@
               <Dimension value="[150, 50]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButtonExcluirActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="JButtonAlterar">
           <Properties>
@@ -295,6 +298,9 @@
               <Dimension value="[150, 50]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButtonAlterarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -330,6 +336,9 @@
           <Dimension value="[150, 50]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButtonCadastrarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
