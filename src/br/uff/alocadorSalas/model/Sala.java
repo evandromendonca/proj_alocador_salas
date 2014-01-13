@@ -21,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SALAS")
-public class Sala implements Serializable {
+public class Sala implements Serializable, Comparable<Sala> {
 
     private static final long serialVersionUID = 1L;
 
@@ -110,6 +110,17 @@ public class Sala implements Serializable {
         return true;
     }
 
+    @Override
+    public int compareTo(Sala sala) {
+        if(this.getQuantidadeUtil() > sala.getQuantidadeUtil()){
+            return -1;
+        }
+        else if(this.getQuantidadeUtil() < sala.getQuantidadeUtil()){
+            return 1;
+        }
+        return 0;
+    }
+    
     @Override
     public String toString() {
         return getNome();

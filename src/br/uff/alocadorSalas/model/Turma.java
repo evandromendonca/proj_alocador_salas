@@ -23,7 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TURMAS")
-public class Turma implements Serializable {
+public class Turma implements Serializable, Comparable<Turma>{
 
     private static final long serialVersionUID = 1L;
 
@@ -164,6 +164,17 @@ public class Turma implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    @Override
+    public int compareTo(Turma turma) {
+        if(this.getQuantidadeAlunos() > turma.getQuantidadeAlunos()){
+            return -1;
+        }
+        else if(this.getQuantidadeAlunos() < turma.getQuantidadeAlunos()){
+            return 1;
+        }
+        return 0;
     }
 
     @Override
