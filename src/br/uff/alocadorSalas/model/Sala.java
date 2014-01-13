@@ -28,7 +28,7 @@ public class Sala implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int numero;
+    private String nome;
     private int quantidadeUtil;
 
     @OneToMany(mappedBy = "sala", targetEntity = Horario.class, cascade = CascadeType.ALL)
@@ -49,17 +49,17 @@ public class Sala implements Serializable {
     }
 
     /**
-     * @return the numero
+     * @return the nome
      */
-    public int getNumero() {
-        return numero;
+    public String getNome() {
+        return nome;
     }
 
     /**
-     * @param numero the numero to set
+     * @param nome the nome to set
      */
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     /**
@@ -93,7 +93,7 @@ public class Sala implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getId() != null ? getId().hashCode() : 0);
+        hash += (getNome() != null ? getNome().hashCode() : 0);
         return hash;
     }
 
@@ -104,7 +104,7 @@ public class Sala implements Serializable {
             return false;
         }
         Sala other = (Sala) object;
-        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
+        if ((this.getNome() == null && other.getNome() != null) || (this.getNome() != null && !this.nome.equals(other.nome))) {
             return false;
         }
         return true;
@@ -112,7 +112,7 @@ public class Sala implements Serializable {
 
     @Override
     public String toString() {
-        return "br.uff.pf.entidades.Disciplina[ id=" + getId() + " ]";
+        return getNome();
     }
 
 }

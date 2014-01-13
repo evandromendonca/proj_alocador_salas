@@ -12,7 +12,7 @@ import org.hibernate.criterion.MatchMode;
 
 public class GenericDao<T extends Serializable> {
 
-    @PersistenceContext(unitName = "agenda")
+    @PersistenceContext(unitName = "ProjetoFinalPU")
     private final EntityManager entityManager;
     private final Class<T> persistentClass;
 

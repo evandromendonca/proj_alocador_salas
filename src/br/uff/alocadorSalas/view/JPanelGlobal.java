@@ -110,7 +110,19 @@ public class JPanelGlobal extends javax.swing.JPanel {
             JPanelTela.revalidate();                       
             
         }
-
+        
+        if (nomeBotao.equalsIgnoreCase("JButtonSalas")) {
+            
+            JPanelSalas panelSalas = new JPanelSalas();
+            panelSalas.setVisible(true);
+           
+            JPanelTela.setVisible(true); 
+            JPanelTela.setLayout(new java.awt.BorderLayout());  
+            JPanelTela.removeAll();
+            JPanelTela.add(panelSalas); 
+            JPanelTela.revalidate();                       
+            
+        }
         //painelInicial.setVisible(nomeBotao.equalsIgnoreCase("botaoInicio"));
         //painelCursos.setVisible(nomeBotao.equalsIgnoreCase("botaoCursos"));
         //painelProfessores.setVisible(nomeBotao.equalsIgnoreCase("botaoProfessores"));
