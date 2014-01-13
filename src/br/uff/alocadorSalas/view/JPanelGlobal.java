@@ -5,9 +5,6 @@
  */
 package br.uff.alocadorSalas.view;
 
-import java.awt.Button;
-import javax.swing.JLabel;
-
 /**
  *
  * @author Evandro
@@ -74,64 +71,70 @@ public class JPanelGlobal extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void alteraVisibilidade(String nomeBotao) {
-        
+
         if (nomeBotao.equalsIgnoreCase("JButtonCursos")) {
-            
+
             JPanelCursos panelCursos = new JPanelCursos();
             panelCursos.setVisible(true);
-           
-            JPanelTela.setVisible(true); 
+
+            JPanelTela.setVisible(true);
             JPanelTela.setLayout(new java.awt.BorderLayout());
             JPanelTela.removeAll();
-            JPanelTela.add(panelCursos); 
-            JPanelTela.revalidate();                       
-            
+            JPanelTela.add(panelCursos);
+            JPanelTela.revalidate();
+
         }
-        
+
         if (nomeBotao.equalsIgnoreCase("JButtonInicial")) {
-            
-            JPanelTela.setVisible(true); 
-            JPanelTela.setLayout(new java.awt.BorderLayout()); 
-            JPanelTela.removeAll();            
+
+            JPanelTela.setVisible(true);
+            JPanelTela.setLayout(new java.awt.BorderLayout());
+            JPanelTela.removeAll();
             JPanelTela.revalidate();
             JPanelTela.repaint();
-            
+
         }
-        
+
         if (nomeBotao.equalsIgnoreCase("JButtonDisciplinas")) {
-            
+
             JPanelDisciplinas panelDisciplinas = new JPanelDisciplinas();
             panelDisciplinas.setVisible(true);
-           
-            JPanelTela.setVisible(true); 
-            JPanelTela.setLayout(new java.awt.BorderLayout());  
+
+            JPanelTela.setVisible(true);
+            JPanelTela.setLayout(new java.awt.BorderLayout());
             JPanelTela.removeAll();
-            JPanelTela.add(panelDisciplinas); 
-            JPanelTela.revalidate();                       
-            
+            JPanelTela.add(panelDisciplinas);
+            JPanelTela.revalidate();
+
         }
-        
+
         if (nomeBotao.equalsIgnoreCase("JButtonSalas")) {
-            
+
             JPanelSalas panelSalas = new JPanelSalas();
             panelSalas.setVisible(true);
-           
-            JPanelTela.setVisible(true); 
-            JPanelTela.setLayout(new java.awt.BorderLayout());  
+
+            JPanelTela.setVisible(true);
+            JPanelTela.setLayout(new java.awt.BorderLayout());
             JPanelTela.removeAll();
-            JPanelTela.add(panelSalas); 
-            JPanelTela.revalidate();                       
-            
+            JPanelTela.add(panelSalas);
+            JPanelTela.revalidate();
+
         }
-        //painelInicial.setVisible(nomeBotao.equalsIgnoreCase("botaoInicio"));
-        //painelCursos.setVisible(nomeBotao.equalsIgnoreCase("botaoCursos"));
-        //painelProfessores.setVisible(nomeBotao.equalsIgnoreCase("botaoProfessores"));
-        //painelDisciplinas.setVisible(nomeBotao.equalsIgnoreCase("botaoDisciplinas"));
-        //painelHorarios.setVisible(nomeBotao.equalsIgnoreCase("botaoHorarios"));
-        //painelSalas.setVisible(nomeBotao.equalsIgnoreCase("botaoSalas"));
-        //painelGrade.setVisible(nomeBotao.equalsIgnoreCase("botaoGrade"));
+
+        if (nomeBotao.equalsIgnoreCase("JButtonTurmas")) {
+
+            JPanelTurmas panelTurmas = new JPanelTurmas();
+            panelTurmas.setVisible(true);
+
+            JPanelTela.setVisible(true);
+            JPanelTela.setLayout(new java.awt.BorderLayout());
+            JPanelTela.removeAll();
+            JPanelTela.add(panelTurmas);
+            JPanelTela.revalidate();
+
+        }
     }
-    
+
     public void alteraCorBotao(String nomeBotao) {
         //botaoCursos.setBackground(nomeBotao.equalsIgnoreCase("botaoCursos") ? Color.ORANGE : new Color(240, 240, 240));
         //botaoHorarios.setBackground(nomeBotao.equalsIgnoreCase("botaoHorarios") ? Color.ORANGE : new Color(240, 240, 240));
@@ -141,5 +144,5 @@ public class JPanelGlobal extends javax.swing.JPanel {
         //setBackground(nomeBotao.equalsIgnoreCase("botaoInicio") ? Color.ORANGE : new Color(240, 240, 240));
         //botaoGrade.setBackground(nomeBotao.equalsIgnoreCase("botaoGrade") ? Color.ORANGE : new Color(240, 240, 240));
     }
-    
+
 }

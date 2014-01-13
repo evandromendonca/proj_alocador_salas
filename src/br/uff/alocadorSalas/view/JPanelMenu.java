@@ -122,6 +122,11 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonTurmas.setMinimumSize(new java.awt.Dimension(100, 80));
         JButtonTurmas.setName("JButtonTurmas"); // NOI18N
         JButtonTurmas.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonTurmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonTurmasActionPerformed(evt);
+            }
+        });
 
         JButtonHorarios.setText("Horários");
         JButtonHorarios.setAlignmentY(0.0F);
@@ -213,6 +218,15 @@ public class JPanelMenu extends javax.swing.JPanel {
         JPanelGlobal panelGlobal = (JPanelGlobal)this.getParent();
         panelGlobal.alteraVisibilidade("JButtonSalas");
     }//GEN-LAST:event_JButtonSalasActionPerformed
+
+    private void JButtonTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonTurmasActionPerformed
+        definirLayout();
+        Color c = new Color(this.getBackground().getRGB());
+        JButtonTurmas.setBackground(c);
+        
+        JPanelGlobal panelGlobal = (JPanelGlobal)this.getParent();
+        panelGlobal.alteraVisibilidade("JButtonTurmas");
+    }//GEN-LAST:event_JButtonTurmasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

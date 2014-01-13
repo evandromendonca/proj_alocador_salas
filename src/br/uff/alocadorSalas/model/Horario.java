@@ -28,8 +28,8 @@ public class Horario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String diaSemana;
-    private int horarioInicial;
-    private int horarioFinal;
+    private String horarioInicial;
+    private String horarioFinal;
 
     @ManyToOne
     @JoinColumn(name = "id_turma")
@@ -70,28 +70,28 @@ public class Horario implements Serializable {
     /**
      * @return the horarioInicial
      */
-    public int getHorarioInicial() {
+    public String getHorarioInicial() {
         return horarioInicial;
     }
 
     /**
      * @param horarioInicial the horarioInicial to set
      */
-    public void setHorarioInicial(int horarioInicial) {
+    public void setHorarioInicial(String horarioInicial) {
         this.horarioInicial = horarioInicial;
     }
 
     /**
      * @return the horarioFinal
      */
-    public int getHorarioFinal() {
+    public String getHorarioFinal() {
         return horarioFinal;
     }
 
     /**
      * @param horarioFinal the horarioFinal to set
      */
-    public void setHorarioFinal(int horarioFinal) {
+    public void setHorarioFinal(String horarioFinal) {
         this.horarioFinal = horarioFinal;
     }
 
@@ -145,7 +145,7 @@ public class Horario implements Serializable {
 
     @Override
     public String toString() {
-        return "br.uff.pf.entidades.Disciplina[ id=" + getId() + " ]";
+        return this.getDiaSemana() + "/" +this.getHorarioInicial() + "/" + this.getHorarioFinal();
     }
 
 }

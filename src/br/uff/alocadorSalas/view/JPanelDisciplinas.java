@@ -65,7 +65,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         JButtonAlterar = new javax.swing.JButton();
         painelPesquisaCursos4 = new javax.swing.JPanel();
         scrollPesquisaCursos4 = new javax.swing.JScrollPane();
-        JListPesquisaDisciplinas = new javax.swing.JList();
+        JListPesquisa = new javax.swing.JList();
 
         setMaximumSize(new java.awt.Dimension(700, 600));
         setMinimumSize(new java.awt.Dimension(700, 600));
@@ -192,9 +192,9 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
         painelPesquisaCursos4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Resultado da Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 102))); // NOI18N
 
-        JListPesquisaDisciplinas.setModel(new DefaultListModel());
-        JListPesquisaDisciplinas.setName("JListPesquisaDisciplinas"); // NOI18N
-        scrollPesquisaCursos4.setViewportView(JListPesquisaDisciplinas);
+        JListPesquisa.setModel(new DefaultListModel());
+        JListPesquisa.setName("JListPesquisa"); // NOI18N
+        scrollPesquisaCursos4.setViewportView(JListPesquisa);
 
         javax.swing.GroupLayout painelPesquisaCursos4Layout = new javax.swing.GroupLayout(painelPesquisaCursos4);
         painelPesquisaCursos4.setLayout(painelPesquisaCursos4Layout);
@@ -284,7 +284,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
             return;
         }
 
-        DefaultListModel model = (DefaultListModel) JListPesquisaDisciplinas.getModel();
+        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
         model.clear();
 
         for (Disciplina d : disciplinasBuscados) {
@@ -334,17 +334,17 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
     private void JButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirActionPerformed
 
-        if (JListPesquisaDisciplinas.getSelectedIndex() == -1) {
+        if (JListPesquisa.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Nenhuma disciplina selecionada");
             return;
         }
 
         try {
-            DefaultListModel model = (DefaultListModel) JListPesquisaDisciplinas.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisaDisciplinas.getSelectedIndex());
+            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
+            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
             Long id = new DisciplinaController().buscaDisciplinaPorNome(textoSelecionado.split("/")[0]).getId();
             new DisciplinaController().excluir(id);
-            model.remove(JListPesquisaDisciplinas.getSelectedIndex());
+            model.remove(JListPesquisa.getSelectedIndex());
         } catch (Exception ex) {
             Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -352,14 +352,14 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
     private void JButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlterarActionPerformed
 
-        if (JListPesquisaDisciplinas.getSelectedIndex() == -1) {
+        if (JListPesquisa.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Nenhuma disciplina selecionada");
             return;
         }
 
         try {
-            DefaultListModel model = (DefaultListModel) JListPesquisaDisciplinas.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisaDisciplinas.getSelectedIndex());
+            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
+            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
             Disciplina disciplina = new DisciplinaController().buscaDisciplinaPorNome(textoSelecionado.split("/")[0]);
 
             this.JTextNome.setText(disciplina.getNome());
@@ -367,7 +367,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
             this.JComboBoxPeriodo.setSelectedItem(disciplina.getPeriodoAssociado());
             this.idDisciplinaCorrente = disciplina.getId();
 
-            model.remove(JListPesquisaDisciplinas.getSelectedIndex());
+            model.remove(JListPesquisa.getSelectedIndex());
         } catch (Exception ex) {
             Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -394,25 +394,13 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
     private javax.swing.JComboBox JComboBoxCurso;
     private javax.swing.JComboBox JComboBoxPeriodo;
     private javax.swing.JList JListPesquisa;
-    private javax.swing.JList JListPesquisa1;
-    private javax.swing.JList JListPesquisa2;
-    private javax.swing.JList JListPesquisa3;
-    private javax.swing.JList JListPesquisaDisciplinas;
     private javax.swing.JTextField JTextNome;
     private javax.swing.JLabel lCursoDisciplina;
     private javax.swing.JLabel lNomeDisciplina;
     private javax.swing.JLabel lPeriodoDisciplina;
     private javax.swing.JPanel painelConfiguracaoDisciplinas;
-    private javax.swing.JPanel painelPesquisaCursos;
-    private javax.swing.JPanel painelPesquisaCursos1;
-    private javax.swing.JPanel painelPesquisaCursos2;
-    private javax.swing.JPanel painelPesquisaCursos3;
     private javax.swing.JPanel painelPesquisaCursos4;
     private javax.swing.JPanel panelBotoesAcao;
-    private javax.swing.JScrollPane scrollPesquisaCursos;
-    private javax.swing.JScrollPane scrollPesquisaCursos1;
-    private javax.swing.JScrollPane scrollPesquisaCursos2;
-    private javax.swing.JScrollPane scrollPesquisaCursos3;
     private javax.swing.JScrollPane scrollPesquisaCursos4;
     // End of variables declaration//GEN-END:variables
 
@@ -451,7 +439,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
     public void preencherComboCurso() {
         DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
-        modelCurso.removeAllElements();;
+        modelCurso.removeAllElements();
 
         String mensagem = "Preencha com um curso!";
         modelCurso.addElement(mensagem);

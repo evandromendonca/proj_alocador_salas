@@ -1,6 +1,7 @@
 package br.uff.alocadorSalas.controller;
 
 import br.uff.alocadorSalas.dao.TurmaDao;
+import br.uff.alocadorSalas.model.Curso;
 import br.uff.alocadorSalas.model.Disciplina;
 import br.uff.alocadorSalas.model.Professor;
 import br.uff.alocadorSalas.model.Turma;
@@ -10,23 +11,25 @@ import javax.swing.JOptionPane;
  
 public class TurmaController {
  
-    public void salvar(String nome, int quantidadeAlunos, Disciplina disciplina, Professor professor) throws Exception {
+    public void salvar(String nome, int quantidadeAlunos, Disciplina disciplina, Professor professor, Curso curso) throws Exception {
         Turma turma = new Turma();
         turma.setNome(nome);                
         turma.setQuantidadeAlunos(quantidadeAlunos);
         turma.setDisciplina(disciplina);
         turma.setProfessor(professor);
+        turma.setCurso(curso);
         
         new TurmaDao().salvar(turma);
     }
  
-    public void alterar(long id, String nome, int quantidadeAlunos, Disciplina disciplina, Professor professor) throws Exception {
+    public void alterar(long id, String nome, int quantidadeAlunos, Disciplina disciplina, Professor professor, Curso curso) throws Exception {
         Turma turma = new Turma();
         turma.setId(id);
         turma.setNome(nome);                
         turma.setQuantidadeAlunos(quantidadeAlunos);
         turma.setDisciplina(disciplina);
         turma.setProfessor(professor);
+        turma.setCurso(curso);
         
         new TurmaDao().salvar(turma);
     }

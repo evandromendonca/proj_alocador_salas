@@ -205,6 +205,9 @@
           <Dimension value="[100, 80]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButtonTurmasActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="JButtonHorarios">
       <Properties>

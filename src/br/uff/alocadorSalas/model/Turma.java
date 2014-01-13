@@ -40,9 +40,13 @@ public class Turma implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_professor")
     private Professor professor;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_curso")
+    private Curso curso;
 
     @OneToMany(mappedBy = "sala", targetEntity = Horario.class, cascade = CascadeType.ALL)
-    private List<Horario> horarios;
+    private List<Horario> horarios;    
 
     /**
      * @return the id
@@ -127,6 +131,20 @@ public class Turma implements Serializable {
     public void setHorarios(List<Horario> horarios) {
         this.horarios = horarios;
     }
+    
+    /**
+     * @return the curso
+     */
+    public Curso getCurso() {
+        return curso;
+    }
+
+    /**
+     * @param curso the curso to set
+     */
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
 
     @Override
     public int hashCode() {
@@ -151,6 +169,6 @@ public class Turma implements Serializable {
     @Override
     public String toString() {
         return "br.uff.pf.entidades.Turma[ id=" + getId() + " ]";
-    }
+    }    
 
 }

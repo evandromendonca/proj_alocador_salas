@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class HorarioController {
 
-    public void salvar(int horarioInicial, int horarioFinal, String diaSemanha, Sala sala, Turma turma) throws Exception {
+    public void salvar(String horarioInicial, String horarioFinal, String diaSemanha, Sala sala, Turma turma) throws Exception {
         Horario horario = new Horario();
         horario.setHorarioInicial(horarioInicial);
         horario.setHorarioFinal(horarioFinal);
@@ -21,7 +21,7 @@ public class HorarioController {
         new HorarioDao().salvar(horario);
     }
 
-    public void alterar(long id, int horarioInicial, int horarioFinal, String diaSemanha, Sala sala, Turma turma) throws Exception {
+    public void alterar(long id, String horarioInicial, String horarioFinal, String diaSemanha, Sala sala, Turma turma) throws Exception {
         Horario horario = new Horario();
         horario.setId(id);
         horario.setHorarioInicial(horarioInicial);
@@ -31,8 +31,12 @@ public class HorarioController {
         horario.setTurma(turma);
 
         new HorarioDao().salvar(horario);
-    }
+    }    
 
+    public void excluir(long id) throws Exception {
+        new HorarioDao().excluir(id);
+    }
+    
     public List<Horario> listaHorarios() throws Exception {
         HorarioDao dao = new HorarioDao();
         try {
@@ -42,9 +46,15 @@ public class HorarioController {
         }
         return null;
     }
-
-    public void excluir(long id) throws Exception {
-        new HorarioDao().excluir(id);
+    
+    public List<Horario> buscaTodosPorTurma(Turma turma) {
+        HorarioDao dao = new HorarioDao();
+        try {
+            return dao.findAllByAttribute("turma.id", turma);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Problemas ao localizar horarios" + e.getLocalizedMessage());
+        }
+        return null;
     }
 
 }

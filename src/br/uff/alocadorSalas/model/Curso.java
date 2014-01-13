@@ -33,6 +33,9 @@ public class Curso implements Serializable {
     @OneToMany(mappedBy="curso", targetEntity = Disciplina.class, cascade = CascadeType.ALL)
     private List<Disciplina> disciplinas;
     
+    @OneToMany(mappedBy="curso", targetEntity = Disciplina.class, cascade = CascadeType.ALL)
+    private List<Turma> turmas;
+    
     
     /**
      * @return the id
@@ -118,6 +121,20 @@ public class Curso implements Serializable {
         this.disciplinas = disciplinas;
     }
     
+    /**
+     * @return the turmas
+     */
+    public List<Turma> getTurmas() {
+        return turmas;
+    }
+
+    /**
+     * @param turmas the turmas to set
+     */
+    public void setTurmas(List<Turma> turmas) {
+        this.turmas = turmas;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -142,5 +159,5 @@ public class Curso implements Serializable {
     public String toString() {
         return getNome();
     }
-    
+
 }
