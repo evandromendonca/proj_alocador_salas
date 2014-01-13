@@ -83,6 +83,12 @@ public class GenericDao<T extends Serializable> {
         return (T) session.createCriteria(persistentClass)
                 .add(Restrictions.eq(attributeType, attribute)).uniqueResult();
     }
+    
+    public T findByAttribute(String attributeType, Object attribute) {
+        Session session = (Session) getEntityManager().getDelegate();
+        return (T) session.createCriteria(persistentClass)
+                .add(Restrictions.eq(attributeType, attribute)).uniqueResult();
+    }
 
     public List<T> findAll() throws Exception {
         Session session = (Session) getEntityManager().getDelegate();
@@ -99,6 +105,12 @@ public class GenericDao<T extends Serializable> {
         Session session = (Session) getEntityManager().getDelegate();
         return (List<T>) session.createCriteria(persistentClass)
                 .add(Restrictions.ilike(attributeType, attribute, MatchMode.ANYWHERE)).list();
+    }
+    
+    public List<T> findAllByAttribute(String attributeType, Object attribute) {
+        Session session = (Session) getEntityManager().getDelegate();
+        return (List<T>) session.createCriteria(persistentClass)
+                .add(Restrictions.eq(attributeType, attribute)).list();
     }
 
     private void close() {

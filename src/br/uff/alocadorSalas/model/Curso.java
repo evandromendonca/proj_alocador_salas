@@ -140,7 +140,7 @@ public class Curso implements Serializable {
 
     @Override
     public String toString() {
-        return "br.uff.pf.entidades.Cursos[ id=" + getId() + " ]";
+        return getNome();
     }
     
 }
