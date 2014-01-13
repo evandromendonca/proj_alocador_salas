@@ -723,7 +723,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         modelProfessores.addElement(mensagem);
 
         try {
-            ArrayList<Professor> professoresBuscados = new ArrayList<>(new ProfessorController().listaProfessors());
+            ArrayList<Professor> professoresBuscados = new ArrayList<>(new ProfessorController().listaProfessor());
             for (Professor p : professoresBuscados) {
                 modelProfessores.addElement(p);
 

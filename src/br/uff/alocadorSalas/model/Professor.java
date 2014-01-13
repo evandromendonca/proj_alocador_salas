@@ -24,10 +24,7 @@ public class Professor implements Serializable {
     private Long id;
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "id_curso")
-    private Curso curso;
-
+    
     /**
      * @return the id
      */
@@ -54,20 +51,6 @@ public class Professor implements Serializable {
      */
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    /**
-     * @return the curso
-     */
-    public Curso getCurso() {
-        return curso;
-    }
-
-    /**
-     * @param curso the curso to set
-     */
-    public void setCurso(Curso curso) {
-        this.curso = curso;
     }
 
     @Override

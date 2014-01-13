@@ -133,6 +133,27 @@ public class JPanelGlobal extends javax.swing.JPanel {
             JPanelTela.revalidate();
 
         }
+        
+        if (nomeBotao.equalsIgnoreCase("JButtonProfessores")) {
+            
+            JPanelProfessores panelProfessores = new JPanelProfessores();
+            panelProfessores.setVisible(true);
+           
+            JPanelTela.setVisible(true); 
+            JPanelTela.setLayout(new java.awt.BorderLayout());  
+            JPanelTela.removeAll();
+            JPanelTela.add(panelProfessores); 
+            JPanelTela.revalidate();                       
+            
+        }
+        //painelInicial.setVisible(nomeBotao.equalsIgnoreCase("botaoInicio"));
+        //painelCursos.setVisible(nomeBotao.equalsIgnoreCase("botaoCursos"));
+        //painelProfessores.setVisible(nomeBotao.equalsIgnoreCase("botaoProfessores"));
+        //painelDisciplinas.setVisible(nomeBotao.equalsIgnoreCase("botaoDisciplinas"));
+        //painelHorarios.setVisible(nomeBotao.equalsIgnoreCase("botaoHorarios"));
+        //painelSalas.setVisible(nomeBotao.equalsIgnoreCase("botaoSalas"));
+        //painelGrade.setVisible(nomeBotao.equalsIgnoreCase("botaoGrade"));
+
     }
 
     public void alteraCorBotao(String nomeBotao) {

@@ -26,9 +26,6 @@ public class Curso implements Serializable {
     private String nome;
     private String sigla;
     private int quantidadePeriodos;
-
-    @OneToMany(mappedBy="curso", targetEntity = Professor.class, cascade = CascadeType.ALL)
-    private List<Professor> professores;
     
     @OneToMany(mappedBy="curso", targetEntity = Disciplina.class, cascade = CascadeType.ALL)
     private List<Disciplina> disciplinas;
@@ -93,20 +90,7 @@ public class Curso implements Serializable {
         this.quantidadePeriodos = quantidadePeriodos;
     }
 
-        /**
-     * @return the professores
-     */
-    public List<Professor> getProfessores() {
-        return professores;
-    }
-
-    /**
-     * @param professores the professores to set
-     */
-    public void setProfessores(List<Professor> professores) {
-        this.professores = professores;
-    }
-
+       
     /**
      * @return the disciplinas
      */

@@ -9,24 +9,22 @@ import javax.swing.JOptionPane;
 
 public class ProfessorController {
 
-    public void salvar(String nome, Curso curso) throws Exception {
+    public void salvar(String nome) throws Exception {
         Professor professor = new Professor();
         professor.setNome(nome);
-        professor.setCurso(curso);
 
         new ProfessorDao().salvar(professor);
     }
 
-    public void alterar(long id, String nome, Curso curso) throws Exception {
+    public void alterar(long id, String nome) throws Exception {
         Professor professor = new Professor();
         professor.setId(id);
         professor.setNome(nome);
-        professor.setCurso(curso);
 
         new ProfessorDao().alterar(professor);
     }
 
-    public List<Professor> listaProfessors() throws Exception {
+    public List<Professor> listaProfessor() throws Exception {
         ProfessorDao dao = new ProfessorDao();
         try {
             return dao.findAll();
@@ -44,4 +42,10 @@ public class ProfessorController {
         ProfessorDao dao = new ProfessorDao();
         return dao.findByName(nome);
     }
+    
+    public List<Professor> buscaTodosProfessorPorNome(String nome) throws Exception {
+        ProfessorDao dao = new ProfessorDao();
+        return dao.findAllByName(nome);
+    }
+    
 }

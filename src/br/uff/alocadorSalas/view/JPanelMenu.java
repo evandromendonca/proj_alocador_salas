@@ -98,6 +98,11 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonProfessores.setMinimumSize(new java.awt.Dimension(100, 80));
         JButtonProfessores.setName("JButtonProfessores"); // NOI18N
         JButtonProfessores.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonProfessores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonProfessoresActionPerformed(evt);
+            }
+        });
 
         JButtonDisciplinas.setText("Disciplinas");
         JButtonDisciplinas.setAlignmentY(0.0F);
@@ -228,6 +233,14 @@ public class JPanelMenu extends javax.swing.JPanel {
         panelGlobal.alteraVisibilidade("JButtonTurmas");
     }//GEN-LAST:event_JButtonTurmasActionPerformed
 
+    private void JButtonProfessoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonProfessoresActionPerformed
+        definirLayout();
+        Color c = new Color(this.getBackground().getRGB());
+        JButtonProfessores.setBackground(c);
+        
+        JPanelGlobal panelGlobal = (JPanelGlobal)this.getParent();
+        panelGlobal.alteraVisibilidade("JButtonProfessores");
+    }//GEN-LAST:event_JButtonProfessoresActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonCursos;

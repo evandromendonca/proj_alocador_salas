@@ -54,7 +54,7 @@
                   <Component id="JButtonCadastrar" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="JButtonBuscar" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="painelPesquisaCursos4" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="panelBotoesAcao" min="-2" pref="64" max="-2" attributes="0"/>
@@ -81,19 +81,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lCursoProfessores" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="comboBoxCursoProfessores" min="-2" pref="178" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lNomeProfessores" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="tNomeProfessor" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="lNomeProfessores" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="JTextNome" pref="571" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -104,14 +94,9 @@
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lNomeProfessores" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tNomeProfessor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="JTextNome" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lCursoProfessores" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboBoxCursoProfessores" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="36" max="32767" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -125,25 +110,7 @@
             <Property name="text" type="java.lang.String" value="Nome.:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lCursoProfessores">
-          <Properties>
-            <Property name="displayedMnemonic" type="int" value="67"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="14" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Curso.:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tNomeProfessor">
-        </Component>
-        <Component class="javax.swing.JComboBox" name="comboBoxCursoProfessores">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Cursos"/>
-              </StringArray>
-            </Property>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="JTextNome">
         </Component>
       </SubComponents>
     </Container>
@@ -285,7 +252,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="scrollPesquisaCursos4" pref="232" max="32767" attributes="0"/>
+                  <Component id="scrollPesquisaCursos4" pref="288" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -299,7 +266,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JList" name="JListPesquisa4">
+            <Component class="javax.swing.JList" name="JListPesquisa">
               <Properties>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new DefaultListModel()" type="code"/>
