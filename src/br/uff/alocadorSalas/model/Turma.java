@@ -168,7 +168,7 @@ public class Turma implements Serializable {
 
     @Override
     public String toString() {
-        return "br.uff.pf.entidades.Turma[ id=" + getId() + " ]";
+        return this.getNome() + "/" + "/" + this.getDisciplina() + "/" + this.getCurso() + "/" + this.getProfessor();
     }    
 
 }

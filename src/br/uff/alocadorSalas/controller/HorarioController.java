@@ -30,7 +30,7 @@ public class HorarioController {
         horario.setSala(sala);
         horario.setTurma(turma);
 
-        new HorarioDao().salvar(horario);
+        new HorarioDao().alterar(horario);
     }    
 
     public void excluir(long id) throws Exception {
@@ -50,7 +50,7 @@ public class HorarioController {
     public List<Horario> buscaTodosPorTurma(Turma turma) {
         HorarioDao dao = new HorarioDao();
         try {
-            return dao.findAllByAttribute("turma.id", turma);
+            return dao.findAllByAttribute("turma.id", turma.getId());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar horarios" + e.getLocalizedMessage());
         }

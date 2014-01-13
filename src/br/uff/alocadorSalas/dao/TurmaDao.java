@@ -3,6 +3,7 @@ package br.uff.alocadorSalas.dao;
 import br.uff.alocadorSalas.model.Disciplina;
 import br.uff.alocadorSalas.model.Turma;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -32,4 +33,15 @@ public class TurmaDao extends GenericDao<Turma> {
                 )).uniqueResult();
     }
 
+    public List<Turma> buscarTodasPorNomeESigla(String nome, Disciplina disciplina) {
+
+        Class<Turma> persistent = (Class<Turma>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        Session session = (Session) getEntityManager().getDelegate();
+
+        return (List<Turma>) session.createCriteria(persistent).add(
+                Restrictions.and(Restrictions.eq("nome", nome),
+                        Restrictions.eq("disciplina.id", disciplina.getId())
+                )).list();
+    }
+    
 }

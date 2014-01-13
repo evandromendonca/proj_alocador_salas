@@ -20,7 +20,6 @@ import br.uff.alocadorSalas.model.Turma;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -44,15 +43,15 @@ public class JPanelTurmas extends javax.swing.JPanel {
      */
     public JPanelTurmas() {
         initComponents();
-        
+
         idTurmaCorrente = (long) 0;
-        
-        configInicial();
-        definirLayout(EstadoTela.inicial);
+
+        configInicial();        
         preencherComboCurso();
         preencherComboProfessores();
         preencherComboDiaSemana();
         preencherComboSalas();
+        definirLayout(EstadoTela.inicial);
     }
 
     /**
@@ -429,7 +428,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         DefaultComboBoxModel modelDisciplinas = (DefaultComboBoxModel) JComboBoxDisciplina.getModel();
         DefaultComboBoxModel modelCursos = (DefaultComboBoxModel) JComboBoxCurso.getModel();
         DefaultComboBoxModel modelProfessores = (DefaultComboBoxModel) JComboBoxProfessor.getModel();
-        
+
         if ((JTextNome.getText().equalsIgnoreCase(""))
                 && (JComboBoxCurso.getSelectedIndex() <= 0)
                 && (JComboBoxDisciplina.getSelectedIndex() <= 0)
@@ -439,7 +438,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Campos vazios!");
             return;
         }
-        
+
         if (JButtonCadastrar.getText().equalsIgnoreCase("Cadastrar")) {
             try {
                 new TurmaController().salvar(JTextNome.getText(),
@@ -447,28 +446,28 @@ public class JPanelTurmas extends javax.swing.JPanel {
                         (Disciplina) modelDisciplinas.getSelectedItem(),
                         (Professor) modelProfessores.getSelectedItem(),
                         (Curso) modelCursos.getSelectedItem());
-                
+
                 Turma turma = new TurmaController().buscaTurmaPorNomeEDisciplina(JTextNome.getText(), (Disciplina) modelDisciplinas.getSelectedItem());
-                                
+
                 for (int i = 0; i < modelHorarios.size(); i++) {
-                    Horario h = (Horario)modelHorarios.getElementAt(i);
+                    Horario h = (Horario) modelHorarios.getElementAt(i);
                     new HorarioController().salvar(h.getHorarioInicial(), h.getHorarioFinal(), h.getDiaSemana(), h.getSala(), turma);
-                }                              
-                
+                }
+
                 JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
-                
+
             } catch (Exception ex) {
                 Logger.getLogger(JPanelTurmas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         if (JButtonCadastrar.getText().equalsIgnoreCase("Alterar")) {
-            
+
             if (idTurmaCorrente == 0) {
                 JOptionPane.showMessageDialog(this, "Nenhuma turma para ser alterado!");
                 return;
             }
-            
+
             try {
                 new TurmaController().alterar(
                         idTurmaCorrente,
@@ -477,22 +476,24 @@ public class JPanelTurmas extends javax.swing.JPanel {
                         (Disciplina) modelDisciplinas.getSelectedItem(),
                         (Professor) modelProfessores.getSelectedItem(),
                         (Curso) modelCursos.getSelectedItem());
-                
-                for (Horario h : (List<Horario>) modelHorarios.elements()) {
+
+                for (int i = 0; i < modelHorarios.size(); i++) {
+                    Horario h = (Horario) modelHorarios.getElementAt(i);
                     if (h.getId() != -1) {
                         new HorarioController().alterar(h.getId(), h.getHorarioInicial(), h.getHorarioFinal(), h.getDiaSemana(), (Sala) h.getSala(), (Turma) h.getTurma());
                     } else {
                         new HorarioController().salvar(h.getHorarioInicial(), h.getHorarioFinal(), h.getDiaSemana(), (Sala) h.getSala(), (Turma) h.getTurma());
                     }
-                }
                 
+                }
+
                 JOptionPane.showMessageDialog(this, "Alterado com sucesso!");
                 idTurmaCorrente = Long.valueOf(0);
             } catch (Exception ex) {
                 Logger.getLogger(JPanelSalas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         definirLayout(EstadoTela.inicial);
     }//GEN-LAST:event_JButtonCadastrarActionPerformed
 
@@ -501,14 +502,14 @@ public class JPanelTurmas extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Nenhuma turma selecionada");
             return;
         }
-        
+
         try {
             DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
             String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
             Long id = new TurmaController().buscaTurmaPorNome(textoSelecionado.split("/")[0]).getId();
             new TurmaController().excluir(id);
             model.remove(JListPesquisa.getSelectedIndex());
-            
+
         } catch (Exception ex) {
             Logger.getLogger(JPanelCursos.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -516,56 +517,55 @@ public class JPanelTurmas extends javax.swing.JPanel {
     }//GEN-LAST:event_JButtonExcluirActionPerformed
 
     private void JButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlterarActionPerformed
-        
+
         if (JListPesquisa.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Nenhuma turma selecionada");
             return;
         }
-        
+
         try {
             DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Turma turma = new TurmaController().buscaTurmaPorNome(textoSelecionado.split("/")[0]);
-            
+            Turma turma = (Turma) model.getElementAt(JListPesquisa.getSelectedIndex());
+
             this.JTextNome.setText(turma.getNome());
             this.JSpinnerQuantidadeAlunos.setValue(turma.getQuantidadeAlunos());
             this.JComboBoxCurso.setSelectedItem(turma.getCurso());
             this.JComboBoxDisciplina.setSelectedItem(turma.getDisciplina());
             this.JComboBoxProfessor.setSelectedItem(turma.getProfessor());
-            
+
             idTurmaCorrente = turma.getId();
             model.remove(JListPesquisa.getSelectedIndex());
-            
+
             DefaultListModel modelHorario = (DefaultListModel) JListHorarios.getModel();
-            modelHorario.removeAllElements();
-            
+            modelHorario.clear();
+
             List<Horario> horarios = new HorarioController().buscaTodosPorTurma(turma);
             for (Horario h : horarios) {
-                model.addElement(h);
+                modelHorario.addElement(h);
             }
-            
+
         } catch (Exception ex) {
             Logger.getLogger(JPanelCursos.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         definirLayout(EstadoTela.alterando);
     }//GEN-LAST:event_JButtonAlterarActionPerformed
 
     private void JButtonIncluiHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonIncluiHorarioActionPerformed
-        
+
         DefaultComboBoxModel modelDiaSemana = (DefaultComboBoxModel) JComboBoxDiaSemana.getModel();
         DefaultComboBoxModel modelSala = (DefaultComboBoxModel) JComboBoxSala.getModel();
         Horario horario = new Horario();
-        
+
         horario.setDiaSemana(modelDiaSemana.getSelectedItem().toString());
         horario.setHorarioInicial(JSpinnerHI.getValue() + ":" + JSpinnerMI.getValue());
-        horario.setHorarioFinal(JSpinnerHF.getValue() + ":" + JSpinnerMF.getValue());        
-        
+        horario.setHorarioFinal(JSpinnerHF.getValue() + ":" + JSpinnerMF.getValue());
+
         if (JComboBoxSala.getSelectedIndex() > 0) {
             horario.setSala((Sala) modelSala.getSelectedItem());
         }
-        
+
         DefaultListModel modelHorarios = (DefaultListModel) JListHorarios.getModel();
         modelHorarios.addElement(horario);
 
@@ -575,25 +575,25 @@ public class JPanelTurmas extends javax.swing.JPanel {
         DefaultComboBoxModel modelDiaSemana = (DefaultComboBoxModel) JComboBoxDiaSemana.getModel();
         DefaultComboBoxModel modelSala = (DefaultComboBoxModel) JComboBoxSala.getModel();
         DefaultListModel modelHorarios = (DefaultListModel) JListHorarios.getModel();
-        
+
         Horario horario = (Horario) modelHorarios.getElementAt(JListHorarios.getSelectedIndex());
-        
+
         modelDiaSemana.setSelectedItem(horario.getDiaSemana());
         if (horario.getSala() != null) {
             modelSala.setSelectedItem(horario.getSala());
         }
-        
+
         JSpinnerHI.setValue(Integer.parseInt(horario.getHorarioInicial().split(":")[0]));
         JSpinnerMI.setValue(Integer.parseInt(horario.getHorarioInicial().split(":")[1]));
         JSpinnerHF.setValue(Integer.parseInt(horario.getHorarioFinal().split(":")[0]));
         JSpinnerMF.setValue(Integer.parseInt(horario.getHorarioFinal().split(":")[1]));
-        
+
         modelHorarios.remove(JListHorarios.getSelectedIndex());
     }//GEN-LAST:event_JButtonRemoveHorarioActionPerformed
 
     private void JComboBoxCursoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JComboBoxCursoItemStateChanged
         DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
-        
+
         if (JComboBoxCurso.getSelectedIndex() > 0) {
             preencherComboDisciplina((Curso) modelCurso.getSelectedItem());
         } else {
@@ -603,35 +603,58 @@ public class JPanelTurmas extends javax.swing.JPanel {
 
     private void JButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonBuscarActionPerformed
 
-        //        ArrayList<Sala> salasBuscados = new ArrayList<>();
-        //
-        //        if (JTextNome.getText().equalsIgnoreCase("")) {
-        //            try {
-        //                salasBuscados = new ArrayList<>(new SalaController().listaSalas());
-        //            } catch (Exception e) {
-        //                return;
-        //            }
-        //        } else if (!JTextNome.getText().equalsIgnoreCase("")) {
-        //            try {
-        //                salasBuscados = new ArrayList<>(new SalaController().buscaTodasSalasPorNome(JTextNome.getText()));
-        //            } catch (Exception e) {
-        //                return;
-        //            }
-        //        }
-        //
-        //        if (salasBuscados.isEmpty()) {
-        //            JOptionPane.showMessageDialog(this, "Nenhum curso encontrado!");
-        //            return;
-        //        }
-        //
-        //        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-        //        model.clear();
-        //
-        //        for (Sala s : salasBuscados) {
-        //            model.add(model.getSize(), s.getNome() + "/" + s.getQuantidadeUtil());
-        //        }
-        //
-        //        definirLayout(EstadoTela.inicial);
+        DefaultListModel modelHorarios = (DefaultListModel) JListHorarios.getModel();
+        DefaultComboBoxModel modelDisciplinas = (DefaultComboBoxModel) JComboBoxDisciplina.getModel();
+        DefaultComboBoxModel modelCursos = (DefaultComboBoxModel) JComboBoxCurso.getModel();
+        DefaultComboBoxModel modelProfessores = (DefaultComboBoxModel) JComboBoxProfessor.getModel();
+        ArrayList<Turma> turmasBuscadas = new ArrayList<>();
+
+        try {
+            if ((JTextNome.getText().equalsIgnoreCase(""))
+                    && (JComboBoxCurso.getSelectedIndex() <= 0)
+                    && (JComboBoxDisciplina.getSelectedIndex() <= 0)
+                    && (JComboBoxProfessor.getSelectedIndex() <= 0)                    
+                    && (modelHorarios.getSize() <= 0)) {
+
+                turmasBuscadas = new ArrayList<>(new TurmaController().listaTurmas());
+
+            } else if (!JTextNome.getText().equalsIgnoreCase("") && (JComboBoxDisciplina.getSelectedIndex() >= 0)) {
+
+                turmasBuscadas = new ArrayList<>(new TurmaController().buscaTodasTurmaPorNomeEDisciplina(JTextNome.getText(), (Disciplina) modelDisciplinas.getElementAt(JComboBoxDisciplina.getSelectedIndex())));
+
+            } else if (!JTextNome.getText().equalsIgnoreCase("")) {
+
+                turmasBuscadas = new ArrayList<>(new TurmaController().buscaTodasTurmaPorNome(JTextNome.getText()));
+
+            } else if (JComboBoxCurso.getSelectedIndex() >= 0) {
+
+                turmasBuscadas = new ArrayList<>(new TurmaController().buscaTodasPorCurso((Curso) modelCursos.getElementAt(JComboBoxCurso.getSelectedIndex())));
+
+            } else if (JComboBoxDisciplina.getSelectedIndex() >= 0) {
+
+                turmasBuscadas = new ArrayList<>(new TurmaController().buscaTodasPorDisciplina((Disciplina) modelDisciplinas.getElementAt(JComboBoxDisciplina.getSelectedIndex())));
+
+            } else if (JComboBoxProfessor.getSelectedIndex() >= 0) {
+
+                turmasBuscadas = new ArrayList<>(new TurmaController().buscaTodasPorProfessor((Professor) modelProfessores.getElementAt(JComboBoxProfessor.getSelectedIndex())));
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JPanelTurmas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (turmasBuscadas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum curso encontrado!");
+            return;
+        }
+
+        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
+        model.clear();
+
+        for (Turma t : turmasBuscadas) {
+            model.addElement(t);
+        }
+
+        definirLayout(EstadoTela.inicial);
     }//GEN-LAST:event_JButtonBuscarActionPerformed
 
 
@@ -678,99 +701,104 @@ public class JPanelTurmas extends javax.swing.JPanel {
 
     public void configInicial() {
         Color c = new Color(this.getBackground().getRGB());
-        
+
         this.JButtonAlterar.setBackground(c);
         this.JButtonBuscar.setBackground(c);
         this.JButtonCadastrar.setBackground(c);
         this.JButtonExcluir.setBackground(c);
     }
-    
+
     public void definirLayout(EstadoTela estado) {
         estadoTela = estado;
-        
+
         if (estadoTela.equals(EstadoTela.inicial)) {
             JButtonExcluir.setEnabled(true);
             JButtonAlterar.setEnabled(true);
             JButtonBuscar.setEnabled(true);
             JButtonCadastrar.setEnabled(true);
-            
+
             JButtonCadastrar.setText("Cadastrar");
-            
+
             this.JTextNome.setText("");
+            this.JComboBoxCurso.setSelectedIndex(0);
+            this.JComboBoxDisciplina.setSelectedIndex(0);
+            this.JComboBoxSala.setSelectedIndex(0);
+            this.JComboBoxProfessor.setSelectedIndex(0);
+            this.JComboBoxDiaSemana.setSelectedIndex(0);
         }
-        
+
         if (estadoTela.equals(EstadoTela.alterando)) {
             JButtonExcluir.setEnabled(false);
             JButtonAlterar.setEnabled(false);
             JButtonBuscar.setEnabled(false);
             JButtonCadastrar.setEnabled(true);
-            
+
             JButtonCadastrar.setText("Alterar");
-        }
+        }                
     }
-    
+
     public void preencherComboCurso() {
         DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
         modelCurso.removeAllElements();
-        
+
         String mensagem = "Preencha com um curso!";
         modelCurso.addElement(mensagem);
-        
+
         try {
             ArrayList<Curso> cursosBuscados = new ArrayList<>(new CursosController().listaCursos());
             for (Curso c : cursosBuscados) {
                 modelCurso.addElement(c);
-                
+
             }
         } catch (Exception ex) {
             Logger.getLogger(JPanelDisciplinas.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         modelCurso.setSelectedItem(mensagem);
     }
-    
+
     public void preencherComboDisciplina(Curso curso) {
         try {
             DefaultComboBoxModel modelDisciplina = (DefaultComboBoxModel) JComboBoxDisciplina.getModel();
             modelDisciplina.removeAllElements();
-            
+
             String mensagem = "Preencha com uma disciplina!";
             modelDisciplina.addElement(mensagem);
-            
+
             List<Disciplina> disciplinas = new DisciplinaController().buscaTodasDisciplinaPorCurso(curso);
-            
+
             for (Disciplina d : disciplinas) {
                 modelDisciplina.addElement(d);
             }
-            
+
             modelDisciplina.setSelectedItem(mensagem);
         } catch (Exception ex) {
             Logger.getLogger(JPanelTurmas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void preencherComboProfessores() {
         DefaultComboBoxModel modelProfessores = (DefaultComboBoxModel) JComboBoxProfessor.getModel();
         modelProfessores.removeAllElements();
-        
+
         String mensagem = "Preencha com um professor!";
         modelProfessores.addElement(mensagem);
-        
+
         try {
             ArrayList<Professor> professoresBuscados = new ArrayList<>(new ProfessorController().listaProfessor());
             for (Professor p : professoresBuscados) {
                 modelProfessores.addElement(p);
-                
+
             }
         } catch (Exception ex) {
             Logger.getLogger(JPanelDisciplinas.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         modelProfessores.setSelectedItem(mensagem);
     }
-    
+
     public void preencherComboDiaSemana() {
         DefaultComboBoxModel modelDiaSemana = (DefaultComboBoxModel) JComboBoxDiaSemana.getModel();
         String mensagem = "Preenche dia semana!";
@@ -781,26 +809,26 @@ public class JPanelTurmas extends javax.swing.JPanel {
         modelDiaSemana.addElement("Quinta");
         modelDiaSemana.addElement("Sexta");
         modelDiaSemana.addElement("Sábado");
-        
+
         modelDiaSemana.setSelectedItem(mensagem);
     }
-    
+
     public void preencherComboSalas() {
         try {
             DefaultComboBoxModel modelSalas = (DefaultComboBoxModel) JComboBoxSala.getModel();
             String mensagem = "Preenche dia semana!";
             modelSalas.addElement(mensagem);
-            
+
             List<Sala> salas = new SalaController().listaSalas();
-            
+
             for (Sala s : salas) {
                 modelSalas.addElement(s);
             }
-            
+
             modelSalas.setSelectedItem(mensagem);
         } catch (Exception ex) {
             Logger.getLogger(JPanelTurmas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
