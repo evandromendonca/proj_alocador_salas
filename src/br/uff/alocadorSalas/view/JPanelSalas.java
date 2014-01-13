@@ -230,7 +230,7 @@ public class JPanelSalas extends javax.swing.JPanel {
     private void JButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirActionPerformed
 
         if (JListPesquisa.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Nenhum curso selecionado");
+            JOptionPane.showMessageDialog(this, "Nenhuma sala selecionada");
             return;
         }
 
@@ -248,7 +248,7 @@ public class JPanelSalas extends javax.swing.JPanel {
     private void JButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlterarActionPerformed
 
         if (JListPesquisa.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Nenhum curso selecionado");
+            JOptionPane.showMessageDialog(this, "Nenhuma sala selecionada");
             return;
         }
 
@@ -278,7 +278,7 @@ public class JPanelSalas extends javax.swing.JPanel {
         if (JButtonCadastrar.getText().equalsIgnoreCase("Cadastrar")) {
             try {
                 new SalaController().salvar(JTextNome.getText(), Integer.parseInt(JSpinnerQuantidadeAlunos.getValue().toString()));
-                JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
+                JOptionPane.showMessageDialog(this, "Cadastrada com sucesso!");
             } catch (Exception ex) {
                 Logger.getLogger(JPanelSalas.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -287,13 +287,13 @@ public class JPanelSalas extends javax.swing.JPanel {
         if (JButtonCadastrar.getText().equalsIgnoreCase("Alterar")) {
 
             if (idSalaCorrente == 0) {
-                JOptionPane.showMessageDialog(this, "Nenhum curso para ser alterado!");
+                JOptionPane.showMessageDialog(this, "Nenhuma sala para ser alterada!");
                 return;
             }
 
             try {
                 new SalaController().alterar(idSalaCorrente, JTextNome.getText(), Integer.parseInt(JSpinnerQuantidadeAlunos.getValue().toString()));
-                JOptionPane.showMessageDialog(this, "Alterado com sucesso!");
+                JOptionPane.showMessageDialog(this, "Alterada com sucesso!");
                 idSalaCorrente = Long.valueOf(0);
             } catch (Exception ex) {
                 Logger.getLogger(JPanelSalas.class.getName()).log(Level.SEVERE, null, ex);
@@ -322,7 +322,7 @@ public class JPanelSalas extends javax.swing.JPanel {
         }
 
         if (salasBuscados.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhum curso encontrado!");
+            JOptionPane.showMessageDialog(this, "Nenhuma sala encontrado!");
             return;
         }
 

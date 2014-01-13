@@ -8,7 +8,9 @@ package br.uff.alocadorSalas.view;
 
 import br.uff.alocadorSalas.controller.CursosController;
 import br.uff.alocadorSalas.controller.DisciplinaController;
+import br.uff.alocadorSalas.controller.ProfessorController;
 import br.uff.alocadorSalas.model.Curso;
+import br.uff.alocadorSalas.model.Professor;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,11 +24,16 @@ import javax.swing.JOptionPane;
  */
 public class JPanelProfessores extends javax.swing.JPanel {
 
-    /**
-     * Creates new form JPanelProfessores
-     */
+    EstadoTela estadoTela;
+    Long idProfessorCorrente;
+    
     public JPanelProfessores() {
         initComponents();
+
+        idProfessorCorrente = (long) 0;
+
+        configInicial();
+        definirLayout(EstadoTela.inicial);
     }
 
     /**
@@ -40,9 +47,7 @@ public class JPanelProfessores extends javax.swing.JPanel {
 
         painelConfiguracaoProfessores = new javax.swing.JPanel();
         lNomeProfessores = new javax.swing.JLabel();
-        lCursoProfessores = new javax.swing.JLabel();
-        tNomeProfessor = new javax.swing.JTextField();
-        comboBoxCursoProfessores = new javax.swing.JComboBox();
+        JTextNome = new javax.swing.JTextField();
         panelBotoesAcao = new javax.swing.JPanel();
         JButtonExcluir = new javax.swing.JButton();
         JButtonAlterar = new javax.swing.JButton();
@@ -50,7 +55,7 @@ public class JPanelProfessores extends javax.swing.JPanel {
         JButtonCadastrar = new javax.swing.JButton();
         painelPesquisaCursos4 = new javax.swing.JPanel();
         scrollPesquisaCursos4 = new javax.swing.JScrollPane();
-        JListPesquisa4 = new javax.swing.JList();
+        JListPesquisa = new javax.swing.JList();
 
         setMaximumSize(new java.awt.Dimension(700, 600));
         setMinimumSize(new java.awt.Dimension(700, 600));
@@ -61,28 +66,15 @@ public class JPanelProfessores extends javax.swing.JPanel {
         lNomeProfessores.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lNomeProfessores.setText("Nome.:");
 
-        lCursoProfessores.setDisplayedMnemonic('C');
-        lCursoProfessores.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lCursoProfessores.setText("Curso.:");
-
-        comboBoxCursoProfessores.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cursos" }));
-
         javax.swing.GroupLayout painelConfiguracaoProfessoresLayout = new javax.swing.GroupLayout(painelConfiguracaoProfessores);
         painelConfiguracaoProfessores.setLayout(painelConfiguracaoProfessoresLayout);
         painelConfiguracaoProfessoresLayout.setHorizontalGroup(
             painelConfiguracaoProfessoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelConfiguracaoProfessoresLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(painelConfiguracaoProfessoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelConfiguracaoProfessoresLayout.createSequentialGroup()
-                        .addComponent(lCursoProfessores)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboBoxCursoProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(painelConfiguracaoProfessoresLayout.createSequentialGroup()
-                        .addComponent(lNomeProfessores)
-                        .addGap(18, 18, 18)
-                        .addComponent(tNomeProfessor)))
+                .addComponent(lNomeProfessores)
+                .addGap(18, 18, 18)
+                .addComponent(JTextNome, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painelConfiguracaoProfessoresLayout.setVerticalGroup(
@@ -91,12 +83,8 @@ public class JPanelProfessores extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addGroup(painelConfiguracaoProfessoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lNomeProfessores)
-                    .addComponent(tNomeProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(painelConfiguracaoProfessoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lCursoProfessores)
-                    .addComponent(comboBoxCursoProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(JTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         panelBotoesAcao.setMaximumSize(new java.awt.Dimension(700, 75));
@@ -168,9 +156,9 @@ public class JPanelProfessores extends javax.swing.JPanel {
 
         painelPesquisaCursos4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Resultado da Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 102))); // NOI18N
 
-        JListPesquisa4.setModel(new DefaultListModel());
-        JListPesquisa4.setName("JListPesquisa"); // NOI18N
-        scrollPesquisaCursos4.setViewportView(JListPesquisa4);
+        JListPesquisa.setModel(new DefaultListModel());
+        JListPesquisa.setName("JListPesquisa"); // NOI18N
+        scrollPesquisaCursos4.setViewportView(JListPesquisa);
 
         javax.swing.GroupLayout painelPesquisaCursos4Layout = new javax.swing.GroupLayout(painelPesquisaCursos4);
         painelPesquisaCursos4.setLayout(painelPesquisaCursos4Layout);
@@ -185,7 +173,7 @@ public class JPanelProfessores extends javax.swing.JPanel {
             painelPesquisaCursos4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursos4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPesquisaCursos4, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                .addComponent(scrollPesquisaCursos4, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -215,7 +203,7 @@ public class JPanelProfessores extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelPesquisaCursos4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelBotoesAcao, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,15 +214,15 @@ public class JPanelProfessores extends javax.swing.JPanel {
     private void JButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirActionPerformed
 
         if (JListPesquisa.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Nenhum curso selecionado");
+            JOptionPane.showMessageDialog(this, "Nenhum professor selecionado");
             return;
         }
 
         try {
             DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
             String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Long id = new CursosController().buscaCursoPorNome(textoSelecionado.split("/")[0]).getId();
-            new CursosController().excluir(id);
+            Long id = new ProfessorController().buscaProfessorPorNome(textoSelecionado.split("/")[0]).getId();
+            new ProfessorController().excluir(id);
             model.remove(JListPesquisa.getSelectedIndex());
         } catch (Exception ex) {
             Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,19 +232,17 @@ public class JPanelProfessores extends javax.swing.JPanel {
     private void JButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlterarActionPerformed
 
         if (JListPesquisa.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Nenhum curso selecionado");
+            JOptionPane.showMessageDialog(this, "Nenhum professor selecionado");
             return;
         }
 
         try {
             DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
             String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Curso curso = new CursosController().buscaCursoPorNome(textoSelecionado.split("/")[0]);
-
-//            this.JTextNome.setText(curso.getNome());
-//            this.JTextSigla.setText(curso.getSigla());
-//            this.JSpinnerQuantidadePeriodos.setValue(curso.getQuantidadePeriodos());
-//            this.idCursoCorrente = curso.getId();
+            Professor professor = new ProfessorController().buscaProfessorPorNome(textoSelecionado.split("/")[0]);
+            
+            this.JTextNome.setText(professor.getNome());
+            idProfessorCorrente = professor.getId();
             model.remove(JListPesquisa.getSelectedIndex());
         } catch (Exception ex) {
             Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
@@ -266,61 +252,46 @@ public class JPanelProfessores extends javax.swing.JPanel {
     }//GEN-LAST:event_JButtonAlterarActionPerformed
 
     private void JButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonBuscarActionPerformed
-//        ArrayList<Disciplina> cursosBuscados = new ArrayList<>();
-//
-//        if ((JTextNome.getText().equalsIgnoreCase("")) && (JTextSigla.getText().equalsIgnoreCase(""))) {
-//            try {
-//                cursosBuscados = new ArrayList<>(new CursosController().listaCursos());
-//            } catch (Exception e) {
-//                return;
-//            }
-//        } else if ((!JTextNome.getText().equalsIgnoreCase("")) && (!JTextSigla.getText().equalsIgnoreCase(""))) {
-//            try {
-//                cursosBuscados = new ArrayList<>(new CursosController().buscaTodosPorNomeESigla(JTextNome.getText(), JTextSigla.getText()));
-//            } catch (Exception e) {
-//                return;
-//            }
-//        } else if (!JTextNome.getText().equalsIgnoreCase("")) {
-//            try {
-//                cursosBuscados = new ArrayList<>(new CursosController().buscaTodosCursoPorNome(JTextNome.getText()));
-//            } catch (Exception e) {
-//                return;
-//            }
-//        } else if (!JTextSigla.getText().equalsIgnoreCase("")) {
-//            try {
-//                cursosBuscados = new ArrayList<>(new CursosController().buscaTodosCursoPorSigla(JTextSigla.getText()));
-//            } catch (Exception e) {
-//                return;
-//            }
-//        }
-//
-//        if (cursosBuscados.isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Nenhum curso encontrado!");
-//            return;
-//        }
-//
-//        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-//        model.clear();
-//
-//        for (Curso c : cursosBuscados) {
-//            model.add(model.getSize(), c.getNome() + "/" + c.getSigla() + "/" + c.getQuantidadePeriodos());
-//        }
-//
-//        definirLayout(EstadoTela.inicial);
-    }//GEN-LAST:event_JButtonBuscarActionPerformed
+        ArrayList<Professor> professoresBuscados = new ArrayList<>();
 
-    private void JButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCadastrarActionPerformed
-        if ((JTextNome.getText().equalsIgnoreCase("")) || (JComboBoxCurso.getSelectedIndex() == -1) || (JComboBoxPeriodo.getSelectedIndex() == -1)) {
-            JOptionPane.showMessageDialog(this, "Campos de busca 'Nome'ou 'Curso' ou 'Periodo' vazios!");
+        if (JTextNome.getText().equalsIgnoreCase("")) {
+            try {
+                professoresBuscados = new ArrayList<>(new ProfessorController().listaProfessor());
+            } catch (Exception e) {
+                return;
+            }
+        } else if (!JTextNome.getText().equalsIgnoreCase("")) {
+            try {
+                professoresBuscados = new ArrayList<>(new ProfessorController().buscaTodosProfessorPorNome(JTextNome.getText()));
+            } catch (Exception e) {
+                return;
+            }
+        }
+
+        if (professoresBuscados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum professor encontrado!");
             return;
         }
 
-        DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
-        DefaultComboBoxModel modelPeriodo = (DefaultComboBoxModel) JComboBoxPeriodo.getModel();
+        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
+        model.clear();
+
+        for (Professor p : professoresBuscados) {
+            model.add(model.getSize(), p.getNome());
+        }
+
+        definirLayout(EstadoTela.inicial);                                             
+    }//GEN-LAST:event_JButtonBuscarActionPerformed
+
+    private void JButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCadastrarActionPerformed
+        if ((JTextNome.getText().equalsIgnoreCase(""))) {
+            JOptionPane.showMessageDialog(this, "Campo de busca 'Nome' vazio!");
+            return;
+        }
 
         if (JButtonCadastrar.getText().equalsIgnoreCase("Cadastrar")) {
             try {
-                new DisciplinaController().salvar(JTextNome.getText(), Integer.parseInt(modelPeriodo.getSelectedItem().toString()), (Curso) modelCurso.getSelectedItem());
+                new ProfessorController().salvar(JTextNome.getText());
                 JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
             } catch (Exception ex) {
                 Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
@@ -329,14 +300,14 @@ public class JPanelProfessores extends javax.swing.JPanel {
 
         if (JButtonCadastrar.getText().equalsIgnoreCase("Alterar")) {
 
-            if (idDisciplinaCorrente == 0) {
-                JOptionPane.showMessageDialog(this, "Nenhuma disciplina para ser alterada!");
+            if (idProfessorCorrente == 0) {
+                JOptionPane.showMessageDialog(this, "Nenhum professor para ser alterado!");
                 return;
             }
 
             try {
-                new DisciplinaController().alterar(idDisciplinaCorrente, JTextNome.getText(), Integer.parseInt(modelPeriodo.getSelectedItem().toString()), (Curso) modelCurso.getSelectedItem());
-                JOptionPane.showMessageDialog(this, "Alterada com sucesso!");
+                new ProfessorController().alterar(idProfessorCorrente, JTextNome.getText());
+                JOptionPane.showMessageDialog(this, "Alterado com sucesso!");
             } catch (Exception ex) {
                 Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -351,14 +322,47 @@ public class JPanelProfessores extends javax.swing.JPanel {
     private javax.swing.JButton JButtonBuscar;
     private javax.swing.JButton JButtonCadastrar;
     private javax.swing.JButton JButtonExcluir;
-    private javax.swing.JList JListPesquisa4;
-    private javax.swing.JComboBox comboBoxCursoProfessores;
-    private javax.swing.JLabel lCursoProfessores;
+    private javax.swing.JList JListPesquisa;
+    private javax.swing.JTextField JTextNome;
     private javax.swing.JLabel lNomeProfessores;
     private javax.swing.JPanel painelConfiguracaoProfessores;
     private javax.swing.JPanel painelPesquisaCursos4;
     private javax.swing.JPanel panelBotoesAcao;
     private javax.swing.JScrollPane scrollPesquisaCursos4;
-    private javax.swing.JTextField tNomeProfessor;
     // End of variables declaration//GEN-END:variables
+
+    public void configInicial() {
+        Color c = new Color(this.getBackground().getRGB());
+
+        this.JButtonAlterar.setBackground(c);
+        this.JButtonBuscar.setBackground(c);
+        this.JButtonCadastrar.setBackground(c);
+        this.JButtonExcluir.setBackground(c);
+    }
+
+    public void definirLayout(EstadoTela estado) {
+
+        estadoTela = estado;
+
+        if (estadoTela.equals(EstadoTela.inicial)) {
+            JButtonExcluir.setEnabled(true);
+            JButtonAlterar.setEnabled(true);
+            JButtonBuscar.setEnabled(true);
+            JButtonCadastrar.setEnabled(true);
+
+            JButtonCadastrar.setText("Cadastrar");
+
+            this.JTextNome.setText("");
+        }
+
+        if (estadoTela.equals(EstadoTela.alterando)) {
+            JButtonExcluir.setEnabled(false);
+            JButtonAlterar.setEnabled(false);
+            JButtonBuscar.setEnabled(false);
+            JButtonCadastrar.setEnabled(true);
+
+            JButtonCadastrar.setText("Alterar");
+        }
+    }
+
 }
