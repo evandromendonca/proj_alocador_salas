@@ -75,7 +75,7 @@ public class Professor implements Serializable {
 
     @Override
     public String toString() {
-        return "br.uff.pf.entidades.Professor[ id=" + getId() + " ]";
+        return getNome();
     }
 
 }

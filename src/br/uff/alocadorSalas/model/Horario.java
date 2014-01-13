@@ -145,6 +145,8 @@ public class Horario implements Serializable {
 
     @Override
     public String toString() {
+        if (this.getSala() != null)
+            return this.getDiaSemana() + "/" +this.getHorarioInicial() + "/" + this.getHorarioFinal() + "/" + this.getSala().toString();
         return this.getDiaSemana() + "/" +this.getHorarioInicial() + "/" + this.getHorarioFinal();
     }
 

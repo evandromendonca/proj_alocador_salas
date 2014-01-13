@@ -32,17 +32,7 @@ public class TurmaController {
         turma.setCurso(curso);
         
         new TurmaDao().salvar(turma);
-    }
- 
-    public List<Turma> listaTurmas() throws Exception {
-        TurmaDao dao = new TurmaDao();
-        try {
-            return dao.findAll();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar turmas" + e.getLocalizedMessage());
-        }
-        return null;
-    }
+    } 
  
     public void excluir(long id) throws Exception {
         new TurmaDao().excluir(id);
@@ -52,4 +42,20 @@ public class TurmaController {
         TurmaDao dao = new TurmaDao();
         return dao.findByName(nome);
     }
+    
+    public Turma buscaTurmaPorNomeEDisciplina(String nome, Disciplina disciplina) throws Exception {
+        TurmaDao dao = new TurmaDao();
+        return dao.buscarPorNomeESigla(nome, disciplina);
+    }
+    
+    public List<Turma> listaTurmas() throws Exception {
+        TurmaDao dao = new TurmaDao();
+        try {
+            return dao.findAll();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problemas ao localizar turmas" + e.getLocalizedMessage());
+        }
+        return null;
+    }
+      
 }

@@ -118,7 +118,7 @@ public class Disciplina implements Serializable {
 
     @Override
     public String toString() {
-        return "br.uff.pf.entidades.Disciplina[ id=" + getId() + " ]";
+        return getNome();
     }
 
 }
