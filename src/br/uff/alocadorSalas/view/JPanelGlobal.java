@@ -81,7 +81,8 @@ public class JPanelGlobal extends javax.swing.JPanel {
             panelCursos.setVisible(true);
            
             JPanelTela.setVisible(true); 
-            JPanelTela.setLayout(new java.awt.BorderLayout());            
+            JPanelTela.setLayout(new java.awt.BorderLayout());
+            JPanelTela.removeAll();
             JPanelTela.add(panelCursos); 
             JPanelTela.revalidate();                       
             
@@ -90,10 +91,23 @@ public class JPanelGlobal extends javax.swing.JPanel {
         if (nomeBotao.equalsIgnoreCase("JButtonInicial")) {
             
             JPanelTela.setVisible(true); 
-            JPanelTela.setLayout(new java.awt.BorderLayout());            
-            JPanelTela.remove(JPanelTela.getComponent(0)); 
+            JPanelTela.setLayout(new java.awt.BorderLayout()); 
+            JPanelTela.removeAll();            
             JPanelTela.revalidate();
             JPanelTela.repaint();
+            
+        }
+        
+        if (nomeBotao.equalsIgnoreCase("JButtonDisciplinas")) {
+            
+            JPanelDisciplinas panelDisciplinas = new JPanelDisciplinas();
+            panelDisciplinas.setVisible(true);
+           
+            JPanelTela.setVisible(true); 
+            JPanelTela.setLayout(new java.awt.BorderLayout());  
+            JPanelTela.removeAll();
+            JPanelTela.add(panelDisciplinas); 
+            JPanelTela.revalidate();                       
             
         }
 

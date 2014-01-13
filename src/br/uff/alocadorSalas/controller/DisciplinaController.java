@@ -17,10 +17,11 @@ public class DisciplinaController {
         new DisciplinaDao().salvar(disciplina);
     }
  
-    public void alterar(long id, String nome, Curso curso) throws Exception {
+    public void alterar(long id, String nome, int periodo, Curso curso) throws Exception {
         Disciplina disciplina = new Disciplina();
         disciplina.setId(id);
-        disciplina.setNome(nome);        
+        disciplina.setNome(nome);
+        disciplina.setPeriodoAssociado(periodo);
         disciplina.setCurso(curso);
  
         new DisciplinaDao().alterar(disciplina);

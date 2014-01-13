@@ -102,6 +102,11 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonDisciplinas.setMinimumSize(new java.awt.Dimension(100, 80));
         JButtonDisciplinas.setName("JButtonDisciplinas"); // NOI18N
         JButtonDisciplinas.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonDisciplinas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonDisciplinasActionPerformed(evt);
+            }
+        });
 
         JButtonTurmas.setText("Turmas");
         JButtonTurmas.setAlignmentY(0.0F);
@@ -185,6 +190,15 @@ public class JPanelMenu extends javax.swing.JPanel {
         JPanelGlobal panelGlobal = (JPanelGlobal)this.getParent();
         panelGlobal.alteraVisibilidade("JButtonInicial");
     }//GEN-LAST:event_JButtonInicioActionPerformed
+
+    private void JButtonDisciplinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonDisciplinasActionPerformed
+        definirLayout();
+        Color c = new Color(this.getBackground().getRGB());
+        JButtonDisciplinas.setBackground(c);
+        
+        JPanelGlobal panelGlobal = (JPanelGlobal)this.getParent();
+        panelGlobal.alteraVisibilidade("JButtonDisciplinas");
+    }//GEN-LAST:event_JButtonDisciplinasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
