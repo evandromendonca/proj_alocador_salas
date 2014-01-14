@@ -56,5 +56,15 @@ public class HorarioController {
         }
         return null;
     }
+    
+    public List<Horario> buscaTodosPorHorarioEDiaSemana(String horario, String diaSemana, Sala sala) {
+        HorarioDao dao = new HorarioDao();
+        try {
+            return dao.buscaTodosPorHorarioEDiaSemana(horario, diaSemana, sala);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Problemas ao localizar horarios" + e.getLocalizedMessage());
+        }
+        return null;
+    }
 
 }
