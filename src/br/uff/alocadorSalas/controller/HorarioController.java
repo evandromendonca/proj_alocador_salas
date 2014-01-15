@@ -40,7 +40,7 @@ public class HorarioController {
     public List<Horario> listaHorarios() throws Exception {
         HorarioDao dao = new HorarioDao();
         try {
-            return dao.findAll();
+            return dao.buscarTodos();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar horarios" + e.getLocalizedMessage());
         }
@@ -50,7 +50,7 @@ public class HorarioController {
     public List<Horario> buscaTodosPorTurma(Turma turma) {
         HorarioDao dao = new HorarioDao();
         try {
-            return dao.findAllByAttribute("turma.id", turma.getId());
+            return dao.buscarTodosPorAtributo("turma.id", turma.getId());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar horarios" + e.getLocalizedMessage());
         }

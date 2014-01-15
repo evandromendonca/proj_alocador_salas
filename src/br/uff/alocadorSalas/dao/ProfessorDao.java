@@ -2,19 +2,19 @@ package br.uff.alocadorSalas.dao;
 
 import br.uff.alocadorSalas.model.Professor;
 
-public class ProfessorDao extends GenericDao<Professor> {
+public class ProfessorDao extends GenericoDao<Professor> {
     
     public void salvar(Professor professor) {
-        save(professor);
+        salvar(professor);
     }
  
     public void alterar(Professor professor) {
-        update(professor);
+        alterar(professor);
     }
  
     public void excluir(long id) {
-        Professor professor = findById(id);
-        delete(professor);
+        Professor professor = buscarPorId(id);
+        excluir(professor);
     }
     
 }

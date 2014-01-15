@@ -28,7 +28,7 @@ public class SalaController {
     public List<Sala> listaSalas() throws Exception {
         SalaDao dao = new SalaDao();
         try {
-            return dao.findAll();
+            return dao.buscarTodos();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar salas" + e.getLocalizedMessage());
         }
@@ -42,7 +42,7 @@ public class SalaController {
     public Sala buscaSalaPorNome(String nome) throws Exception {
         SalaDao dao = new SalaDao();
         try {
-            return dao.findByName(nome);
+            return dao.buscarPorNome(nome);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar salas por nome" + e.getLocalizedMessage());
         }
@@ -52,7 +52,7 @@ public class SalaController {
     public List<Sala> buscaTodasSalasPorNome(String nome) throws Exception {
         SalaDao dao = new SalaDao();
         try {
-            return dao.findAllByName(nome);
+            return dao.buscarTodosPorNome(nome);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar salas por nome" + e.getLocalizedMessage());
         }

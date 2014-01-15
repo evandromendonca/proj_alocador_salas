@@ -4,15 +4,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/dao/TurmaDao.java</file>
-            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/dao/HorarioDao.java</file>
-            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/controller/HorarioController.java</file>
-            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/model/Turma.java</file>
-            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/controller/TurmaController.java</file>
-            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/dao/GenericDao.java</file>
-            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/view/JPanelTurmas.java</file>
-            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/model/Horario.java</file>
-            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/dao/DisciplinaDao.java</file>
+            <file>file:/D:/Desenvolvimento/GitHub/projfinal/src/br/uff/alocadorSalas/model/Curso.java</file>
         </group>
     </open-files>
 </project-private>

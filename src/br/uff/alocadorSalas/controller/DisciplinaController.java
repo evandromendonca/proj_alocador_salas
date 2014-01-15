@@ -3,93 +3,78 @@ package br.uff.alocadorSalas.controller;
 import br.uff.alocadorSalas.dao.DisciplinaDao;
 import br.uff.alocadorSalas.model.Curso;
 import br.uff.alocadorSalas.model.Disciplina;
-import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 public class DisciplinaController {
 
-    public void salvar(String nome, int periodo, Curso curso) throws Exception {
+    public void salvar(String nome, int periodo, Curso curso, String codigo) throws Exception {
         Disciplina disciplina = new Disciplina();
         disciplina.setNome(nome);
         disciplina.setPeriodoAssociado(periodo);
         disciplina.setCurso(curso);
+        disciplina.setCodigo(codigo);
 
         new DisciplinaDao().salvar(disciplina);
     }
 
-    public void alterar(long id, String nome, int periodo, Curso curso) throws Exception {
+    public void alterar(long id, String nome, int periodo, Curso curso, String codigo) throws Exception {
         Disciplina disciplina = new Disciplina();
         disciplina.setId(id);
         disciplina.setNome(nome);
         disciplina.setPeriodoAssociado(periodo);
         disciplina.setCurso(curso);
+        disciplina.setCodigo(codigo);
 
         new DisciplinaDao().alterar(disciplina);
     }
-    
+
     public void excluir(long id) throws Exception {
         new DisciplinaDao().excluir(id);
     }
-    
+
     public Disciplina buscaDisciplinaPorNome(String nome) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
-        return dao.findByName(nome);
+        return dao.buscarPorNome(nome);
     }
-    
+
     public Disciplina buscaDisciplinaPorCurso(Curso curso) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
-        try {
-            return dao.findByAttribute("curso.id", curso.getId());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar disciplinas por curso" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarPorAtributo("curso.id", curso.getId());
     }
-    
+
+    public Disciplina buscarPorCodigo(String codigo) throws Exception {
+        DisciplinaDao dao = new DisciplinaDao();
+        return dao.buscarPorAtributo("codigo", codigo);
+    }
+
     public Disciplina buscaDisciplinaPorNomeECurso(String nome, Curso curso) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
-        try {
-            return dao.buscarPorNomeECurso(nome, curso);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar disciplinas por 'nome', 'curso' e 'periodo'" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarPorNomeECurso(nome, curso);
     }
-    
+
     public List<Disciplina> listaDisciplinas() throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
-        try {
-            return dao.findAll();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar disciplinas" + e.getLocalizedMessage());
-        }
-        return null;
-    }    
+        return dao.buscarTodos();
+    }
 
     public List<Disciplina> buscaTodasDisciplinaPorNome(String nome) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
-        return dao.findAllByName(nome);
+        return dao.buscarTodosPorNome(nome);
     }
-    
+
     public List<Disciplina> buscaTodasDisciplinaPorCurso(Curso curso) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
-        try {
-            return dao.findAllByAttribute("curso.id", curso.getId());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar disciplinas por curso " + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarTodosPorAtributo("curso.id", curso.getId());
     }
-    
+
+    public List<Disciplina> buscaTodasDisciplinaCodigo(String codigo) throws Exception {
+        DisciplinaDao dao = new DisciplinaDao();
+        return dao.buscarTodosPorAtributo("codigo", codigo);
+    }
+
     public List<Disciplina> buscaTodasDisciplinaPorNomeECurso(String nome, Curso curso) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
-        try {
-            return dao.buscarTodosPorNomeECurso(nome, curso);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar disciplinas por 'nome', 'curso' e 'periodo'" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarTodosPorNomeECurso(nome, curso);
     }
-    
+
 }

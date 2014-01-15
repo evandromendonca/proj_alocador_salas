@@ -39,7 +39,6 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
         configInicial();
         definirLayout(EstadoTela.inicial);
-        preencherComboCurso();
     }
 
     /**
@@ -58,6 +57,8 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         JTextNome = new javax.swing.JTextField();
         JComboBoxCurso = new javax.swing.JComboBox();
         JComboBoxPeriodo = new javax.swing.JComboBox();
+        lNomeDisciplina1 = new javax.swing.JLabel();
+        JTextCodigo = new javax.swing.JTextField();
         JButtonBuscar = new javax.swing.JButton();
         JButtonCadastrar = new javax.swing.JButton();
         panelBotoesAcao = new javax.swing.JPanel();
@@ -87,6 +88,9 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
             }
         });
 
+        lNomeDisciplina1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lNomeDisciplina1.setText("Código.:");
+
         javax.swing.GroupLayout painelConfiguracaoDisciplinasLayout = new javax.swing.GroupLayout(painelConfiguracaoDisciplinas);
         painelConfiguracaoDisciplinas.setLayout(painelConfiguracaoDisciplinasLayout);
         painelConfiguracaoDisciplinasLayout.setHorizontalGroup(
@@ -96,9 +100,11 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
                 .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lCursoDisciplina)
                     .addComponent(lPeriodoDisciplina)
-                    .addComponent(lNomeDisciplina))
+                    .addComponent(lNomeDisciplina)
+                    .addComponent(lNomeDisciplina1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(JComboBoxPeriodo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -112,6 +118,10 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
                 .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lNomeDisciplina)
                     .addComponent(JTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lNomeDisciplina1)
+                    .addComponent(JTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lCursoDisciplina)
@@ -120,7 +130,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
                 .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lPeriodoDisciplina)
                     .addComponent(JComboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         JButtonBuscar.setText("Buscar");
@@ -249,38 +259,14 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
     private void JButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonBuscarActionPerformed
 
-        DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
-        DefaultComboBoxModel modelPeriodo = (DefaultComboBoxModel) JComboBoxPeriodo.getModel();
-        ArrayList<Disciplina> disciplinasBuscados = new ArrayList<>();
+        ArrayList<Disciplina> disciplinasBuscados = buscaDisciplinas();
 
-        if ((JTextNome.getText().equalsIgnoreCase("")) && (JComboBoxCurso.getSelectedIndex() <= 0)) {
-            try {
-                disciplinasBuscados = new ArrayList<>(new DisciplinaController().listaDisciplinas());
-            } catch (Exception e) {
-                return;
-            }
-        } else if (!(JTextNome.getText().equalsIgnoreCase("")) && !(JComboBoxCurso.getSelectedIndex() <= 0)) {
-            try {
-                disciplinasBuscados = new ArrayList<>(new DisciplinaController().buscaTodasDisciplinaPorNomeECurso(JTextNome.getText(), (Curso) JComboBoxCurso.getSelectedItem()));
-            } catch (Exception e) {
-                return;
-            }
-        } else if (!JTextNome.getText().equalsIgnoreCase("")) {
-            try {
-                disciplinasBuscados = new ArrayList<>(new DisciplinaController().buscaTodasDisciplinaPorNome(JTextNome.getText()));
-            } catch (Exception e) {
-                return;
-            }
-        } else if (JComboBoxCurso.getSelectedIndex() > 0) {
-            try {
-                disciplinasBuscados = new ArrayList<>(new DisciplinaController().buscaTodasDisciplinaPorCurso((Curso) modelCurso.getSelectedItem()));
-            } catch (Exception e) {
-                return;
-            }
+        if (disciplinasBuscados == null) {
+            return;
         }
 
         if (disciplinasBuscados.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhum curso encontrado!");
+            JOptionPane.showMessageDialog(this, "Nenhuma disciplina encontrada!");
             return;
         }
 
@@ -288,7 +274,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         model.clear();
 
         for (Disciplina d : disciplinasBuscados) {
-            model.add(model.getSize(), d.getNome() + "/" + d.getCurso().toString() + "/" + d.getPeriodoAssociado());
+            model.addElement(d);
         }
 
         definirLayout(EstadoTela.inicial);
@@ -305,10 +291,14 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
         if (JButtonCadastrar.getText().equalsIgnoreCase("Cadastrar")) {
             try {
-                new DisciplinaController().salvar(JTextNome.getText(), Integer.parseInt(modelPeriodo.getSelectedItem().toString()), (Curso) modelCurso.getSelectedItem());
+                new DisciplinaController().salvar(JTextNome.getText(),
+                        (int) modelPeriodo.getSelectedItem(),
+                        (Curso) modelCurso.getElementAt(JComboBoxCurso.getSelectedIndex()),
+                        JTextCodigo.getText());
                 JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
-            } catch (Exception ex) {
-                Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Problemas ao cadastrar o curso!");
+                return;
             }
         }
 
@@ -316,16 +306,19 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
             if (idDisciplinaCorrente == 0) {
                 JOptionPane.showMessageDialog(this, "Nenhuma disciplina para ser alterada!");
-                return;
-            }
-
-            try {
-                new DisciplinaController().alterar(idDisciplinaCorrente, JTextNome.getText(), Integer.parseInt(modelPeriodo.getSelectedItem().toString()), (Curso) modelCurso.getSelectedItem());
-                preencherComboCurso();
-                JOptionPane.showMessageDialog(this, "Alterada com sucesso!");
-                idDisciplinaCorrente = Long.valueOf(0);
-            } catch (Exception ex) {
-                Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                try {
+                    new DisciplinaController().alterar(idDisciplinaCorrente,
+                            JTextNome.getText(),
+                            (int) modelPeriodo.getSelectedItem(),
+                            (Curso) modelCurso.getElementAt(JComboBoxCurso.getSelectedIndex()),
+                            JTextCodigo.getText());
+                    JOptionPane.showMessageDialog(this, "Alterada com sucesso!");
+                    idDisciplinaCorrente = (long) 0;
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Problemas ao alterar a disciplina!");
+                    return;
+                }
             }
         }
 
@@ -339,38 +332,34 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
             return;
         }
 
+        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
+        Disciplina disciplina = (Disciplina) model.getElementAt(JListPesquisa.getSelectedIndex());
+
         try {
-            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Long id = new DisciplinaController().buscaDisciplinaPorNome(textoSelecionado.split("/")[0]).getId();
-            new DisciplinaController().excluir(id);
+            new DisciplinaController().excluir(disciplina.getId());
             model.remove(JListPesquisa.getSelectedIndex());
-        } catch (Exception ex) {
-            Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Problemas ao excluir a disciplina!");
         }
     }//GEN-LAST:event_JButtonExcluirActionPerformed
 
     private void JButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlterarActionPerformed
 
         if (JListPesquisa.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Nenhuma disciplina selecionada");
+            JOptionPane.showMessageDialog(this, "Nenhuma disciplina selecionada!");
             return;
         }
 
-        try {
-            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Disciplina disciplina = new DisciplinaController().buscaDisciplinaPorNome(textoSelecionado.split("/")[0]);
+        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
+        Disciplina disciplina = (Disciplina) model.getElementAt(JListPesquisa.getSelectedIndex());
 
-            this.JTextNome.setText(disciplina.getNome());
-            this.JComboBoxCurso.setSelectedItem(disciplina.getCurso());
-            this.JComboBoxPeriodo.setSelectedItem(disciplina.getPeriodoAssociado());
-            this.idDisciplinaCorrente = disciplina.getId();
-
-            model.remove(JListPesquisa.getSelectedIndex());
-        } catch (Exception ex) {
-            Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.JTextNome.setText(disciplina.getNome());
+        this.JComboBoxCurso.setSelectedItem(disciplina.getCurso());
+        this.JComboBoxPeriodo.setSelectedItem(disciplina.getPeriodoAssociado());
+        this.JTextCodigo.setText(disciplina.getCodigo());
+        this.idDisciplinaCorrente = disciplina.getId();        
+        model.remove(JListPesquisa.getSelectedIndex());
 
         definirLayout(EstadoTela.alterando);
     }//GEN-LAST:event_JButtonAlterarActionPerformed
@@ -379,32 +368,17 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
 
         if (JComboBoxCurso.getSelectedIndex() > 0) {
-            preencherComboPeriodo((Curso) modelCurso.getSelectedItem());
+            try {
+                preencherComboPeriodo((Curso) modelCurso.getSelectedItem());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Problemas ao selecionar o curso");
+            }
         } else {
             preencherComboPeriodo(new Curso());
         }
     }//GEN-LAST:event_JComboBoxCursoItemStateChanged
 
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JButtonAlterar;
-    private javax.swing.JButton JButtonBuscar;
-    private javax.swing.JButton JButtonCadastrar;
-    private javax.swing.JButton JButtonExcluir;
-    private javax.swing.JComboBox JComboBoxCurso;
-    private javax.swing.JComboBox JComboBoxPeriodo;
-    private javax.swing.JList JListPesquisa;
-    private javax.swing.JTextField JTextNome;
-    private javax.swing.JLabel lCursoDisciplina;
-    private javax.swing.JLabel lNomeDisciplina;
-    private javax.swing.JLabel lPeriodoDisciplina;
-    private javax.swing.JPanel painelConfiguracaoDisciplinas;
-    private javax.swing.JPanel painelPesquisaCursos4;
-    private javax.swing.JPanel panelBotoesAcao;
-    private javax.swing.JScrollPane scrollPesquisaCursos4;
-    // End of variables declaration//GEN-END:variables
-
-    public void configInicial() {
+    private void configInicial() {
         Color c = new Color(this.getBackground().getRGB());
 
         this.JButtonAlterar.setBackground(c);
@@ -413,10 +387,13 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         this.JButtonExcluir.setBackground(c);
     }
 
-    public void definirLayout(EstadoTela estado) {
-        estadoTela = estado;
+    private void definirLayout(EstadoTela estado) {
+        estadoTela = estado;        
 
         if (estadoTela.equals(EstadoTela.inicial)) {
+            
+            preencherComboCurso();
+            
             JButtonExcluir.setEnabled(true);
             JButtonAlterar.setEnabled(true);
             JButtonBuscar.setEnabled(true);
@@ -425,6 +402,9 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
             JButtonCadastrar.setText("Cadastrar");
 
             this.JTextNome.setText("");
+            this.JTextCodigo.setText("");
+            this.JComboBoxCurso.setSelectedIndex(0);
+            this.JComboBoxPeriodo.setSelectedIndex(0);
         }
 
         if (estadoTela.equals(EstadoTela.alterando)) {
@@ -437,7 +417,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         }
     }
 
-    public void preencherComboCurso() {
+    private void preencherComboCurso() {
         DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
         modelCurso.removeAllElements();
 
@@ -470,4 +450,61 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         modelPeriodo.setSelectedItem(mensagem);
     }
 
+    private ArrayList<Disciplina> buscaDisciplinas() {
+
+        DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
+
+        if ((JTextNome.getText().equalsIgnoreCase("")) && (JComboBoxCurso.getSelectedIndex() <= 0)) {
+            try {
+                return new ArrayList<>(new DisciplinaController().listaDisciplinas());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Problemas ao buscar disciplinas!");
+                return null;
+            }
+        } else if (!(JTextNome.getText().equalsIgnoreCase("")) && !(JComboBoxCurso.getSelectedIndex() <= 0)) {
+            try {
+                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinaPorNomeECurso(JTextNome.getText(), (Curso) JComboBoxCurso.getSelectedItem()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Problemas ao buscar disciplinas por nome e curso!");
+                return null;
+            }
+        } else if (!JTextNome.getText().equalsIgnoreCase("")) {
+            try {
+                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinaPorNome(JTextNome.getText()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Problemas ao buscar disciplinas por nome!");
+                return null;
+            }
+        } else if (JComboBoxCurso.getSelectedIndex() > 0) {
+            try {
+                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinaPorCurso((Curso) modelCurso.getSelectedItem()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Problemas ao buscar disciplinas curso!");
+                return null;
+            }
+        }
+
+        return new ArrayList<>();
+
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JButtonAlterar;
+    private javax.swing.JButton JButtonBuscar;
+    private javax.swing.JButton JButtonCadastrar;
+    private javax.swing.JButton JButtonExcluir;
+    private javax.swing.JComboBox JComboBoxCurso;
+    private javax.swing.JComboBox JComboBoxPeriodo;
+    private javax.swing.JList JListPesquisa;
+    private javax.swing.JTextField JTextCodigo;
+    private javax.swing.JTextField JTextNome;
+    private javax.swing.JLabel lCursoDisciplina;
+    private javax.swing.JLabel lNomeDisciplina;
+    private javax.swing.JLabel lNomeDisciplina1;
+    private javax.swing.JLabel lPeriodoDisciplina;
+    private javax.swing.JPanel painelConfiguracaoDisciplinas;
+    private javax.swing.JPanel painelPesquisaCursos4;
+    private javax.swing.JPanel panelBotoesAcao;
+    private javax.swing.JScrollPane scrollPesquisaCursos4;
+    // End of variables declaration//GEN-END:variables
 }

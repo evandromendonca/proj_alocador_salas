@@ -2,9 +2,7 @@ package br.uff.alocadorSalas.controller;
 
 import br.uff.alocadorSalas.dao.CursoDao;
 import br.uff.alocadorSalas.model.Curso;
-import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 public class CursosController {
 
@@ -27,78 +25,48 @@ public class CursosController {
         new CursoDao().alterar(curso);
     }
 
-    public void excluir(long id) throws Exception {
+    public void excluir(long id) throws Exception {           
         new CursoDao().excluir(id);
+    }
+
+    public Curso buscaCursoPorId(Long id) throws Exception {
+        CursoDao dao = new CursoDao();
+        return dao.buscarPorId(id);
     }
 
     public Curso buscaCursoPorNome(String nome) throws Exception {
         CursoDao dao = new CursoDao();
-        try {
-            return dao.findByName(nome);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar cursos por nome" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarPorNome(nome);
     }
 
     public Curso buscaCursoPorSigla(String sigla) throws Exception {
         CursoDao dao = new CursoDao();
-        try {
-            return dao.findByAttribute("sigla", sigla);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar cursos por sigla" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarPorAtributo("sigla", sigla);
     }
 
     public Curso buscaPorNomeESigla(String nome, String sigla) throws Exception {
         CursoDao dao = new CursoDao();
-        try {
-            return dao.buscarPorNomeESigla(nome, sigla);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar cursos por nome e sigla" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarPorNomeESigla(nome, sigla);
     }
-    
+
     public List<Curso> listaCursos() throws Exception {
         CursoDao dao = new CursoDao();
-        try {
-            return dao.findAll();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar cursos" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarTodos();
     }
 
     public List<Curso> buscaTodosPorNomeESigla(String nome, String sigla) throws Exception {
         CursoDao dao = new CursoDao();
-        try {
-            return dao.buscarTodosPorNomeESigla(nome, sigla);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar cursos por nome e sigla" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarTodosPorNomeESigla(nome, sigla);
     }
 
     public List<Curso> buscaTodosCursoPorNome(String nome) throws Exception {
         CursoDao dao = new CursoDao();
-        try {
-            return dao.findAllByName(nome);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar cursos por nome" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarTodosPorNome(nome);
     }
 
     public List<Curso> buscaTodosCursoPorSigla(String sigla) throws Exception {
         CursoDao dao = new CursoDao();
-        try {
-            return dao.findAllByAttribute("sigla", sigla);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar cursos por sigla" + e.getLocalizedMessage());
-        }
-        return null;
+        return dao.buscarTodosPorAtributo("sigla", sigla);
     }
-    
+
 }

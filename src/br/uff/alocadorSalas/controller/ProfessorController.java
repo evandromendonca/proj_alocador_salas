@@ -27,7 +27,7 @@ public class ProfessorController {
     public List<Professor> listaProfessor() throws Exception {
         ProfessorDao dao = new ProfessorDao();
         try {
-            return dao.findAll();
+            return dao.buscarTodos();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar professores" + e.getLocalizedMessage());
         }
@@ -40,12 +40,12 @@ public class ProfessorController {
 
     public Professor buscaProfessorPorNome(String nome) throws Exception {
         ProfessorDao dao = new ProfessorDao();
-        return dao.findByName(nome);
+        return dao.buscarPorNome(nome);
     }
     
     public List<Professor> buscaTodosProfessorPorNome(String nome) throws Exception {
         ProfessorDao dao = new ProfessorDao();
-        return dao.findAllByName(nome);
+        return dao.buscarTodosPorNome(nome);
     }
     
 }

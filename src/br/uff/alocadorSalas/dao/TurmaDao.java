@@ -7,19 +7,19 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-public class TurmaDao extends GenericDao<Turma> {
+public class TurmaDao extends GenericoDao<Turma> {
 
     public void salvar(Turma turma) {
-        save(turma);
+        salvar(turma);
     }
 
     public void alterar(Turma turma) {
-        update(turma);
+        alterar(turma);
     }
 
     public void excluir(long id) {
-        Turma turma = findById(id);
-        delete(turma);
+        Turma turma = buscarPorId(id);
+        excluir(turma);
     }
     
     public Turma buscarPorNomeESigla(String nome, Disciplina disciplina) {

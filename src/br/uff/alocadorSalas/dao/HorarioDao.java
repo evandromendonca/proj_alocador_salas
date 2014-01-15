@@ -8,19 +8,19 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
-public class HorarioDao extends GenericDao<Horario> {
+public class HorarioDao extends GenericoDao<Horario> {
 
     public void salvar(Horario horario) {
-        save(horario);
+        salvar(horario);
     }
 
     public void alterar(Horario horario) {
-        update(horario);
+        alterar(horario);
     }
 
     public void excluir(long id) {
-        Horario horario = findById(id);
-        delete(horario);
+        Horario horario = buscarPorId(id);
+        excluir(horario);
     }
     
     public List<Horario> buscaTodosPorHorarioEDiaSemana(String horario, String diaSemana, Sala sala) {

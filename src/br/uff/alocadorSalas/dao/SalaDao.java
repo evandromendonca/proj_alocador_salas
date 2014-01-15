@@ -2,19 +2,19 @@ package br.uff.alocadorSalas.dao;
 
 import br.uff.alocadorSalas.model.Sala;
 
-public class SalaDao extends GenericDao<Sala> {
+public class SalaDao extends GenericoDao<Sala> {
 
     public void salvar(Sala sala) {
-        save(sala);
+        salvar(sala);
     }
 
     public void alterar(Sala sala) {
-        update(sala);
+        alterar(sala);
     }
 
     public void excluir(long id) {
-        Sala sala = findById(id);
-        delete(sala);
+        Sala sala = buscarPorId(id);
+        excluir(sala);
     }
 
 }

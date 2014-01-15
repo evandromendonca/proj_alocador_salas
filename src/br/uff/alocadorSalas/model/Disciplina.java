@@ -32,6 +32,7 @@ public class Disciplina implements Serializable {
     private Long id;
     private String nome;
     private int periodoAssociado;
+    private String codigo;
 
     @ManyToOne
     @JoinColumn(name = "id_curso")
@@ -96,6 +97,20 @@ public class Disciplina implements Serializable {
         this.periodoAssociado = periodoAssociado;
     }
 
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -118,7 +133,9 @@ public class Disciplina implements Serializable {
 
     @Override
     public String toString() {
-        return getNome();
+        return "Nome: " + getNome() + "     Curso: " + getCurso().getNome()
+                + "     Período associado: " + getPeriodoAssociado() + " de "
+                + getCurso().getQuantidadePeriodos() + " períodos";
     }
 
 }

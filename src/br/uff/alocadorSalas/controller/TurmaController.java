@@ -40,7 +40,7 @@ public class TurmaController {
 
     public Turma buscaTurmaPorNome(String nome) throws Exception {
         TurmaDao dao = new TurmaDao();
-        return dao.findByName(nome);
+        return dao.buscarPorNome(nome);
     }
 
     public Turma buscaTurmaPorNomeEDisciplina(String nome, Disciplina disciplina) throws Exception {
@@ -50,13 +50,13 @@ public class TurmaController {
 
     public List<Turma> buscaTodasTurmaPorNome(String nome) throws Exception {
         TurmaDao dao = new TurmaDao();
-        return dao.findAllByName(nome);
+        return dao.buscarTodosPorNome(nome);
     }
 
     public List<Turma> buscaTodasPorDisciplina(Disciplina disciplina) {
         TurmaDao dao = new TurmaDao();
         try {
-            return dao.findAllByAttribute("disciplina.id", disciplina.getId());
+            return dao.buscarTodosPorAtributo("disciplina.id", disciplina.getId());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar turmas por disciplina" + e.getLocalizedMessage());
         }
@@ -66,7 +66,7 @@ public class TurmaController {
     public List<Turma> buscaTodasPorCurso(Curso curso) {
         TurmaDao dao = new TurmaDao();
         try {
-            return dao.findAllByAttribute("curso.id", curso.getId());
+            return dao.buscarTodosPorAtributo("curso.id", curso.getId());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar turmas por curso" + e.getLocalizedMessage());
         }
@@ -76,7 +76,7 @@ public class TurmaController {
     public List<Turma> buscaTodasPorProfessor(Professor professor) {
         TurmaDao dao = new TurmaDao();
         try {
-            return dao.findAllByAttribute("professor.id", professor.getId());
+            return dao.buscarTodosPorAtributo("professor.id", professor.getId());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar turmas por professor" + e.getLocalizedMessage());
         }
@@ -91,7 +91,7 @@ public class TurmaController {
     public List<Turma> listaTurmas() throws Exception {
         TurmaDao dao = new TurmaDao();
         try {
-            return dao.findAll();
+            return dao.buscarTodos();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar turmas" + e.getLocalizedMessage());
         }

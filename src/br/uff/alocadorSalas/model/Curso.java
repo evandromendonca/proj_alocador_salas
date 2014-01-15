@@ -11,8 +11,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
+ * Esta classe é utilizada para simular um Curso de uma universidade.
+ * <p>
+ * Um exemplo de sua utilização é simular o curso de 'Ciência da Computação'.
  *
- * @author Mare
+ * @author Mareana Pereira
+ *
  */
 @Entity
 @Table(name = "CURSOS")
@@ -20,105 +24,124 @@ public class Curso implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Id do Curso utilizado como chave primária
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nome;
-    private String sigla;
-    private int quantidadePeriodos;
-    
-    @OneToMany(mappedBy="curso", targetEntity = Disciplina.class, cascade = CascadeType.ALL)
-    private List<Disciplina> disciplinas;
-    
-    @OneToMany(mappedBy="curso", targetEntity = Disciplina.class, cascade = CascadeType.ALL)
-    private List<Turma> turmas;
-    
-    
+
     /**
-     * @return the id
+     * Nome do Curso
+     */
+    private String nome;
+
+    /**
+     * Sigla do Curso
+     */
+    private String sigla;
+
+    /**
+     * Quantidade de períodos do Curso
+     */
+    private int quantidadePeriodos;
+
+    /**
+     * Lista de Disciplinas do Curso
+     */
+    @OneToMany(mappedBy = "curso", targetEntity = Disciplina.class, cascade = CascadeType.ALL)
+    private List<Disciplina> disciplinas;
+
+    /**
+     * Lista de Turmas do Curso
+     */
+    @OneToMany(mappedBy = "curso", targetEntity = Disciplina.class, cascade = CascadeType.ALL)
+    private List<Turma> turmas;
+
+    /**
+     * @return Id do Curso
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * @param id the id to set
+     * @param id Id destinado ao Curso
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * @return the nome
+     * @return Nome do Curso
      */
     public String getNome() {
         return nome;
     }
 
     /**
-     * @param nome the nome to set
+     * @param nome Nome destinado ao Curso
      */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
     /**
-     * @return the sigla
+     * @return Sigla do Curso
      */
     public String getSigla() {
         return sigla;
     }
 
     /**
-     * @param sigla the sigla to set
+     * @param sigla Sigla destinado ao Curso
      */
     public void setSigla(String sigla) {
         this.sigla = sigla;
     }
 
     /**
-     * @return the quantidadePeriodos
+     * @return Quantidade de períodos do Curso
      */
     public int getQuantidadePeriodos() {
         return quantidadePeriodos;
     }
 
     /**
-     * @param quantidadePeriodos the quantidadePeriodos to set
+     * @param quantidadePeriodos Quantidade de períodos destinada a Curso
      */
     public void setQuantidadePeriodos(int quantidadePeriodos) {
         this.quantidadePeriodos = quantidadePeriodos;
     }
 
-       
     /**
-     * @return the disciplinas
+     * @return Lista de Disciplinas do Curso
      */
     public List<Disciplina> getDisciplinas() {
         return disciplinas;
     }
 
     /**
-     * @param disciplinas the disciplinas to set
+     * @param disciplinas Lista de Disciplinas destinada ao Curso
      */
     public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
-    
+
     /**
-     * @return the turmas
+     * @return the Lista de Turmas do Curso
      */
     public List<Turma> getTurmas() {
         return turmas;
     }
 
     /**
-     * @param turmas the turmas to set
+     * @param turmas Lista de Turmas destinada ao Curso
      */
     public void setTurmas(List<Turma> turmas) {
         this.turmas = turmas;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -141,7 +164,7 @@ public class Curso implements Serializable {
 
     @Override
     public String toString() {
-        return getNome();
+        return "Nome: " + this.getNome() + "     Sigla: " + this.getSigla() + "     Quantidade períodos: " + this.getQuantidadePeriodos();
     }
 
 }

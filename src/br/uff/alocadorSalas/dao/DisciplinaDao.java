@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.uff.alocadorSalas.dao;
 
 import br.uff.alocadorSalas.model.Curso;
@@ -18,22 +17,26 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author Evandro
  */
-public class DisciplinaDao extends GenericDao<Disciplina> {
- 
-    public void salvar(Disciplina disciplina) {
-        save(disciplina);
+public class DisciplinaDao extends GenericoDao<Disciplina> {
+
+    @Override
+    public void salvar(Disciplina disciplina) throws Exception {
+        super.salvar(disciplina);
     }
- 
-    public void alterar(Disciplina disciplina) {
-        update(disciplina);
+
+    @Override
+    public void alterar(Disciplina disciplina) throws Exception {
+        super.alterar(disciplina);
     }
- 
-    public void excluir(long id) {
-        Disciplina disciplina = findById(id);
-        delete(disciplina);
+
+    public void excluir(long id) throws Exception {
+        //O excluir precisa ser feito dessa maneira pois a mesma entidade de
+        //conexão que busca o curso deve ser utilizada para excluí-lo.
+        Disciplina disciplina = buscarPorId(id);
+        excluir(disciplina);
     }
- 
-    public Disciplina buscarPorNomeECurso(String nome, Curso curso) {
+
+    public Disciplina buscarPorNomeECurso(String nome, Curso curso) throws Exception {
 
         Class<Disciplina> persistent = (Class<Disciplina>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         Session session = (Session) getEntityManager().getDelegate();
@@ -41,8 +44,8 @@ public class DisciplinaDao extends GenericDao<Disciplina> {
         return (Disciplina) session.createCriteria(persistent).add(
                 Restrictions.and(Restrictions.ilike("nome", nome, MatchMode.ANYWHERE), Restrictions.eq("curso.id", curso.getId()))).uniqueResult();
     }
-    
-    public List<Disciplina> buscarTodosPorNomeECurso(String nome, Curso curso) {
+
+    public List<Disciplina> buscarTodosPorNomeECurso(String nome, Curso curso) throws Exception {
 
         Class<Disciplina> persistent = (Class<Disciplina>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         Session session = (Session) getEntityManager().getDelegate();
@@ -50,5 +53,5 @@ public class DisciplinaDao extends GenericDao<Disciplina> {
         return (List<Disciplina>) session.createCriteria(persistent).add(
                 Restrictions.and(Restrictions.ilike("nome", nome, MatchMode.ANYWHERE), Restrictions.eq("curso.id", curso.getId()))).list();
     }
-    
+
 }
