@@ -22,7 +22,7 @@ public class HorarioDao extends GenericoDao<Horario> {
         super.excluir(horario);
     }
 
-    public Horario buscarPorHorarioInicialEFinal(String horarioInicial, String horarioFinal) {
+    public Horario buscarPorHorarioInicialEFinal(Long horarioInicial, Long horarioFinal) {
         Class<Horario> persistent = (Class<Horario>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         Session session = (Session) getEntityManager().getDelegate();
 

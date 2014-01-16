@@ -143,7 +143,7 @@ public class Curso implements Serializable {
 
     @Override
     public String toString() {
-        return "Nome: " + this.getNome() + "     Sigla: " + this.getSigla() + "     Quantidade períodos: " + this.getQuantidadePeriodos();
+        return this.getNome();
     }
 
 }

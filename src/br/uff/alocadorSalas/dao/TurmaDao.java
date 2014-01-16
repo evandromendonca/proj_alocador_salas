@@ -19,8 +19,8 @@ public class TurmaDao extends GenericoDao<Turma> {
         super.alterar(turma);
     }
 
-    public void excluir(String nome, Disciplina disciplina) throws Exception {
-        Turma turma = buscarPorNomeEDisciplina(nome, disciplina);
+    public void excluir(Long id) throws Exception {
+        Turma turma = buscarPorId(id);
         super.excluir(turma);
     }
     
@@ -35,7 +35,7 @@ public class TurmaDao extends GenericoDao<Turma> {
                 )).uniqueResult();
     }
 
-    public List<Turma> buscarTodasPorNomeEDisciplina(String nome, Disciplina disciplina) {
+    public List<Turma> buscarTodosPorNomeEDisciplina(String nome, Disciplina disciplina) {
 
         Class<Turma> persistent = (Class<Turma>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         Session session = (Session) getEntityManager().getDelegate();

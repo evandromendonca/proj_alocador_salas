@@ -1,7 +1,6 @@
 package br.uff.alocadorSalas.controller;
 
 import br.uff.alocadorSalas.dao.ProfessorDao;
-import br.uff.alocadorSalas.model.Curso;
 import br.uff.alocadorSalas.model.Professor;
 import java.sql.SQLException;
 import java.util.List;
@@ -42,10 +41,10 @@ public class ProfessorController {
         ProfessorDao dao = new ProfessorDao();
         return dao.buscarPorNome(nome);
     }
-    
+
     public List<Professor> buscaTodosProfessorPorNome(String nome) throws Exception {
         ProfessorDao dao = new ProfessorDao();
         return dao.buscarTodosPorNome(nome);
     }
-    
+
 }

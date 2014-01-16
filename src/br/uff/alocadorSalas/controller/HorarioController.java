@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class HorarioController {
 
-    public void salvar(String horarioInicial, String horarioFinal) throws Exception {
+    public void salvar(Long horarioInicial, Long horarioFinal) throws Exception {
         Horario horario = new Horario();
         horario.setHorarioInicial(horarioInicial);
         horario.setHorarioFinal(horarioFinal);
@@ -18,19 +18,19 @@ public class HorarioController {
         new HorarioDao().salvar(horario);
     }
 
-    public void alterar(long id, String horarioInicial, String horarioFinal) throws Exception {
+    public void alterar(long id, Long horarioInicial, Long horarioFinal) throws Exception {
         Horario horario = new Horario();
         horario.setId(id);
         horario.setHorarioInicial(horarioInicial);
         horario.setHorarioFinal(horarioFinal);
 
         new HorarioDao().alterar(horario);
-    }    
+    }
 
     public void excluir(long id) throws Exception {
         new HorarioDao().excluir(id);
     }
-    
+
     public List<Horario> listaHorarios() throws Exception {
         HorarioDao dao = new HorarioDao();
         try {
@@ -40,21 +40,11 @@ public class HorarioController {
         }
         return null;
     }
-    
-    public List<Horario> buscaTodosPorTurma(Turma turma) {
+
+    public Horario buscarPorHorarioInicialEFinal(Long horarioInicial, Long horarioFinal) {
         HorarioDao dao = new HorarioDao();
         try {
-            return dao.buscarTodosPorAtributo("turma.id", turma.getId());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar horarios" + e.getLocalizedMessage());
-        }
-        return null;
-    }
-    
-    public Horario buscarPorHorarioInicialEFinal(String horarioInicial, String horarioFinal) {
-        HorarioDao dao = new HorarioDao();
-        try {
-            return dao.buscarPorHorarioInicialEFinal(horarioInicial,horarioFinal);
+            return dao.buscarPorHorarioInicialEFinal(horarioInicial, horarioFinal);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar horarios" + e.getLocalizedMessage());
         }

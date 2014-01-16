@@ -93,8 +93,8 @@ public class JPanelGlobal extends javax.swing.JPanel {
             JPanelTela.setVisible(true);
             JPanelTela.setLayout(new java.awt.BorderLayout());
             JPanelTela.removeAll();
-            JPanelTela.revalidate();
-            JPanelTela.repaint();
+            JPanelTela.add(panelInicial);
+            JPanelTela.revalidate();            
 
         }
 

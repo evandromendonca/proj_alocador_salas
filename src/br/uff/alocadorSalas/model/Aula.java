@@ -3,9 +3,10 @@ package br.uff.alocadorSalas.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,28 +17,38 @@ public class Aula implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @Column(name = "diaSemana", nullable = false)
     private String diaSemana;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "id_sala", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_sala", nullable = false)
     private Sala sala;
 
-    @Id
     @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "horario_inicial", referencedColumnName = "horarioInicial", nullable = false),
-        @JoinColumn(name = "horario_final", referencedColumnName = "horarioFinal", nullable = false)
-    })
+    @JoinColumn(name = "id_horario", nullable = false)
     private Horario horario;
 
     @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "id_disciplina", referencedColumnName = "id_disciplina", nullable = false),
-        @JoinColumn(name = "nome_turma", referencedColumnName = "nome", nullable = false)
-    })
+    @JoinColumn(name = "id_turma", nullable = false)
     private Turma turma;
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /**
      * @return the diaSemana
@@ -97,7 +108,9 @@ public class Aula implements Serializable {
 
     @Override
     public int hashCode() {
-        return 0;
+        int hash = 0;
+        hash += (getId() != null ? getId().hashCode() : 0);
+        return hash;
     }
 
     @Override
@@ -107,7 +120,10 @@ public class Aula implements Serializable {
             return false;
         }
         Aula other = (Aula) object;
-        return (this.getDiaSemana() != null || other.getDiaSemana() == null) && (this.getDiaSemana() == null || this.diaSemana.equals(other.diaSemana)) && (this.getHorario() != null || other.getHorario() == null) && (this.getHorario() == null || this.horario.equals(other.horario)) && (this.getSala() != null || other.getSala() == null) && (this.getSala() == null || this.sala.equals(other.sala));
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override

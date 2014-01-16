@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -47,6 +49,8 @@ public class JPanelCursos extends javax.swing.JPanel {
         painelPesquisaCursos = new javax.swing.JPanel();
         scrollPesquisaCursos = new javax.swing.JScrollPane();
         JListPesquisa = new javax.swing.JList();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JTablePesquisa = new javax.swing.JTable();
         panelBotoesAcao = new javax.swing.JPanel();
         JButtonExcluir = new javax.swing.JButton();
         JButtonAlterar = new javax.swing.JButton();
@@ -121,20 +125,53 @@ public class JPanelCursos extends javax.swing.JPanel {
         JListPesquisa.setName("JListPesquisa"); // NOI18N
         scrollPesquisaCursos.setViewportView(JListPesquisa);
 
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 100));
+
+        JTablePesquisa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Sigla", "Quantidade de Períodos"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JTablePesquisa.setShowHorizontalLines(false);
+        JTablePesquisa.setShowVerticalLines(false);
+        jScrollPane1.setViewportView(JTablePesquisa);
+
         javax.swing.GroupLayout painelPesquisaCursosLayout = new javax.swing.GroupLayout(painelPesquisaCursos);
         painelPesquisaCursos.setLayout(painelPesquisaCursosLayout);
         painelPesquisaCursosLayout.setHorizontalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPesquisaCursosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPesquisaCursos)
+                .addGroup(painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelPesquisaCursosLayout.setVerticalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -344,6 +381,16 @@ public class JPanelCursos extends javax.swing.JPanel {
         this.JButtonBuscar.setBackground(c);
         this.JButtonCadastrar.setBackground(c);
         this.JButtonExcluir.setBackground(c);
+        
+//        DefaultTableModel modelTabela = (DefaultTableModel) JTablePesquisa.getModel();
+//        modelTabela.addColumn("Nome");        
+//        modelTabela.addColumn("Sigla");
+//        modelTabela.addColumn("Quantidade Períodos");
+//        JTablePesquisa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        JTablePesquisa.setRowSelectionAllowed(true);
+//        JTablePesquisa.setShowHorizontalLines(false);
+//        JTablePesquisa.setShowVerticalLines(false);
+        
     }
 
     private void definirLayout(EstadoTela estado) {
@@ -416,8 +463,10 @@ public class JPanelCursos extends javax.swing.JPanel {
     private javax.swing.JButton JButtonExcluir;
     private javax.swing.JList JListPesquisa;
     private javax.swing.JSpinner JSpinnerQuantidadePeriodos;
+    private javax.swing.JTable JTablePesquisa;
     private javax.swing.JTextField JTextNome;
     private javax.swing.JFormattedTextField JTextSigla;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lNomeCurso;
     private javax.swing.JLabel lQntDePeriodosCurso;
     private javax.swing.JLabel lSiglaCurso;

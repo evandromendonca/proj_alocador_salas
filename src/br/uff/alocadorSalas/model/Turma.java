@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,28 +28,45 @@ public class Turma implements Serializable, Comparable<Turma> {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @Column(name = "quantidadeAlunos", nullable = false)
     private int quantidadeAlunos;
 
-    @Id
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "id_disciplina", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_disciplina", nullable = false)
     private Disciplina disciplina;
 
     @ManyToOne
-    @JoinColumn(name = "id_professor", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_professor", nullable = false)
     private Professor professor;
 
     @ManyToOne
-    @JoinColumn(name = "id_curso", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_curso", nullable = false)
     private Curso curso;
 
     @OneToMany(mappedBy = "turma", targetEntity = Aula.class, cascade = CascadeType.ALL)
     private List<Aula> aulas;
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /**
      * @return the quantidadeAlunos
@@ -136,7 +155,7 @@ public class Turma implements Serializable, Comparable<Turma> {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getNome() != null ? getNome().hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
     }
 
@@ -147,7 +166,7 @@ public class Turma implements Serializable, Comparable<Turma> {
             return false;
         }
         Turma other = (Turma) object;
-        if ((this.getNome() == null && other.getNome() != null) || (this.getNome() != null && !this.nome.equals(other.nome))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;

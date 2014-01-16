@@ -18,46 +18,60 @@ import javax.persistence.*;
 public class Horario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    
+
     @Column(name = "horarioInicial", nullable = false)
-    private String horarioInicial;
+    private Long horarioInicial;
 
     @Column(name = "horarioFinal", nullable = false)
-    private String horarioFinal;
+    private Long horarioFinal;
 
     @OneToMany(mappedBy = "horario", targetEntity = Aula.class, cascade = CascadeType.ALL)
     private List<Aula> aulas;
 
     /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
      * @return the horarioInicial
      */
-    public String getHorarioInicial() {
+    public Long getHorarioInicial() {
         return horarioInicial;
     }
 
     /**
      * @param horarioInicial the horarioInicial to set
      */
-    public void setHorarioInicial(String horarioInicial) {
+    public void setHorarioInicial(Long horarioInicial) {
         this.horarioInicial = horarioInicial;
     }
 
     /**
      * @return the horarioFinal
      */
-    public String getHorarioFinal() {
+    public Long getHorarioFinal() {
         return horarioFinal;
     }
 
     /**
      * @param horarioFinal the horarioFinal to set
      */
-    public void setHorarioFinal(String horarioFinal) {
+    public void setHorarioFinal(Long horarioFinal) {
         this.horarioFinal = horarioFinal;
     }
 
@@ -77,35 +91,27 @@ public class Horario implements Serializable {
 
     @Override
     public int hashCode() {
-        return 0;
+        int hash = 0;
+        hash += (getId() != null ? getId().hashCode() : 0);
+        return hash;
     }
 
     @Override
     public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Horario)) {
             return false;
         }
         Horario other = (Horario) object;
-        return (this.getHorarioInicial() != null || other.getHorarioInicial() == null) && (this.getHorarioInicial() == null || this.horarioInicial.equals(other.horarioInicial)) && (this.getHorarioFinal() != null || other.getHorarioFinal() == null) && (this.getHorarioFinal() == null || this.horarioInicial.equals(other.horarioFinal));
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
         return this.getHorarioInicial() + " " + this.getHorarioFinal();
-    }
-
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }

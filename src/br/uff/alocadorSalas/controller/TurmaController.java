@@ -45,7 +45,7 @@ public class TurmaController {
 
     public Turma buscaTurmaPorNomeEDisciplina(String nome, Disciplina disciplina) throws Exception {
         TurmaDao dao = new TurmaDao();
-        return dao.buscarPorNomeESigla(nome, disciplina);
+        return dao.buscarPorNomeEDisciplina(nome, disciplina);
     }
 
     public List<Turma> buscaTodasTurmaPorNome(String nome) throws Exception {
@@ -85,7 +85,7 @@ public class TurmaController {
 
     public List<Turma> buscaTodasTurmaPorNomeEDisciplina(String nome, Disciplina disciplina) throws Exception {
         TurmaDao dao = new TurmaDao();
-        return dao.buscarTodasPorNomeESigla(nome, disciplina);
+        return dao.buscarTodosPorNomeEDisciplina(nome, disciplina);
     }
 
     public List<Turma> listaTurmas() throws Exception {

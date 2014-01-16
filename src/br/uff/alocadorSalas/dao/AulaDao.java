@@ -19,8 +19,8 @@ public class AulaDao extends GenericoDao<Aula> {
         super.alterar(aula);
     }
 
-    public void excluir(Sala sala, Horario horario, String diaSemana) throws Exception {
-        Aula aula = buscarPorSalaHorarioEDiaSemana(sala, horario, diaSemana);
+    public void excluir(Long id) throws Exception {
+        Aula aula = buscarPorId(id);
         super.excluir(aula);
     }
 
@@ -32,9 +32,7 @@ public class AulaDao extends GenericoDao<Aula> {
                 .add(Restrictions.and(
                                 Restrictions.eq("sala.id", sala.getId()),
                                 Restrictions.and(
-                                        Restrictions.and(
-                                                Restrictions.eq("horario_incial", horario.getHorarioInicial()),
-                                                Restrictions.eq("horario_final", horario.getHorarioFinal())),
+                                        Restrictions.eq("horario.id", horario.getId()),
                                         Restrictions.eq("diaSemana", diaSemana)
                                 )
                         )

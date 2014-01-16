@@ -99,7 +99,7 @@ public class Sala implements Serializable, Comparable<Sala> {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getNome() != null ? getNome().hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
     }
 
@@ -110,7 +110,7 @@ public class Sala implements Serializable, Comparable<Sala> {
             return false;
         }
         Sala other = (Sala) object;
-        if ((this.getNome() == null && other.getNome() != null) || (this.getNome() != null && !this.nome.equals(other.nome))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
