@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.uff.alocadorSalas.view;
 
 import br.uff.alocadorSalas.controller.CursosController;
-import br.uff.alocadorSalas.controller.DisciplinaController;
 import br.uff.alocadorSalas.controller.ProfessorController;
 import br.uff.alocadorSalas.model.Curso;
 import br.uff.alocadorSalas.model.Professor;
@@ -15,9 +13,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Evandro
@@ -26,7 +25,7 @@ public class JPanelProfessores extends javax.swing.JPanel {
 
     EstadoTela estadoTela;
     Long idProfessorCorrente;
-    
+
     public JPanelProfessores() {
         initComponents();
 
@@ -54,8 +53,6 @@ public class JPanelProfessores extends javax.swing.JPanel {
         JButtonBuscar = new javax.swing.JButton();
         JButtonCadastrar = new javax.swing.JButton();
         painelPesquisaCursos4 = new javax.swing.JPanel();
-        scrollPesquisaCursos4 = new javax.swing.JScrollPane();
-        JListPesquisa = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTablePesquisa = new javax.swing.JTable();
 
@@ -158,10 +155,6 @@ public class JPanelProfessores extends javax.swing.JPanel {
 
         painelPesquisaCursos4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Resultado da Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 102))); // NOI18N
 
-        JListPesquisa.setModel(new DefaultListModel());
-        JListPesquisa.setName("JListPesquisa"); // NOI18N
-        scrollPesquisaCursos4.setViewportView(JListPesquisa);
-
         jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 100));
 
         JTablePesquisa.setModel(new javax.swing.table.DefaultTableModel(
@@ -197,17 +190,13 @@ public class JPanelProfessores extends javax.swing.JPanel {
             painelPesquisaCursos4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursos4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelPesquisaCursos4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPesquisaCursos4, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painelPesquisaCursos4Layout.setVerticalGroup(
             painelPesquisaCursos4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursos4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPesquisaCursos4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(134, 134, 134)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addGap(61, 61, 61))
         );
@@ -247,43 +236,45 @@ public class JPanelProfessores extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirActionPerformed
-
-        if (JListPesquisa.getSelectedIndex() == -1) {
+        if (JTablePesquisa.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Nenhum professor selecionado");
             return;
         }
 
         try {
-            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Long id = new ProfessorController().buscaProfessorPorNome(textoSelecionado.split("/")[0]).getId();
-            new ProfessorController().excluir(id);
-            model.remove(JListPesquisa.getSelectedIndex());
-        } catch (Exception ex) {
-            Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
+            DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+
+            String nomeProfessorSelecionado = String.valueOf(modelTable.getValueAt(JTablePesquisa.getSelectedRow(), 0));
+            Professor professorSelecionado = (Professor) new ProfessorController().buscaProfessorPorNome(nomeProfessorSelecionado);
+
+            new ProfessorController().excluir(professorSelecionado.getId());
+            modelTable.removeRow(JTablePesquisa.getSelectedRow());
+
+            JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Problemas ao excluir o professor!");
         }
     }//GEN-LAST:event_JButtonExcluirActionPerformed
 
     private void JButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlterarActionPerformed
-
-        if (JListPesquisa.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Nenhum professor selecionado");
-            return;
-        }
-
         try {
-            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Professor professor = new ProfessorController().buscaProfessorPorNome(textoSelecionado.split("/")[0]);
-            
-            this.JTextNome.setText(professor.getNome());
-            idProfessorCorrente = professor.getId();
-            model.remove(JListPesquisa.getSelectedIndex());
-        } catch (Exception ex) {
-            Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            if (JTablePesquisa.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(this, "Nenhum curso selecionado!");
+                return;
+            }
 
-        definirLayout(EstadoTela.alterando);
+            DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+            String nomeProfessorSelecionado = String.valueOf(modelTable.getValueAt(JTablePesquisa.getSelectedRow(), 0));
+            Professor professorSelecionado = (Professor) new ProfessorController().buscaProfessorPorNome(nomeProfessorSelecionado);
+
+            this.JTextNome.setText(professorSelecionado.getNome());
+            this.idProfessorCorrente = professorSelecionado.getId();
+            modelTable.removeRow(JTablePesquisa.getSelectedRow());
+
+            definirLayout(EstadoTela.alterando);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Problemas na alteração!");
+        }
     }//GEN-LAST:event_JButtonAlterarActionPerformed
 
     private void JButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonBuscarActionPerformed
@@ -308,14 +299,13 @@ public class JPanelProfessores extends javax.swing.JPanel {
             return;
         }
 
-        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-        model.clear();
-
+        DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+        modelTable.setRowCount(0);
         for (Professor p : professoresBuscados) {
-            model.add(model.getSize(), p.getNome());
+            modelTable.addRow(new Object[]{p.getNome()});
         }
 
-        definirLayout(EstadoTela.inicial);                                             
+        definirLayout(EstadoTela.inicial);
     }//GEN-LAST:event_JButtonBuscarActionPerformed
 
     private void JButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCadastrarActionPerformed
@@ -357,7 +347,6 @@ public class JPanelProfessores extends javax.swing.JPanel {
     private javax.swing.JButton JButtonBuscar;
     private javax.swing.JButton JButtonCadastrar;
     private javax.swing.JButton JButtonExcluir;
-    private javax.swing.JList JListPesquisa;
     private javax.swing.JTable JTablePesquisa;
     private javax.swing.JTextField JTextNome;
     private javax.swing.JScrollPane jScrollPane1;
@@ -365,10 +354,9 @@ public class JPanelProfessores extends javax.swing.JPanel {
     private javax.swing.JPanel painelConfiguracaoProfessores;
     private javax.swing.JPanel painelPesquisaCursos4;
     private javax.swing.JPanel panelBotoesAcao;
-    private javax.swing.JScrollPane scrollPesquisaCursos4;
     // End of variables declaration//GEN-END:variables
 
-    public void configInicial() {
+    private void configInicial() {
         Color c = new Color(this.getBackground().getRGB());
 
         this.JButtonAlterar.setBackground(c);
@@ -377,7 +365,7 @@ public class JPanelProfessores extends javax.swing.JPanel {
         this.JButtonExcluir.setBackground(c);
     }
 
-    public void definirLayout(EstadoTela estado) {
+    private void definirLayout(EstadoTela estado) {
 
         estadoTela = estado;
 

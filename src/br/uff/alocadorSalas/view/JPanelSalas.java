@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.uff.alocadorSalas.view;
 
-
-import br.uff.alocadorSalas.controller.CursosController;
 import br.uff.alocadorSalas.controller.SalaController;
 import br.uff.alocadorSalas.model.Sala;
 import java.awt.Color;
@@ -16,13 +13,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Evandro
  */
 public class JPanelSalas extends javax.swing.JPanel {
+
     EstadoTela estadoTela;
     Long idSalaCorrente;
+
     /**
      * Creates new form JPanelSalas
      */
@@ -55,8 +56,6 @@ public class JPanelSalas extends javax.swing.JPanel {
         JButtonCadastrar = new javax.swing.JButton();
         JButtonBuscar = new javax.swing.JButton();
         painelPesquisaCursos = new javax.swing.JPanel();
-        scrollPesquisaCursos = new javax.swing.JScrollPane();
-        JListPesquisa = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTablePesquisa = new javax.swing.JTable();
 
@@ -174,10 +173,6 @@ public class JPanelSalas extends javax.swing.JPanel {
 
         painelPesquisaCursos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Resultado da Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 102))); // NOI18N
 
-        JListPesquisa.setModel(new DefaultListModel());
-        JListPesquisa.setName("JListPesquisa"); // NOI18N
-        scrollPesquisaCursos.setViewportView(JListPesquisa);
-
         jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 100));
 
         JTablePesquisa.setModel(new javax.swing.table.DefaultTableModel(
@@ -213,17 +208,13 @@ public class JPanelSalas extends javax.swing.JPanel {
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painelPesquisaCursosLayout.setVerticalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(140, 140, 140)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addGap(37, 37, 37))
         );
@@ -264,41 +255,46 @@ public class JPanelSalas extends javax.swing.JPanel {
 
     private void JButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirActionPerformed
 
-        if (JListPesquisa.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Nenhuma sala selecionada");
+        if (JTablePesquisa.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Nenhuma sala selecionada!");
             return;
         }
 
         try {
-            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Long id = new SalaController().buscaSalaPorNome(textoSelecionado.split("/")[0]).getId();
-            new SalaController().excluir(id);
-            model.remove(JListPesquisa.getSelectedIndex());
-        } catch (Exception ex) {
-            Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
+            DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+
+            String nomeSalaSelecionada = String.valueOf(modelTable.getValueAt(JTablePesquisa.getSelectedRow(), 0));
+            Sala salaSelecionada = (Sala) new SalaController().buscaSalaPorNome(nomeSalaSelecionada);
+
+            new SalaController().excluir(salaSelecionada.getId());
+            modelTable.removeRow(JTablePesquisa.getSelectedRow());
+
+            JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Problemas ao excluir a sala!");
         }
     }//GEN-LAST:event_JButtonExcluirActionPerformed
 
     private void JButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlterarActionPerformed
 
-        if (JListPesquisa.getSelectedIndex() == -1) {
+        if (JTablePesquisa.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Nenhuma sala selecionada");
             return;
         }
 
         try {
-            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Sala sala = new SalaController().buscaSalaPorNome(textoSelecionado.split("/")[0]);
+
+            DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+            String salaSelecionada = String.valueOf(modelTable.getValueAt(JTablePesquisa.getSelectedRow(), 0));
+            Sala sala = new SalaController().buscaSalaPorNome(salaSelecionada);
 
             this.JTextNome.setText(sala.getNome());
             this.JSpinnerQuantidadeAlunos.setValue(sala.getQuantidadeUtil());
-            
             idSalaCorrente = sala.getId();
-            model.remove(JListPesquisa.getSelectedIndex());
+
+            modelTable.removeRow(JTablePesquisa.getSelectedRow());
         } catch (Exception ex) {
-            Logger.getLogger(JPanelCursos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Problemas ao alterar sala");
         }
 
         definirLayout(EstadoTela.alterando);
@@ -357,15 +353,15 @@ public class JPanelSalas extends javax.swing.JPanel {
         }
 
         if (salasBuscados.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhuma sala encontrado!");
+            JOptionPane.showMessageDialog(this, "Nenhuma sala encontrada!");
             return;
         }
 
-        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-        model.clear();
+        DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+        modelTable.setRowCount(0);
 
         for (Sala s : salasBuscados) {
-            model.add(model.getSize(), s.getNome() + "/"  + s.getQuantidadeUtil());
+            modelTable.addRow(new Object[]{s.getNome(), s.getQuantidadeUtil()});
         }
 
         definirLayout(EstadoTela.inicial);
@@ -377,7 +373,6 @@ public class JPanelSalas extends javax.swing.JPanel {
     private javax.swing.JButton JButtonBuscar;
     private javax.swing.JButton JButtonCadastrar;
     private javax.swing.JButton JButtonExcluir;
-    private javax.swing.JList JListPesquisa;
     private javax.swing.JSpinner JSpinnerQuantidadeAlunos;
     private javax.swing.JTable JTablePesquisa;
     private javax.swing.JTextField JTextNome;
@@ -387,10 +382,9 @@ public class JPanelSalas extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel painelPesquisaCursos;
     private javax.swing.JPanel panelBotoesAcao;
-    private javax.swing.JScrollPane scrollPesquisaCursos;
     // End of variables declaration//GEN-END:variables
 
-     public void configInicial() {
+    private void configInicial() {
         Color c = new Color(this.getBackground().getRGB());
 
         this.JButtonAlterar.setBackground(c);
@@ -399,7 +393,7 @@ public class JPanelSalas extends javax.swing.JPanel {
         this.JButtonExcluir.setBackground(c);
     }
 
-    public void definirLayout(EstadoTela estado) {
+    private void definirLayout(EstadoTela estado) {
 
         estadoTela = estado;
 

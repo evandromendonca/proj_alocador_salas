@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -65,8 +66,6 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         JButtonExcluir = new javax.swing.JButton();
         JButtonAlterar = new javax.swing.JButton();
         painelPesquisaCursos4 = new javax.swing.JPanel();
-        scrollPesquisaCursos4 = new javax.swing.JScrollPane();
-        JListPesquisa = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTablePesquisa = new javax.swing.JTable();
 
@@ -204,10 +203,6 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
         painelPesquisaCursos4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Resultado da Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 102))); // NOI18N
 
-        JListPesquisa.setModel(new DefaultListModel());
-        JListPesquisa.setName("JListPesquisa"); // NOI18N
-        scrollPesquisaCursos4.setViewportView(JListPesquisa);
-
         jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 100));
 
         JTablePesquisa.setModel(new javax.swing.table.DefaultTableModel(
@@ -243,17 +238,13 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
             painelPesquisaCursos4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursos4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelPesquisaCursos4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPesquisaCursos4, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painelPesquisaCursos4Layout.setVerticalGroup(
             painelPesquisaCursos4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursos4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPesquisaCursos4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(112, 112, 112)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
         );
@@ -305,11 +296,10 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
             return;
         }
 
-        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-        model.clear();
-
+        DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+        modelTable.setRowCount(0);
         for (Disciplina d : disciplinasBuscados) {
-            model.addElement(d);
+            modelTable.addRow(new Object[]{d.getNome(), d.getCodigo(), d.getCurso(), d.getPeriodoAssociado()});
         }
 
         definirLayout(EstadoTela.inicial);
@@ -362,17 +352,20 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
     private void JButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirActionPerformed
 
-        if (JListPesquisa.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Nenhuma disciplina selecionada");
+        if (JTablePesquisa.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Nenhum disciplina selecionada!");
             return;
         }
 
-        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-        Disciplina disciplina = (Disciplina) model.getElementAt(JListPesquisa.getSelectedIndex());
-
         try {
-            new DisciplinaController().excluir(disciplina.getId());
-            model.remove(JListPesquisa.getSelectedIndex());
+            DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+
+            String nomeDisciplinaSelecionada = String.valueOf(modelTable.getValueAt(JTablePesquisa.getSelectedRow(), 0));
+            Disciplina disciplinaSelecionada = (Disciplina) new DisciplinaController().buscaDisciplinaPorNome(nomeDisciplinaSelecionada);
+
+            new DisciplinaController().excluir(disciplinaSelecionada.getId());
+            modelTable.removeRow(JTablePesquisa.getSelectedRow());
+
             JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Problemas ao excluir a disciplina!");
@@ -380,23 +373,27 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
     }//GEN-LAST:event_JButtonExcluirActionPerformed
 
     private void JButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlterarActionPerformed
+        try {
+            if (JTablePesquisa.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(this, "Nenhuma disciplina selecionada!");
+                return;
+            }
 
-        if (JListPesquisa.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Nenhuma disciplina selecionada!");
-            return;
+            DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+            String nomeDisciplinaSelecionada = String.valueOf(modelTable.getValueAt(JTablePesquisa.getSelectedRow(), 0));
+            Disciplina disciplina = (Disciplina) new DisciplinaController().buscaDisciplinaPorNome(nomeDisciplinaSelecionada);
+
+            this.JTextNome.setText(disciplina.getNome());
+            this.JComboBoxCurso.setSelectedItem(disciplina.getCurso());
+            this.JComboBoxPeriodo.setSelectedItem(disciplina.getPeriodoAssociado());
+            this.JTextCodigo.setText(disciplina.getCodigo());
+            this.idDisciplinaCorrente = disciplina.getId();
+            modelTable.removeRow(JTablePesquisa.getSelectedRow());
+
+            definirLayout(EstadoTela.alterando);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Problemas na alteração!");
         }
-
-        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-        Disciplina disciplina = (Disciplina) model.getElementAt(JListPesquisa.getSelectedIndex());
-
-        this.JTextNome.setText(disciplina.getNome());
-        this.JComboBoxCurso.setSelectedItem(disciplina.getCurso());
-        this.JComboBoxPeriodo.setSelectedItem(disciplina.getPeriodoAssociado());
-        this.JTextCodigo.setText(disciplina.getCodigo());
-        this.idDisciplinaCorrente = disciplina.getId();        
-        model.remove(JListPesquisa.getSelectedIndex());
-
-        definirLayout(EstadoTela.alterando);
     }//GEN-LAST:event_JButtonAlterarActionPerformed
 
     private void JComboBoxCursoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JComboBoxCursoItemStateChanged
@@ -423,12 +420,12 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
     }
 
     private void definirLayout(EstadoTela estado) {
-        estadoTela = estado;        
+        estadoTela = estado;
 
         if (estadoTela.equals(EstadoTela.inicial)) {
-            
+
             preencherComboCurso();
-            
+
             JButtonExcluir.setEnabled(true);
             JButtonAlterar.setEnabled(true);
             JButtonBuscar.setEnabled(true);
@@ -530,7 +527,6 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
     private javax.swing.JButton JButtonExcluir;
     private javax.swing.JComboBox JComboBoxCurso;
     private javax.swing.JComboBox JComboBoxPeriodo;
-    private javax.swing.JList JListPesquisa;
     private javax.swing.JTable JTablePesquisa;
     private javax.swing.JTextField JTextCodigo;
     private javax.swing.JTextField JTextNome;
@@ -542,6 +538,5 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
     private javax.swing.JPanel painelConfiguracaoDisciplinas;
     private javax.swing.JPanel painelPesquisaCursos4;
     private javax.swing.JPanel panelBotoesAcao;
-    private javax.swing.JScrollPane scrollPesquisaCursos4;
     // End of variables declaration//GEN-END:variables
 }

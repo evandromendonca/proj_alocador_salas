@@ -155,9 +155,7 @@ public class Disciplina implements Serializable {
 
     @Override
     public String toString() {
-        return "Nome: " + getNome() + "     Curso: " + getCurso().getNome()
-                + "     Período associado: " + getPeriodoAssociado() + " de "
-                + getCurso().getQuantidadePeriodos() + " períodos";
+        return this.getNome();
     }
 
 }

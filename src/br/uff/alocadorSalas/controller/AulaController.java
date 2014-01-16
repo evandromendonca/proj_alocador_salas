@@ -34,6 +34,16 @@ public class AulaController {
     public void excluir(long id) throws Exception {
         new AulaDao().excluir(id);
     }
+    
+    public Aula buscarPorSalaHorarioeDiaSemana(Sala s, Horario h, String diaSemana) throws Exception {
+        AulaDao dao = new AulaDao();
+        try {
+            return dao.buscarPorSalaHorarioEDiaSemana(s, h, diaSemana);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Problemas ao localizar aulas!" + e.getLocalizedMessage());
+        }
+        return null;
+    }
 
     public List<Aula> buscaTodosPorTurma(Turma turma) {
         AulaDao dao = new AulaDao();

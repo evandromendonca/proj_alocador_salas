@@ -5,12 +5,14 @@
  */
 package br.uff.alocadorSalas.view;
 
+import br.uff.alocadorSalas.controller.AulaController;
 import br.uff.alocadorSalas.controller.CursosController;
 import br.uff.alocadorSalas.controller.DisciplinaController;
 import br.uff.alocadorSalas.controller.HorarioController;
 import br.uff.alocadorSalas.controller.ProfessorController;
 import br.uff.alocadorSalas.controller.SalaController;
 import br.uff.alocadorSalas.controller.TurmaController;
+import br.uff.alocadorSalas.model.Aula;
 import br.uff.alocadorSalas.model.Curso;
 import br.uff.alocadorSalas.model.Disciplina;
 import br.uff.alocadorSalas.model.Horario;
@@ -18,6 +20,7 @@ import br.uff.alocadorSalas.model.Professor;
 import br.uff.alocadorSalas.model.Sala;
 import br.uff.alocadorSalas.model.Turma;
 import java.awt.Color;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +28,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,6 +41,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
      */
     EstadoTela estadoTela;
     Long idTurmaCorrente;
+    List<Aula> listaAulasCorrente;
 
     /**
      * Creates new form JPanelTurmas
@@ -46,7 +51,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
 
         idTurmaCorrente = (long) 0;
 
-        configInicial();        
+        configInicial();
         preencherComboCurso();
         preencherComboProfessores();
         preencherComboDiaSemana();
@@ -81,24 +86,16 @@ public class JPanelTurmas extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         JComboBoxSala = new javax.swing.JComboBox();
         JComboBoxDiaSemana = new javax.swing.JComboBox();
-        JButtonIncluiHorario = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        JListHorarios = new javax.swing.JList();
-        JButtonRemoveHorario = new javax.swing.JButton();
-        JSpinnerHI = new javax.swing.JSpinner();
-        JSpinnerMI = new javax.swing.JSpinner();
-        JSpinnerHF = new javax.swing.JSpinner();
-        JSpinnerMF = new javax.swing.JSpinner();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        JButtonIncluiAula = new javax.swing.JButton();
+        JButtonRemoveAula = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        JTableAulas = new javax.swing.JTable();
+        JFormattedTextHorarioInicial = new javax.swing.JFormattedTextField();
+        JFormattedTextHorarioFinal = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         JButtonBuscar = new javax.swing.JButton();
         JButtonCadastrar = new javax.swing.JButton();
         painelPesquisaCursos = new javax.swing.JPanel();
-        scrollPesquisaCursos = new javax.swing.JScrollPane();
-        JListPesquisa = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTablePesquisa = new javax.swing.JTable();
         JButtonExcluir = new javax.swing.JButton();
@@ -148,112 +145,100 @@ public class JPanelTurmas extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setText("Horário Final.:");
 
-        JButtonIncluiHorario.setText("->");
-        JButtonIncluiHorario.addActionListener(new java.awt.event.ActionListener() {
+        JButtonIncluiAula.setText("->");
+        JButtonIncluiAula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JButtonIncluiHorarioActionPerformed(evt);
+                JButtonIncluiAulaActionPerformed(evt);
             }
         });
 
-        JListHorarios.setModel(new DefaultListModel());
-        jScrollPane2.setViewportView(JListHorarios);
-
-        JButtonRemoveHorario.setText("<-");
-        JButtonRemoveHorario.addActionListener(new java.awt.event.ActionListener() {
+        JButtonRemoveAula.setText("<-");
+        JButtonRemoveAula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JButtonRemoveHorarioActionPerformed(evt);
+                JButtonRemoveAulaActionPerformed(evt);
             }
         });
 
-        jLabel12.setText(":");
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(50, 50));
 
-        jLabel11.setText(":");
+        JTableAulas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jLabel13.setText("h");
+            },
+            new String [] {
+                "Horário Inicial", "Horário Final", "Dia Semana", "Sala"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jLabel14.setText("h");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JTableAulas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        JTableAulas.setShowHorizontalLines(false);
+        JTableAulas.setShowVerticalLines(false);
+        jScrollPane3.setViewportView(JTableAulas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9))
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JFormattedTextHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JComboBoxSala, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JComboBoxDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JFormattedTextHorarioInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JButtonIncluiAula)
+                    .addComponent(JButtonRemoveAula))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(11, 11, 11))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JComboBoxSala, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(JButtonIncluiAula)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JButtonRemoveAula))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(JComboBoxSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel9))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(JComboBoxDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(JSpinnerHF, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11)
-                                .addGap(46, 46, 46)
-                                .addComponent(jLabel14))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JSpinnerHI, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JComboBoxDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(JSpinnerMF, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                            .addComponent(JSpinnerMI))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13)))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JButtonIncluiHorario)
-                    .addComponent(JButtonRemoveHorario))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(JFormattedTextHorarioInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(JComboBoxSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7)
-                                .addComponent(JComboBoxDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel8)
-                                .addComponent(JSpinnerHI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(JSpinnerMI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12)
-                                .addComponent(jLabel13))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel9)
-                                .addComponent(JSpinnerHF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(JSpinnerMF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11)
-                                .addComponent(jLabel14)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addComponent(JButtonIncluiHorario)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(JButtonRemoveHorario))))
-                .addGap(31, 31, 31))
+                    .addComponent(jLabel9)
+                    .addComponent(JFormattedTextHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -309,7 +294,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(JComboBoxProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
         );
 
@@ -340,10 +325,6 @@ public class JPanelTurmas extends javax.swing.JPanel {
 
         painelPesquisaCursos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Resultado da Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 102, 102))); // NOI18N
 
-        JListPesquisa.setModel(new DefaultListModel());
-        JListPesquisa.setName("JListPesquisa"); // NOI18N
-        scrollPesquisaCursos.setViewportView(JListPesquisa);
-
         jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 100));
 
         JTablePesquisa.setModel(new javax.swing.table.DefaultTableModel(
@@ -351,14 +332,14 @@ public class JPanelTurmas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nome", "Quantidade de alunos", "Curso", "Disciplina", "Professor", "Dia da semana", "Hora Inicial", "Hora Final", "Sala"
+                "Nome", "Quantidade de alunos", "Curso", "Disciplina", "Professor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true, true
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -377,18 +358,11 @@ public class JPanelTurmas extends javax.swing.JPanel {
         painelPesquisaCursos.setLayout(painelPesquisaCursosLayout);
         painelPesquisaCursosLayout.setHorizontalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPesquisaCursosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(184, 184, 184))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
         );
         painelPesquisaCursosLayout.setVerticalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
-                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
         );
 
         JButtonExcluir.setText("Excluir");
@@ -429,7 +403,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
                         .addComponent(JButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -457,18 +431,18 @@ public class JPanelTurmas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCadastrarActionPerformed
-        DefaultListModel modelHorarios = (DefaultListModel) JListHorarios.getModel();
+        DefaultTableModel modelTableHorarios = (DefaultTableModel) JTableAulas.getModel();
         DefaultComboBoxModel modelDisciplinas = (DefaultComboBoxModel) JComboBoxDisciplina.getModel();
         DefaultComboBoxModel modelCursos = (DefaultComboBoxModel) JComboBoxCurso.getModel();
         DefaultComboBoxModel modelProfessores = (DefaultComboBoxModel) JComboBoxProfessor.getModel();
 
         if ((JTextNome.getText().equalsIgnoreCase(""))
-                && (JComboBoxCurso.getSelectedIndex() <= 0)
-                && (JComboBoxDisciplina.getSelectedIndex() <= 0)
-                && (JComboBoxProfessor.getSelectedIndex() <= 0)
-                && ((int) JSpinnerQuantidadeAlunos.getValue() > 1)
-                && (modelHorarios.getSize() <= 0)) {
-            JOptionPane.showMessageDialog(this, "Campos vazios!");
+                || (JComboBoxCurso.getSelectedIndex() <= 0)
+                || (JComboBoxDisciplina.getSelectedIndex() <= 0)
+                || (JComboBoxProfessor.getSelectedIndex() <= 0)
+                || ((int) JSpinnerQuantidadeAlunos.getValue() > 1)
+                || (modelTableHorarios.getRowCount() <= 0)) {
+            JOptionPane.showMessageDialog(this, "Algum campo vazio!");
             return;
         }
 
@@ -482,25 +456,33 @@ public class JPanelTurmas extends javax.swing.JPanel {
 
                 Turma turma = new TurmaController().buscaTurmaPorNomeEDisciplina(JTextNome.getText(), (Disciplina) modelDisciplinas.getSelectedItem());
 
-                for (int i = 0; i < modelHorarios.size(); i++) {
-                    Horario h = (Horario) modelHorarios.getElementAt(i);
-                    new HorarioController().salvar(h.getHorarioInicial(), h.getHorarioFinal(), h.getDiaSemana(), h.getSala(), turma);
+                for (int i = 0; i < modelTableHorarios.getRowCount(); i++) {
+                    Horario h = new Horario();
+                    h.setHorarioInicial((long) modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 0));
+                    h.setHorarioFinal((long) modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 1));
+                    new HorarioController().salvar(h.getHorarioInicial(), h.getHorarioFinal());
+
+                    Aula a = new Aula();
+                    a.setTurma(turma);
+                    a.setHorario(h);
+                    a.setDiaSemana(String.valueOf(modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 2)));
+                    if (!String.valueOf(modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 3)).isEmpty()) {
+                        a.setSala(new SalaController().buscaSalaPorNome(String.valueOf(modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 3))));
+                    }
+                    new AulaController().salvar(a.getDiaSemana(), a.getTurma(), a.getSala(), a.getHorario());
                 }
 
                 JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
-
             } catch (Exception ex) {
-                Logger.getLogger(JPanelTurmas.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Problemas no cadastro!");
             }
         }
 
         if (JButtonCadastrar.getText().equalsIgnoreCase("Alterar")) {
-
             if (idTurmaCorrente == 0) {
                 JOptionPane.showMessageDialog(this, "Nenhuma turma para ser alterado!");
                 return;
             }
-
             try {
                 new TurmaController().alterar(
                         idTurmaCorrente,
@@ -510,14 +492,25 @@ public class JPanelTurmas extends javax.swing.JPanel {
                         (Professor) modelProfessores.getSelectedItem(),
                         (Curso) modelCursos.getSelectedItem());
 
-                for (int i = 0; i < modelHorarios.size(); i++) {
-                    Horario h = (Horario) modelHorarios.getElementAt(i);
-                    if (h.getId() != -1) {
-                        new HorarioController().alterar(h.getId(), h.getHorarioInicial(), h.getHorarioFinal(), h.getDiaSemana(), (Sala) h.getSala(), (Turma) h.getTurma());
+                for (int i = 0; i < modelTableHorarios.getRowCount(); i++) {
+
+                    Horario h = new HorarioController().buscarPorHorarioInicialEFinal(
+                            (long) modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 0),
+                            (long) modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 1));
+
+                    if (h == null) {
+                        new HorarioController().salvar(
+                                (long) modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 0),
+                                (long) modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 1));
                     } else {
-                        new HorarioController().salvar(h.getHorarioInicial(), h.getHorarioFinal(), h.getDiaSemana(), (Sala) h.getSala(), (Turma) h.getTurma());
+                        new HorarioController().alterar(h.getId(), h.getHorarioInicial(), h.getHorarioFinal());
                     }
-                
+
+                    Aula a = new AulaController().buscarPorSalaHorarioeDiaSemana(
+                            (Sala) modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 3),
+                            h,
+                            String.valueOf(modelTableHorarios.getValueAt(JTableAulas.getSelectedRow(), 2)));
+
                 }
 
                 JOptionPane.showMessageDialog(this, "Alterado com sucesso!");
@@ -531,34 +524,39 @@ public class JPanelTurmas extends javax.swing.JPanel {
     }//GEN-LAST:event_JButtonCadastrarActionPerformed
 
     private void JButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirActionPerformed
-        if (JListPesquisa.getSelectedIndex() == -1) {
+        if (JTablePesquisa.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Nenhuma turma selecionada");
             return;
         }
 
         try {
-            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-            String textoSelecionado = (String) model.getElementAt(JListPesquisa.getSelectedIndex());
-            Long id = new TurmaController().buscaTurmaPorNome(textoSelecionado.split("/")[0]).getId();
-            new TurmaController().excluir(id);
-            model.remove(JListPesquisa.getSelectedIndex());
+            DefaultTableModel model = (DefaultTableModel) JTablePesquisa.getModel();
+
+            String nomeTurmaSelecionado = (String) model.getValueAt(JTablePesquisa.getSelectedRow(), 0);
+            String nomeDisciplinaSelecionado = (String) model.getValueAt(JTablePesquisa.getSelectedRow(), 3);
+
+            Disciplina disciplinaSelecionada = new DisciplinaController().buscaDisciplinaPorNome(nomeDisciplinaSelecionado);
+
+            Turma turma = new TurmaController().buscaTurmaPorNomeEDisciplina(nomeTurmaSelecionado, disciplinaSelecionada);
+
+            new TurmaController().excluir(turma.getId());
+            model.removeRow(JTablePesquisa.getSelectedRow());
 
         } catch (Exception ex) {
-            Logger.getLogger(JPanelCursos.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Problemas ao excluir turma!");
         }
     }//GEN-LAST:event_JButtonExcluirActionPerformed
 
     private void JButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlterarActionPerformed
 
-        if (JListPesquisa.getSelectedIndex() == -1) {
+        if (JTablePesquisa.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Nenhuma turma selecionada");
             return;
         }
 
         try {
-            DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-            Turma turma = (Turma) model.getElementAt(JListPesquisa.getSelectedIndex());
+            DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+            Turma turma = (Turma) modelTable.getValueAt(JTablePesquisa.getSelectedRow(), 0);
 
             this.JTextNome.setText(turma.getNome());
             this.JSpinnerQuantidadeAlunos.setValue(turma.getQuantidadeAlunos());
@@ -566,63 +564,67 @@ public class JPanelTurmas extends javax.swing.JPanel {
             this.JComboBoxDisciplina.setSelectedItem(turma.getDisciplina());
             this.JComboBoxProfessor.setSelectedItem(turma.getProfessor());
 
-            idTurmaCorrente = turma.getId();
-            model.remove(JListPesquisa.getSelectedIndex());
+            DefaultTableModel modelAulas = (DefaultTableModel) JTableAulas.getModel();
+            modelAulas.setRowCount(0);
 
-            DefaultListModel modelHorario = (DefaultListModel) JListHorarios.getModel();
-            modelHorario.clear();
-
-            List<Horario> horarios = new HorarioController().buscaTodosPorTurma(turma);
-            for (Horario h : horarios) {
-                modelHorario.addElement(h);
+            List<Aula> aulas = new AulaController().buscaTodosPorTurma(turma);
+            for (Aula a : aulas) {
+                modelAulas.addRow(new Object[]{a.getHorario().getHorarioInicial(), a.getHorario().getHorarioFinal(), a.getDiaSemana(), a.getSala()});
             }
 
+            listaAulasCorrente = aulas;
+            idTurmaCorrente = turma.getId();
+            modelTable.removeRow(JTablePesquisa.getSelectedRow());
+
         } catch (Exception ex) {
-            Logger.getLogger(JPanelCursos.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Problema ao alterar turma!");
         }
 
         definirLayout(EstadoTela.alterando);
     }//GEN-LAST:event_JButtonAlterarActionPerformed
 
-    private void JButtonIncluiHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonIncluiHorarioActionPerformed
-
+    private void JButtonIncluiAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonIncluiAulaActionPerformed
         DefaultComboBoxModel modelDiaSemana = (DefaultComboBoxModel) JComboBoxDiaSemana.getModel();
         DefaultComboBoxModel modelSala = (DefaultComboBoxModel) JComboBoxSala.getModel();
+
         Horario horario = new Horario();
+        horario.setHorarioInicial(Time.valueOf(JFormattedTextHorarioInicial.getText()).getTime());
+        horario.setHorarioFinal(Time.valueOf(JFormattedTextHorarioFinal.getText()).getTime());
 
-        horario.setDiaSemana(modelDiaSemana.getSelectedItem().toString());
-        horario.setHorarioInicial(JSpinnerHI.getValue() + ":" + JSpinnerMI.getValue());
-        horario.setHorarioFinal(JSpinnerHF.getValue() + ":" + JSpinnerMF.getValue());
-
+        Aula aula = new Aula();
+        aula.setHorario(horario);
+        aula.setDiaSemana(modelDiaSemana.getSelectedItem().toString());
         if (JComboBoxSala.getSelectedIndex() > 0) {
-            horario.setSala((Sala) modelSala.getSelectedItem());
+            aula.setSala((Sala) modelSala.getSelectedItem());
         }
 
-        DefaultListModel modelHorarios = (DefaultListModel) JListHorarios.getModel();
-        modelHorarios.addElement(horario);
+        DefaultTableModel modelAulas = (DefaultTableModel) JTableAulas.getModel();
+        modelAulas.addRow(new Object[]{aula.getHorario().getHorarioInicial().toString(), aula.getHorario().getHorarioFinal().toString(), aula.getDiaSemana(), aula.getSala()});
+    }//GEN-LAST:event_JButtonIncluiAulaActionPerformed
 
-    }//GEN-LAST:event_JButtonIncluiHorarioActionPerformed
-
-    private void JButtonRemoveHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonRemoveHorarioActionPerformed
+    private void JButtonRemoveAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonRemoveAulaActionPerformed
         DefaultComboBoxModel modelDiaSemana = (DefaultComboBoxModel) JComboBoxDiaSemana.getModel();
         DefaultComboBoxModel modelSala = (DefaultComboBoxModel) JComboBoxSala.getModel();
-        DefaultListModel modelHorarios = (DefaultListModel) JListHorarios.getModel();
+        DefaultTableModel modelAulas = (DefaultTableModel) JTableAulas.getModel();
 
-        Horario horario = (Horario) modelHorarios.getElementAt(JListHorarios.getSelectedIndex());
+        Horario horario = new Horario();
+        horario.setHorarioInicial(Time.valueOf(modelAulas.getValueAt(JTableAulas.getSelectedRow(), 0).toString()).getTime());
+        horario.setHorarioFinal(Time.valueOf(modelAulas.getValueAt(JTableAulas.getSelectedRow(), 1).toString()).getTime());
 
-        modelDiaSemana.setSelectedItem(horario.getDiaSemana());
-        if (horario.getSala() != null) {
-            modelSala.setSelectedItem(horario.getSala());
+        Aula aula = new Aula();
+        aula.setHorario(horario);
+        aula.setDiaSemana(modelAulas.getValueAt(JTableAulas.getSelectedRow(), 2).toString());
+        aula.setSala((Sala) modelAulas.getValueAt(JTableAulas.getSelectedRow(), 2));
+
+        modelDiaSemana.setSelectedItem(aula.getDiaSemana());
+        JFormattedTextHorarioInicial.setText(aula.getHorario().getHorarioInicial().toString());
+        JFormattedTextHorarioFinal.setText(aula.getHorario().getHorarioFinal().toString());
+        if (aula.getSala() != null) {
+            modelSala.setSelectedItem(aula.getSala());
         }
 
-        JSpinnerHI.setValue(Integer.parseInt(horario.getHorarioInicial().split(":")[0]));
-        JSpinnerMI.setValue(Integer.parseInt(horario.getHorarioInicial().split(":")[1]));
-        JSpinnerHF.setValue(Integer.parseInt(horario.getHorarioFinal().split(":")[0]));
-        JSpinnerMF.setValue(Integer.parseInt(horario.getHorarioFinal().split(":")[1]));
-
-        modelHorarios.remove(JListHorarios.getSelectedIndex());
-    }//GEN-LAST:event_JButtonRemoveHorarioActionPerformed
+        modelAulas.removeRow(JTableAulas.getSelectedRow());
+    }//GEN-LAST:event_JButtonRemoveAulaActionPerformed
 
     private void JComboBoxCursoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JComboBoxCursoItemStateChanged
         DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
@@ -636,7 +638,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
 
     private void JButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonBuscarActionPerformed
 
-        DefaultListModel modelHorarios = (DefaultListModel) JListHorarios.getModel();
+        DefaultTableModel modelAulas = (DefaultTableModel) JTableAulas.getModel();
         DefaultComboBoxModel modelDisciplinas = (DefaultComboBoxModel) JComboBoxDisciplina.getModel();
         DefaultComboBoxModel modelCursos = (DefaultComboBoxModel) JComboBoxCurso.getModel();
         DefaultComboBoxModel modelProfessores = (DefaultComboBoxModel) JComboBoxProfessor.getModel();
@@ -646,8 +648,8 @@ public class JPanelTurmas extends javax.swing.JPanel {
             if ((JTextNome.getText().equalsIgnoreCase(""))
                     && (JComboBoxCurso.getSelectedIndex() <= 0)
                     && (JComboBoxDisciplina.getSelectedIndex() <= 0)
-                    && (JComboBoxProfessor.getSelectedIndex() <= 0)                    
-                    && (modelHorarios.getSize() <= 0)) {
+                    && (JComboBoxProfessor.getSelectedIndex() <= 0)
+                    && (modelAulas.getRowCount() <= 0)) {
 
                 turmasBuscadas = new ArrayList<>(new TurmaController().listaTurmas());
 
@@ -673,19 +675,20 @@ public class JPanelTurmas extends javax.swing.JPanel {
 
             }
         } catch (Exception ex) {
-            Logger.getLogger(JPanelTurmas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JPanelTurmas.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         if (turmasBuscadas.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhum curso encontrado!");
+            JOptionPane.showMessageDialog(this, "Nenhuma turma encontrada!");
             return;
         }
 
-        DefaultListModel model = (DefaultListModel) JListPesquisa.getModel();
-        model.clear();
+        DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+        modelTable.setRowCount(0);
 
         for (Turma t : turmasBuscadas) {
-            model.addElement(t);
-        }
+            modelTable.addRow(new Object[]{t.getNome(), t.getQuantidadeAlunos(), t.getCurso(), t.getDisciplina(), t.getProfessor()});
+        }        
 
         definirLayout(EstadoTela.inicial);
     }//GEN-LAST:event_JButtonBuscarActionPerformed
@@ -696,28 +699,21 @@ public class JPanelTurmas extends javax.swing.JPanel {
     private javax.swing.JButton JButtonBuscar;
     private javax.swing.JButton JButtonCadastrar;
     private javax.swing.JButton JButtonExcluir;
-    private javax.swing.JButton JButtonIncluiHorario;
-    private javax.swing.JButton JButtonRemoveHorario;
+    private javax.swing.JButton JButtonIncluiAula;
+    private javax.swing.JButton JButtonRemoveAula;
     private javax.swing.JComboBox JComboBoxCurso;
     private javax.swing.JComboBox JComboBoxDiaSemana;
     private javax.swing.JComboBox JComboBoxDisciplina;
     private javax.swing.JComboBox JComboBoxProfessor;
     private javax.swing.JComboBox JComboBoxSala;
-    private javax.swing.JList JListHorarios;
-    private javax.swing.JList JListPesquisa;
-    private javax.swing.JSpinner JSpinnerHF;
-    private javax.swing.JSpinner JSpinnerHI;
-    private javax.swing.JSpinner JSpinnerMF;
-    private javax.swing.JSpinner JSpinnerMI;
+    private javax.swing.JFormattedTextField JFormattedTextHorarioFinal;
+    private javax.swing.JFormattedTextField JFormattedTextHorarioInicial;
     private javax.swing.JSpinner JSpinnerQuantidadeAlunos;
+    private javax.swing.JTable JTableAulas;
     private javax.swing.JTable JTablePesquisa;
     private javax.swing.JTextField JTextNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -729,12 +725,11 @@ public class JPanelTurmas extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel painelPesquisaCursos;
-    private javax.swing.JScrollPane scrollPesquisaCursos;
     // End of variables declaration//GEN-END:variables
 
-    public void configInicial() {
+    private void configInicial() {
         Color c = new Color(this.getBackground().getRGB());
 
         this.JButtonAlterar.setBackground(c);
@@ -743,7 +738,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         this.JButtonExcluir.setBackground(c);
     }
 
-    public void definirLayout(EstadoTela estado) {
+    private void definirLayout(EstadoTela estado) {
         estadoTela = estado;
 
         if (estadoTela.equals(EstadoTela.inicial)) {
@@ -769,10 +764,10 @@ public class JPanelTurmas extends javax.swing.JPanel {
             JButtonCadastrar.setEnabled(true);
 
             JButtonCadastrar.setText("Alterar");
-        }                
+        }
     }
 
-    public void preencherComboCurso() {
+    private void preencherComboCurso() {
         DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
         modelCurso.removeAllElements();
 
@@ -793,7 +788,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         modelCurso.setSelectedItem(mensagem);
     }
 
-    public void preencherComboDisciplina(Curso curso) {
+    private void preencherComboDisciplina(Curso curso) {
         try {
             DefaultComboBoxModel modelDisciplina = (DefaultComboBoxModel) JComboBoxDisciplina.getModel();
             modelDisciplina.removeAllElements();
@@ -808,12 +803,14 @@ public class JPanelTurmas extends javax.swing.JPanel {
             }
 
             modelDisciplina.setSelectedItem(mensagem);
+
         } catch (Exception ex) {
-            Logger.getLogger(JPanelTurmas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JPanelTurmas.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void preencherComboProfessores() {
+    private void preencherComboProfessores() {
         DefaultComboBoxModel modelProfessores = (DefaultComboBoxModel) JComboBoxProfessor.getModel();
         modelProfessores.removeAllElements();
 
@@ -834,7 +831,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         modelProfessores.setSelectedItem(mensagem);
     }
 
-    public void preencherComboDiaSemana() {
+    private void preencherComboDiaSemana() {
         DefaultComboBoxModel modelDiaSemana = (DefaultComboBoxModel) JComboBoxDiaSemana.getModel();
         String mensagem = "Preenche dia semana!";
         modelDiaSemana.addElement(mensagem);
@@ -848,7 +845,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         modelDiaSemana.setSelectedItem(mensagem);
     }
 
-    public void preencherComboSalas() {
+    private void preencherComboSalas() {
         try {
             DefaultComboBoxModel modelSalas = (DefaultComboBoxModel) JComboBoxSala.getModel();
             String mensagem = "Preenche dia semana!";
@@ -861,8 +858,10 @@ public class JPanelTurmas extends javax.swing.JPanel {
             }
 
             modelSalas.setSelectedItem(mensagem);
+
         } catch (Exception ex) {
-            Logger.getLogger(JPanelTurmas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JPanelTurmas.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
