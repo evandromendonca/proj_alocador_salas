@@ -361,7 +361,7 @@ public class JPanelSalas extends javax.swing.JPanel {
         modelTable.setRowCount(0);
 
         for (Sala s : salasBuscados) {
-            modelTable.addRow(new Object[]{s.getNome(), s.getQuantidadeUtil()});
+            modelTable.addRow(new Object[]{s, s.getQuantidadeUtil()});
         }
 
         definirLayout(EstadoTela.inicial);

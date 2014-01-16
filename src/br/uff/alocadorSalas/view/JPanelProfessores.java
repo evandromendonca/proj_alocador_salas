@@ -302,7 +302,7 @@ public class JPanelProfessores extends javax.swing.JPanel {
         DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
         modelTable.setRowCount(0);
         for (Professor p : professoresBuscados) {
-            modelTable.addRow(new Object[]{p.getNome()});
+            modelTable.addRow(new Object[]{p});
         }
 
         definirLayout(EstadoTela.inicial);

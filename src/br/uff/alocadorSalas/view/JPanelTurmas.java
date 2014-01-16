@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -440,7 +439,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
                 || (JComboBoxCurso.getSelectedIndex() <= 0)
                 || (JComboBoxDisciplina.getSelectedIndex() <= 0)
                 || (JComboBoxProfessor.getSelectedIndex() <= 0)
-                || ((int) JSpinnerQuantidadeAlunos.getValue() > 1)
+                || ((int) JSpinnerQuantidadeAlunos.getValue() < 1)
                 || (modelTableHorarios.getRowCount() <= 0)) {
             JOptionPane.showMessageDialog(this, "Algum campo vazio!");
             return;
@@ -596,10 +595,10 @@ public class JPanelTurmas extends javax.swing.JPanel {
         aula.setDiaSemana(modelDiaSemana.getSelectedItem().toString());
         if (JComboBoxSala.getSelectedIndex() > 0) {
             aula.setSala((Sala) modelSala.getSelectedItem());
-        }
-
+        }        
+        
         DefaultTableModel modelAulas = (DefaultTableModel) JTableAulas.getModel();
-        modelAulas.addRow(new Object[]{aula.getHorario().getHorarioInicial().toString(), aula.getHorario().getHorarioFinal().toString(), aula.getDiaSemana(), aula.getSala()});
+        modelAulas.addRow(new Object[]{new Time(aula.getHorario().getHorarioInicial()).toString(), new Time(aula.getHorario().getHorarioFinal()).toString(), aula.getDiaSemana(), aula.getSala()});
     }//GEN-LAST:event_JButtonIncluiAulaActionPerformed
 
     private void JButtonRemoveAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonRemoveAulaActionPerformed
@@ -614,7 +613,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         Aula aula = new Aula();
         aula.setHorario(horario);
         aula.setDiaSemana(modelAulas.getValueAt(JTableAulas.getSelectedRow(), 2).toString());
-        aula.setSala((Sala) modelAulas.getValueAt(JTableAulas.getSelectedRow(), 2));
+        aula.setSala((Sala) modelAulas.getValueAt(JTableAulas.getSelectedRow(), 3));
 
         modelDiaSemana.setSelectedItem(aula.getDiaSemana());
         JFormattedTextHorarioInicial.setText(aula.getHorario().getHorarioInicial().toString());

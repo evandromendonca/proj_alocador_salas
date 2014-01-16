@@ -283,7 +283,7 @@ public class JPanelCursos extends javax.swing.JPanel {
         DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
         modelTable.setRowCount(0);
         for (Curso c : cursosBuscados) {
-            modelTable.addRow(new Object[]{c.getNome(), c.getSigla(), c.getQuantidadePeriodos()});
+            modelTable.addRow(new Object[]{c, c.getSigla(), c.getQuantidadePeriodos()});
         }
 
         definirLayout(EstadoTela.inicial);

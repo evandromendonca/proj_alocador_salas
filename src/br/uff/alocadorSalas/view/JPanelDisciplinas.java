@@ -299,7 +299,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
         modelTable.setRowCount(0);
         for (Disciplina d : disciplinasBuscados) {
-            modelTable.addRow(new Object[]{d.getNome(), d.getCodigo(), d.getCurso(), d.getPeriodoAssociado()});
+            modelTable.addRow(new Object[]{d, d.getCodigo(), d.getCurso(), d.getPeriodoAssociado()});
         }
 
         definirLayout(EstadoTela.inicial);
