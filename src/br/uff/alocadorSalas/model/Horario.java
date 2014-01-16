@@ -7,12 +7,7 @@ package br.uff.alocadorSalas.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -23,12 +18,15 @@ import javax.persistence.Table;
 public class Horario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+    
     @Column(name = "horarioInicial", nullable = false)
     private String horarioInicial;
 
-    @Id
     @Column(name = "horarioFinal", nullable = false)
     private String horarioFinal;
 
@@ -94,6 +92,20 @@ public class Horario implements Serializable {
     @Override
     public String toString() {
         return this.getHorarioInicial() + " " + this.getHorarioFinal();
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

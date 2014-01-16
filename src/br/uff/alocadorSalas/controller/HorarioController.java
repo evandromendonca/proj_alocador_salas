@@ -10,25 +10,19 @@ import javax.swing.JOptionPane;
 
 public class HorarioController {
 
-    public void salvar(String horarioInicial, String horarioFinal, String diaSemanha, Sala sala, Turma turma) throws Exception {
+    public void salvar(String horarioInicial, String horarioFinal) throws Exception {
         Horario horario = new Horario();
         horario.setHorarioInicial(horarioInicial);
         horario.setHorarioFinal(horarioFinal);
-        horario.setDiaSemana(diaSemanha);
-        horario.setSala(sala);
-        horario.setTurma(turma);
 
         new HorarioDao().salvar(horario);
     }
 
-    public void alterar(long id, String horarioInicial, String horarioFinal, String diaSemanha, Sala sala, Turma turma) throws Exception {
+    public void alterar(long id, String horarioInicial, String horarioFinal) throws Exception {
         Horario horario = new Horario();
         horario.setId(id);
         horario.setHorarioInicial(horarioInicial);
         horario.setHorarioFinal(horarioFinal);
-        horario.setDiaSemana(diaSemanha);
-        horario.setSala(sala);
-        horario.setTurma(turma);
 
         new HorarioDao().alterar(horario);
     }    
@@ -57,10 +51,10 @@ public class HorarioController {
         return null;
     }
     
-    public List<Horario> buscaTodosPorHorarioEDiaSemana(String horario, String diaSemana, Sala sala) {
+    public Horario buscarPorHorarioInicialEFinal(String horarioInicial, String horarioFinal) {
         HorarioDao dao = new HorarioDao();
         try {
-            return dao.buscaTodosPorHorarioEDiaSemana(horario, diaSemana, sala);
+            return dao.buscarPorHorarioInicialEFinal(horarioInicial,horarioFinal);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar horarios" + e.getLocalizedMessage());
         }

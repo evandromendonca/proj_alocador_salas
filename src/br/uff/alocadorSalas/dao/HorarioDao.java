@@ -17,8 +17,8 @@ public class HorarioDao extends GenericoDao<Horario> {
         super.alterar(horario);
     }
 
-    public void excluir(String horarioInicial, String horarioFinal) throws Exception {
-        Horario horario = buscarPorHorarioInicialEFinal(horarioInicial, horarioFinal);
+    public void excluir(Long id) throws Exception {
+        Horario horario = buscarPorId(id);
         super.excluir(horario);
     }
 
