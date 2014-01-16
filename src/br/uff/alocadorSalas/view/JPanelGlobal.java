@@ -87,6 +87,9 @@ public class JPanelGlobal extends javax.swing.JPanel {
 
         if (nomeBotao.equalsIgnoreCase("JButtonInicial")) {
 
+            JPanelInicial panelInicial = new JPanelInicial();
+            panelInicial.setVisible(true);
+            
             JPanelTela.setVisible(true);
             JPanelTela.setLayout(new java.awt.BorderLayout());
             JPanelTela.removeAll();

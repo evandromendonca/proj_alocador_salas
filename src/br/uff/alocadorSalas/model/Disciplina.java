@@ -8,6 +8,7 @@ package br.uff.alocadorSalas.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,13 +30,20 @@ public class Disciplina implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "nome", nullable = false, unique = true)
     private String nome;
+
+    @Column(name = "periodoAssociado", nullable = false)
     private int periodoAssociado;
+
+    @Column(name = "codigo", nullable = false, unique = true)
     private String codigo;
 
     @ManyToOne
-    @JoinColumn(name = "id_curso")
+    @JoinColumn(name = "id_curso", referencedColumnName = "id", nullable = false)
     private Curso curso;
 
     @OneToMany(mappedBy = "disciplina", targetEntity = Turma.class, cascade = CascadeType.ALL)
@@ -109,6 +117,20 @@ public class Disciplina implements Serializable {
      */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    /**
+     * @return the turmas
+     */
+    public List<Turma> getTurmas() {
+        return turmas;
+    }
+
+    /**
+     * @param turmas the turmas to set
+     */
+    public void setTurmas(List<Turma> turmas) {
+        this.turmas = turmas;
     }
 
     @Override

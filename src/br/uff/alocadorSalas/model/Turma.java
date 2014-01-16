@@ -8,9 +8,8 @@ package br.uff.alocadorSalas.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,43 +22,45 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TURMAS")
-public class Turma implements Serializable, Comparable<Turma>{
+public class Turma implements Serializable, Comparable<Turma> {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String nome;
+    @Column(name = "quantidadeAlunos", nullable = false)
     private int quantidadeAlunos;
 
+    @Id
+    @Column(name = "nome", nullable = false)
+    private String nome;
+
+    @Id
     @ManyToOne
-    @JoinColumn(name = "id_disciplina")
+    @JoinColumn(name = "id_disciplina", referencedColumnName = "id", nullable = false)
     private Disciplina disciplina;
 
     @ManyToOne
-    @JoinColumn(name = "id_professor")
+    @JoinColumn(name = "id_professor", referencedColumnName = "id", nullable = false)
     private Professor professor;
-    
+
     @ManyToOne
-    @JoinColumn(name = "id_curso")
+    @JoinColumn(name = "id_curso", referencedColumnName = "id", nullable = false)
     private Curso curso;
 
-    @OneToMany(mappedBy = "sala", targetEntity = Horario.class, cascade = CascadeType.ALL)
-    private List<Horario> horarios;    
+    @OneToMany(mappedBy = "turma", targetEntity = Aula.class, cascade = CascadeType.ALL)
+    private List<Aula> aulas;
 
     /**
-     * @return the id
+     * @return the quantidadeAlunos
      */
-    public Long getId() {
-        return id;
+    public int getQuantidadeAlunos() {
+        return quantidadeAlunos;
     }
 
     /**
-     * @param id the id to set
+     * @param quantidadeAlunos the quantidadeAlunos to set
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setQuantidadeAlunos(int quantidadeAlunos) {
+        this.quantidadeAlunos = quantidadeAlunos;
     }
 
     /**
@@ -91,20 +92,6 @@ public class Turma implements Serializable, Comparable<Turma>{
     }
 
     /**
-     * @return the quantidadeAlunos
-     */
-    public int getQuantidadeAlunos() {
-        return quantidadeAlunos;
-    }
-
-    /**
-     * @param quantidadeAlunos the quantidadeAlunos to set
-     */
-    public void setQuantidadeAlunos(int quantidadeAlunos) {
-        this.quantidadeAlunos = quantidadeAlunos;
-    }
-
-    /**
      * @return the professor
      */
     public Professor getProfessor() {
@@ -119,20 +106,6 @@ public class Turma implements Serializable, Comparable<Turma>{
     }
 
     /**
-     * @return the horarios
-     */
-    public List<Horario> getHorarios() {
-        return horarios;
-    }
-
-    /**
-     * @param horarios the horarios to set
-     */
-    public void setHorarios(List<Horario> horarios) {
-        this.horarios = horarios;
-    }
-    
-    /**
      * @return the curso
      */
     public Curso getCurso() {
@@ -146,10 +119,24 @@ public class Turma implements Serializable, Comparable<Turma>{
         this.curso = curso;
     }
 
+    /**
+     * @return the aulas
+     */
+    public List<Aula> getAulas() {
+        return aulas;
+    }
+
+    /**
+     * @param aulas the aulas to set
+     */
+    public void setAulas(List<Aula> aulas) {
+        this.aulas = aulas;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getId() != null ? getId().hashCode() : 0);
+        hash += (getNome() != null ? getNome().hashCode() : 0);
         return hash;
     }
 
@@ -160,18 +147,17 @@ public class Turma implements Serializable, Comparable<Turma>{
             return false;
         }
         Turma other = (Turma) object;
-        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
+        if ((this.getNome() == null && other.getNome() != null) || (this.getNome() != null && !this.nome.equals(other.nome))) {
             return false;
         }
         return true;
     }
-    
+
     @Override
     public int compareTo(Turma turma) {
-        if(this.getQuantidadeAlunos() > turma.getQuantidadeAlunos()){
+        if (this.getQuantidadeAlunos() > turma.getQuantidadeAlunos()) {
             return -1;
-        }
-        else if(this.getQuantidadeAlunos() < turma.getQuantidadeAlunos()){
+        } else if (this.getQuantidadeAlunos() < turma.getQuantidadeAlunos()) {
             return 1;
         }
         return 0;
@@ -180,6 +166,6 @@ public class Turma implements Serializable, Comparable<Turma>{
     @Override
     public String toString() {
         return this.getNome() + "/" + "/" + this.getDisciplina() + "/" + this.getCurso() + "/" + this.getProfessor();
-    }    
+    }
 
 }

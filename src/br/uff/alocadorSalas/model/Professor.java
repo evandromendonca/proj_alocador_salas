@@ -1,12 +1,14 @@
 package br.uff.alocadorSalas.model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,10 +23,15 @@ public class Professor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "nome", nullable = false, unique = true)
     private String nome;
 
-    
+    @OneToMany(mappedBy = "professor", targetEntity = Turma.class, cascade = CascadeType.ALL)
+    private List<Turma> turmas;
+
     /**
      * @return the id
      */
@@ -51,6 +58,20 @@ public class Professor implements Serializable {
      */
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    /**
+     * @return the turmas
+     */
+    public List<Turma> getTurmas() {
+        return turmas;
+    }
+
+    /**
+     * @param turmas the turmas to set
+     */
+    public void setTurmas(List<Turma> turmas) {
+        this.turmas = turmas;
     }
 
     @Override

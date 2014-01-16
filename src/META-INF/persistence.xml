@@ -8,6 +8,7 @@
     <class>br.uff.alocadorSalas.model.Horario</class>
     <class>br.uff.alocadorSalas.model.Sala</class>
     <class>br.uff.alocadorSalas.model.Turma</class>
+    <class>br.uff.alocadorSalas.model.Aula</class>
     <properties>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

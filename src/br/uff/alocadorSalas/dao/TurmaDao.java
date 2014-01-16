@@ -9,20 +9,22 @@ import org.hibernate.criterion.Restrictions;
 
 public class TurmaDao extends GenericoDao<Turma> {
 
-    public void salvar(Turma turma) {
-        salvar(turma);
+    @Override
+    public void salvar(Turma turma) throws Exception {
+        super.salvar(turma);
     }
 
-    public void alterar(Turma turma) {
-        alterar(turma);
+    @Override
+    public void alterar(Turma turma) throws Exception {
+        super.alterar(turma);
     }
 
-    public void excluir(long id) {
-        Turma turma = buscarPorId(id);
-        excluir(turma);
+    public void excluir(String nome, Disciplina disciplina) throws Exception {
+        Turma turma = buscarPorNomeEDisciplina(nome, disciplina);
+        super.excluir(turma);
     }
     
-    public Turma buscarPorNomeESigla(String nome, Disciplina disciplina) {
+    public Turma buscarPorNomeEDisciplina(String nome, Disciplina disciplina) {
 
         Class<Turma> persistent = (Class<Turma>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         Session session = (Session) getEntityManager().getDelegate();
@@ -33,7 +35,7 @@ public class TurmaDao extends GenericoDao<Turma> {
                 )).uniqueResult();
     }
 
-    public List<Turma> buscarTodasPorNomeESigla(String nome, Disciplina disciplina) {
+    public List<Turma> buscarTodasPorNomeEDisciplina(String nome, Disciplina disciplina) {
 
         Class<Turma> persistent = (Class<Turma>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         Session session = (Session) getEntityManager().getDelegate();

@@ -4,17 +4,19 @@ import br.uff.alocadorSalas.model.Sala;
 
 public class SalaDao extends GenericoDao<Sala> {
 
-    public void salvar(Sala sala) {
-        salvar(sala);
+    @Override
+    public void salvar(Sala sala) throws Exception {
+        super.salvar(sala);
     }
 
-    public void alterar(Sala sala) {
-        alterar(sala);
+    @Override
+    public void alterar(Sala sala) throws Exception {
+        super.alterar(sala);
     }
 
-    public void excluir(long id) {
+    public void excluir(long id) throws Exception {
         Sala sala = buscarPorId(id);
-        excluir(sala);
+        super.excluir(sala);
     }
 
 }

@@ -8,6 +8,7 @@ package br.uff.alocadorSalas.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,12 +28,17 @@ public class Sala implements Serializable, Comparable<Sala> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "nome", nullable = false, unique = true)
     private String nome;
+
+    @Column(name = "quantidadeUtil", nullable = false)
     private int quantidadeUtil;
 
-    @OneToMany(mappedBy = "sala", targetEntity = Horario.class, cascade = CascadeType.ALL)
-    private List<Horario> horarios;
+    @OneToMany(mappedBy = "sala", targetEntity = Aula.class, cascade = CascadeType.ALL)
+    private List<Aula> aulas;
 
     /**
      * @return the id
@@ -77,17 +83,17 @@ public class Sala implements Serializable, Comparable<Sala> {
     }
 
     /**
-     * @return the horarios
+     * @return the aulas
      */
-    public List<Horario> getHorarios() {
-        return horarios;
+    public List<Aula> getAulas() {
+        return aulas;
     }
 
     /**
-     * @param horarios the horarios to set
+     * @param aulas the aulas to set
      */
-    public void setHorarios(List<Horario> horarios) {
-        this.horarios = horarios;
+    public void setAulas(List<Aula> aulas) {
+        this.aulas = aulas;
     }
 
     @Override
@@ -112,15 +118,14 @@ public class Sala implements Serializable, Comparable<Sala> {
 
     @Override
     public int compareTo(Sala sala) {
-        if(this.getQuantidadeUtil() > sala.getQuantidadeUtil()){
+        if (this.getQuantidadeUtil() > sala.getQuantidadeUtil()) {
             return -1;
-        }
-        else if(this.getQuantidadeUtil() < sala.getQuantidadeUtil()){
+        } else if (this.getQuantidadeUtil() < sala.getQuantidadeUtil()) {
             return 1;
         }
         return 0;
     }
-    
+
     @Override
     public String toString() {
         return getNome();

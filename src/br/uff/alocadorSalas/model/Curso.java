@@ -3,6 +3,7 @@ package br.uff.alocadorSalas.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,52 +11,30 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- * Esta classe é utilizada para simular um Curso de uma universidade.
- * <p>
- * Um exemplo de sua utilização é simular o curso de 'Ciência da Computação'.
- *
- * @author Mareana Pereira
- *
- */
 @Entity
 @Table(name = "CURSOS")
 public class Curso implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Id do Curso utilizado como chave primária
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    /**
-     * Nome do Curso
-     */
+    @Column(name="nome", nullable = false, unique = true)
     private String nome;
 
-    /**
-     * Sigla do Curso
-     */
+    @Column(name="sigla", nullable = false)
     private String sigla;
 
-    /**
-     * Quantidade de períodos do Curso
-     */
+    @Column(name="quantidadePeriodos", nullable = false)
     private int quantidadePeriodos;
 
-    /**
-     * Lista de Disciplinas do Curso
-     */
     @OneToMany(mappedBy = "curso", targetEntity = Disciplina.class, cascade = CascadeType.ALL)
     private List<Disciplina> disciplinas;
 
-    /**
-     * Lista de Turmas do Curso
-     */
-    @OneToMany(mappedBy = "curso", targetEntity = Disciplina.class, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "curso", targetEntity = Turma.class, cascade = CascadeType.ALL)
     private List<Turma> turmas;
 
     /**
