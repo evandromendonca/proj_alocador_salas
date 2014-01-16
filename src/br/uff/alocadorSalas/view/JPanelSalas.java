@@ -57,6 +57,8 @@ public class JPanelSalas extends javax.swing.JPanel {
         painelPesquisaCursos = new javax.swing.JPanel();
         scrollPesquisaCursos = new javax.swing.JScrollPane();
         JListPesquisa = new javax.swing.JList();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JTablePesquisa = new javax.swing.JTable();
 
         setMaximumSize(new java.awt.Dimension(700, 600));
         setMinimumSize(new java.awt.Dimension(700, 600));
@@ -176,21 +178,54 @@ public class JPanelSalas extends javax.swing.JPanel {
         JListPesquisa.setName("JListPesquisa"); // NOI18N
         scrollPesquisaCursos.setViewportView(JListPesquisa);
 
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 100));
+
+        JTablePesquisa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Quantidade máxima de alunos"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JTablePesquisa.setShowHorizontalLines(false);
+        JTablePesquisa.setShowVerticalLines(false);
+        jScrollPane1.setViewportView(JTablePesquisa);
+
         javax.swing.GroupLayout painelPesquisaCursosLayout = new javax.swing.GroupLayout(painelPesquisaCursos);
         painelPesquisaCursos.setLayout(painelPesquisaCursosLayout);
         painelPesquisaCursosLayout.setHorizontalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPesquisaCursos)
+                .addGroup(painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelPesquisaCursosLayout.setVerticalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -344,10 +379,12 @@ public class JPanelSalas extends javax.swing.JPanel {
     private javax.swing.JButton JButtonExcluir;
     private javax.swing.JList JListPesquisa;
     private javax.swing.JSpinner JSpinnerQuantidadeAlunos;
+    private javax.swing.JTable JTablePesquisa;
     private javax.swing.JTextField JTextNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel painelPesquisaCursos;
     private javax.swing.JPanel panelBotoesAcao;
     private javax.swing.JScrollPane scrollPesquisaCursos;

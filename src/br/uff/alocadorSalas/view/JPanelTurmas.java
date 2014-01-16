@@ -99,6 +99,8 @@ public class JPanelTurmas extends javax.swing.JPanel {
         painelPesquisaCursos = new javax.swing.JPanel();
         scrollPesquisaCursos = new javax.swing.JScrollPane();
         JListPesquisa = new javax.swing.JList();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JTablePesquisa = new javax.swing.JTable();
         JButtonExcluir = new javax.swing.JButton();
         JButtonAlterar = new javax.swing.JButton();
 
@@ -286,7 +288,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(JTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -342,20 +344,51 @@ public class JPanelTurmas extends javax.swing.JPanel {
         JListPesquisa.setName("JListPesquisa"); // NOI18N
         scrollPesquisaCursos.setViewportView(JListPesquisa);
 
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 100));
+
+        JTablePesquisa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Quantidade de alunos", "Curso", "Disciplina", "Professor", "Dia da semana", "Hora Inicial", "Hora Final", "Sala"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true, true, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JTablePesquisa.setShowHorizontalLines(false);
+        JTablePesquisa.setShowVerticalLines(false);
+        jScrollPane1.setViewportView(JTablePesquisa);
+
         javax.swing.GroupLayout painelPesquisaCursosLayout = new javax.swing.GroupLayout(painelPesquisaCursos);
         painelPesquisaCursos.setLayout(painelPesquisaCursosLayout);
         painelPesquisaCursosLayout.setHorizontalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPesquisaCursos)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPesquisaCursosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(184, 184, 184))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelPesquisaCursosLayout.setVerticalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                .addComponent(scrollPesquisaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         JButtonExcluir.setText("Excluir");
@@ -396,7 +429,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
                         .addComponent(JButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
                         .addComponent(JButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -419,7 +452,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
                         .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(JButtonAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(JButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(13, 13, 13))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -677,6 +710,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
     private javax.swing.JSpinner JSpinnerMF;
     private javax.swing.JSpinner JSpinnerMI;
     private javax.swing.JSpinner JSpinnerQuantidadeAlunos;
+    private javax.swing.JTable JTablePesquisa;
     private javax.swing.JTextField JTextNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -694,6 +728,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel painelPesquisaCursos;
     private javax.swing.JScrollPane scrollPesquisaCursos;
