@@ -42,7 +42,6 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonDisciplinas = new javax.swing.JButton();
         JButtonTurmas = new javax.swing.JButton();
         JButtonAlocar = new javax.swing.JButton();
-        JButtonGrade = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(100, 600));
         setMinimumSize(new java.awt.Dimension(100, 600));
@@ -52,10 +51,10 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonInicio.setAlignmentY(0.0F);
         JButtonInicio.setBorder(null);
         JButtonInicio.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        JButtonInicio.setMaximumSize(new java.awt.Dimension(100, 40));
-        JButtonInicio.setMinimumSize(new java.awt.Dimension(100, 40));
+        JButtonInicio.setMaximumSize(new java.awt.Dimension(100, 85));
+        JButtonInicio.setMinimumSize(new java.awt.Dimension(100, 85));
         JButtonInicio.setName("JButtonInicio"); // NOI18N
-        JButtonInicio.setPreferredSize(new java.awt.Dimension(100, 40));
+        JButtonInicio.setPreferredSize(new java.awt.Dimension(100, 85));
         JButtonInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButtonInicioActionPerformed(evt);
@@ -66,10 +65,10 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonSalas.setAlignmentY(0.0F);
         JButtonSalas.setBorder(null);
         JButtonSalas.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        JButtonSalas.setMaximumSize(new java.awt.Dimension(100, 80));
-        JButtonSalas.setMinimumSize(new java.awt.Dimension(100, 80));
+        JButtonSalas.setMaximumSize(new java.awt.Dimension(100, 85));
+        JButtonSalas.setMinimumSize(new java.awt.Dimension(100, 85));
         JButtonSalas.setName("JButtonSalas"); // NOI18N
-        JButtonSalas.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonSalas.setPreferredSize(new java.awt.Dimension(100, 85));
         JButtonSalas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButtonSalasActionPerformed(evt);
@@ -80,10 +79,10 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonCursos.setAlignmentY(0.0F);
         JButtonCursos.setBorder(null);
         JButtonCursos.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        JButtonCursos.setMaximumSize(new java.awt.Dimension(100, 80));
-        JButtonCursos.setMinimumSize(new java.awt.Dimension(100, 80));
+        JButtonCursos.setMaximumSize(new java.awt.Dimension(100, 85));
+        JButtonCursos.setMinimumSize(new java.awt.Dimension(100, 85));
         JButtonCursos.setName("JButtonCursos"); // NOI18N
-        JButtonCursos.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonCursos.setPreferredSize(new java.awt.Dimension(100, 85));
         JButtonCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButtonCursosActionPerformed(evt);
@@ -94,10 +93,10 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonProfessores.setAlignmentY(0.0F);
         JButtonProfessores.setBorder(null);
         JButtonProfessores.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        JButtonProfessores.setMaximumSize(new java.awt.Dimension(100, 80));
-        JButtonProfessores.setMinimumSize(new java.awt.Dimension(100, 80));
+        JButtonProfessores.setMaximumSize(new java.awt.Dimension(100, 85));
+        JButtonProfessores.setMinimumSize(new java.awt.Dimension(100, 85));
         JButtonProfessores.setName("JButtonProfessores"); // NOI18N
-        JButtonProfessores.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonProfessores.setPreferredSize(new java.awt.Dimension(100, 85));
         JButtonProfessores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButtonProfessoresActionPerformed(evt);
@@ -108,10 +107,10 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonDisciplinas.setAlignmentY(0.0F);
         JButtonDisciplinas.setBorder(null);
         JButtonDisciplinas.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        JButtonDisciplinas.setMaximumSize(new java.awt.Dimension(100, 80));
-        JButtonDisciplinas.setMinimumSize(new java.awt.Dimension(100, 80));
+        JButtonDisciplinas.setMaximumSize(new java.awt.Dimension(100, 85));
+        JButtonDisciplinas.setMinimumSize(new java.awt.Dimension(100, 85));
         JButtonDisciplinas.setName("JButtonDisciplinas"); // NOI18N
-        JButtonDisciplinas.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonDisciplinas.setPreferredSize(new java.awt.Dimension(100, 85));
         JButtonDisciplinas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButtonDisciplinasActionPerformed(evt);
@@ -123,10 +122,10 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonTurmas.setAutoscrolls(true);
         JButtonTurmas.setBorder(null);
         JButtonTurmas.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        JButtonTurmas.setMaximumSize(new java.awt.Dimension(100, 80));
-        JButtonTurmas.setMinimumSize(new java.awt.Dimension(100, 80));
+        JButtonTurmas.setMaximumSize(new java.awt.Dimension(100, 85));
+        JButtonTurmas.setMinimumSize(new java.awt.Dimension(100, 85));
         JButtonTurmas.setName("JButtonTurmas"); // NOI18N
-        JButtonTurmas.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonTurmas.setPreferredSize(new java.awt.Dimension(100, 85));
         JButtonTurmas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButtonTurmasActionPerformed(evt);
@@ -139,25 +138,15 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonAlocar.setAutoscrolls(true);
         JButtonAlocar.setBorder(null);
         JButtonAlocar.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        JButtonAlocar.setMaximumSize(new java.awt.Dimension(100, 80));
-        JButtonAlocar.setMinimumSize(new java.awt.Dimension(100, 80));
+        JButtonAlocar.setMaximumSize(new java.awt.Dimension(100, 85));
+        JButtonAlocar.setMinimumSize(new java.awt.Dimension(100, 85));
         JButtonAlocar.setName("JButtonAlocar"); // NOI18N
-        JButtonAlocar.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonAlocar.setPreferredSize(new java.awt.Dimension(100, 85));
         JButtonAlocar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButtonAlocarActionPerformed(evt);
             }
         });
-
-        JButtonGrade.setText("Grade");
-        JButtonGrade.setAlignmentY(0.0F);
-        JButtonGrade.setAutoscrolls(true);
-        JButtonGrade.setBorder(null);
-        JButtonGrade.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        JButtonGrade.setMaximumSize(new java.awt.Dimension(100, 80));
-        JButtonGrade.setMinimumSize(new java.awt.Dimension(100, 80));
-        JButtonGrade.setName("JButtonGrade"); // NOI18N
-        JButtonGrade.setPreferredSize(new java.awt.Dimension(100, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -170,7 +159,6 @@ public class JPanelMenu extends javax.swing.JPanel {
             .addComponent(JButtonDisciplinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(JButtonTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(JButtonAlocar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(JButtonGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,10 +175,7 @@ public class JPanelMenu extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(JButtonTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(JButtonAlocar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(JButtonGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(JButtonAlocar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -261,7 +246,6 @@ public class JPanelMenu extends javax.swing.JPanel {
     private javax.swing.JButton JButtonAlocar;
     private javax.swing.JButton JButtonCursos;
     private javax.swing.JButton JButtonDisciplinas;
-    private javax.swing.JButton JButtonGrade;
     private javax.swing.JButton JButtonInicio;
     private javax.swing.JButton JButtonProfessores;
     private javax.swing.JButton JButtonSalas;
@@ -273,8 +257,7 @@ public class JPanelMenu extends javax.swing.JPanel {
         Color c = new Color(180, 180, 180);
         
         JButtonCursos.setBackground(c);
-        JButtonDisciplinas.setBackground(c);
-        JButtonGrade.setBackground(c);
+        JButtonDisciplinas.setBackground(c);        
         JButtonAlocar.setBackground(c);
         JButtonInicio.setBackground(c);
         JButtonProfessores.setBackground(c);

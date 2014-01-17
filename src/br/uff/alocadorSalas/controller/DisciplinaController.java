@@ -42,7 +42,7 @@ public class DisciplinaController {
         return dao.buscarPorAtributo("curso.id", curso.getId());
     }
 
-    public Disciplina buscarPorCodigo(String codigo) throws Exception {
+    public Disciplina buscarDisciplinaPorCodigo(String codigo) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
         return dao.buscarPorAtributo("codigo", codigo);
     }
@@ -57,22 +57,22 @@ public class DisciplinaController {
         return dao.buscarTodos();
     }
 
-    public List<Disciplina> buscaTodasDisciplinaPorNome(String nome) throws Exception {
+    public List<Disciplina> buscaTodasDisciplinasPorNome(String nome) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
         return dao.buscarTodosPorNome(nome);
     }
 
-    public List<Disciplina> buscaTodasDisciplinaPorCurso(Curso curso) throws Exception {
+    public List<Disciplina> buscaTodasDisciplinasPorCurso(Curso curso) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
         return dao.buscarTodosPorAtributo("curso.id", curso.getId());
     }
 
-    public List<Disciplina> buscaTodasDisciplinaCodigo(String codigo) throws Exception {
+    public List<Disciplina> buscaTodasDisciplinasPorCodigo(String codigo) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
         return dao.buscarTodosPorAtributo("codigo", codigo);
     }
 
-    public List<Disciplina> buscaTodasDisciplinaPorNomeECurso(String nome, Curso curso) throws Exception {
+    public List<Disciplina> buscaTodasDisciplinasPorNomeECurso(String nome, Curso curso) throws Exception {
         DisciplinaDao dao = new DisciplinaDao();
         return dao.buscarTodosPorNomeECurso(nome, curso);
     }

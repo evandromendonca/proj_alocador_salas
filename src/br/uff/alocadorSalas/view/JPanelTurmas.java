@@ -20,6 +20,7 @@ import br.uff.alocadorSalas.model.Professor;
 import br.uff.alocadorSalas.model.Sala;
 import br.uff.alocadorSalas.model.Turma;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +92,9 @@ public class JPanelTurmas extends javax.swing.JPanel {
         JButtonRemoveAula = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         JTableAulas = new javax.swing.JTable();
-        JFormattedTextHorarioInicial = new javax.swing.JFormattedTextField();
-        JFormattedTextHorarioFinal = new javax.swing.JFormattedTextField();
+        JTextHorarioInicial = new javax.swing.JTextField();
+        JTextHorarioFinal = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         JButtonBuscar = new javax.swing.JButton();
         JButtonCadastrar = new javax.swing.JButton();
@@ -101,6 +103,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         JTablePesquisa = new javax.swing.JTable();
         JButtonExcluir = new javax.swing.JButton();
         JButtonAlterar = new javax.swing.JButton();
+        JButtonExcluirTodasTurmas = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(700, 600));
         setMinimumSize(new java.awt.Dimension(700, 600));
@@ -114,8 +117,13 @@ public class JPanelTurmas extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Quantidade de alunos.:");
 
-        JSpinnerQuantidadeAlunos.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
+        JSpinnerQuantidadeAlunos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 200, 1));
         JSpinnerQuantidadeAlunos.setName("JSpinnerQuantidadeAlunos"); // NOI18N
+        JSpinnerQuantidadeAlunos.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                JSpinnerQuantidadeAlunosStateChanged(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Disciplina.:");
@@ -183,6 +191,28 @@ public class JPanelTurmas extends javax.swing.JPanel {
         JTableAulas.setShowVerticalLines(false);
         jScrollPane3.setViewportView(JTableAulas);
 
+        JTextHorarioInicial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                JTextHorarioInicialFocusLost(evt);
+            }
+        });
+        JTextHorarioInicial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTextHorarioInicialKeyReleased(evt);
+            }
+        });
+
+        JTextHorarioFinal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                JTextHorarioFinalFocusLost(evt);
+            }
+        });
+        JTextHorarioFinal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTextHorarioFinalKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -190,57 +220,55 @@ public class JPanelTurmas extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel9))
-                        .addGap(5, 5, 5)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(JComboBoxSala, javax.swing.GroupLayout.Alignment.TRAILING, 0, 142, Short.MAX_VALUE)
+                                    .addComponent(JComboBoxDiaSemana, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(JTextHorarioInicial)
+                                    .addComponent(JTextHorarioFinal))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JFormattedTextHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JComboBoxSala, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JComboBoxDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JFormattedTextHorarioInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JButtonIncluiAula)
-                    .addComponent(JButtonRemoveAula))
+                            .addComponent(JButtonIncluiAula)
+                            .addComponent(JButtonRemoveAula)))
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(11, 11, 11))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(JButtonIncluiAula)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JButtonRemoveAula))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(JComboBoxSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(JComboBoxDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(JFormattedTextHorarioInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(JComboBoxSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(JComboBoxDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JButtonIncluiAula))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(JButtonRemoveAula)
+                    .addComponent(JTextHorarioInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9)
-                    .addComponent(JFormattedTextHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JTextHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jLabel11.setText("Valor entre 1 e 200");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -257,6 +285,8 @@ public class JPanelTurmas extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(JSpinnerQuantidadeAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +310,9 @@ public class JPanelTurmas extends javax.swing.JPanel {
                     .addComponent(JTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JSpinnerQuantidadeAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(JSpinnerQuantidadeAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11))
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -296,7 +328,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
                     .addComponent(JComboBoxProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5))
+                .addGap(16, 16, 16))
         );
 
         jLabel10.setForeground(new java.awt.Color(255, 0, 0));
@@ -364,7 +396,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         );
         painelPesquisaCursosLayout.setVerticalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
         );
 
         JButtonExcluir.setText("Excluir");
@@ -389,6 +421,13 @@ public class JPanelTurmas extends javax.swing.JPanel {
             }
         });
 
+        JButtonExcluirTodasTurmas.setText("<html><font color=red>Excluir Tudo</font></html>");
+        JButtonExcluirTodasTurmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonExcluirTodasTurmasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -399,7 +438,8 @@ public class JPanelTurmas extends javax.swing.JPanel {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelPesquisaCursos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(JButtonExcluirTodasTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -415,55 +455,68 @@ public class JPanelTurmas extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JButtonCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JButtonExcluirTodasTurmas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelPesquisaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(JButtonAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel10)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public Aula salvaOuAlteraAula(int i, Horario horario, Turma turma) throws Exception {
+    public boolean verificarConflitoHoraEAula(Horario hora, Aula aula) {
+
+        return (aula.getHorario().getHorarioInicial().getTime() < hora.getHorarioFinal().getTime())
+                && (aula.getHorario().getHorarioFinal().getTime() > hora.getHorarioInicial().getTime());
+    }
+
+    public void salvaOuAlteraAula(int i, Horario horario, Turma turma) throws Exception {
 
         DefaultTableModel modelTableAulas = (DefaultTableModel) JTableAulas.getModel();
         Aula aula = null;
 
-        //Se ele tiver a sala preenchida, ele verifica, senao, ele só aloca
+        //Se a SALA estiver preenchida, ele verifica, senao, ele só aloca
         if (modelTableAulas.getValueAt(i, 3) != null) {
-            //Verifica se a aula já é uma aula existente no banco, com as definições da tabela
-            aula = new AulaController().buscarPorSalaHorarioeDiaSemana(
+
+            //Pega lista de todas as aulas da SALA no DIA DA SEMANA
+            List<Aula> aulasNoDiaSemana = new AulaController().buscaTodosPorSalaEDiaSemana(
                     (Sala) modelTableAulas.getValueAt(i, 3),
-                    horario,
                     String.valueOf(modelTableAulas.getValueAt(i, 2)));
+
+            //Verifica se a aula já é uma aula existente no banco, com as definições da tabela SALA, HORARIO e DIA SEMANA
+            for (Aula a : aulasNoDiaSemana) {
+                if (verificarConflitoHoraEAula(horario, a)) {
+                    aula = a;
+                    break;
+                }
+            }
         }
 
+        //Caso nenhuma aula conflitante seja encontrada, ele criará uma nova aula
         if (aula == null) {
-            //Caso negativo, cria uma nova aula
             new AulaController().salvar(
                     String.valueOf(modelTableAulas.getValueAt(i, 2)),
                     turma,
                     (Sala) modelTableAulas.getValueAt(i, 3),
                     horario);
         } else {
+            //Caso tenha sido encontrada aula conflitante, ele avisa que nao pode ser alocado.
             JOptionPane.showMessageDialog(this, "Aula em: " + aula.getSala() + " às " + aula.getHorario().toString() + " ao " + aula.getDiaSemana() + " já existente!");
+            throw new Exception();
         }
 
-        //Busca a nova aula para verificação
-        aula = new AulaController().buscarPorSalaHorarioeDiaSemana(
-                (Sala) modelTableAulas.getValueAt(i, 3),
-                horario,
-                String.valueOf(modelTableAulas.getValueAt(i, 2)));
-
-        return (aula != null) ? aula : null;
     }
 
     public Horario salvaOuAlteraHorario(int i) throws Exception {
@@ -494,6 +547,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
     }
 
     private void JButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCadastrarActionPerformed
+        //Variáveis utilizadas para pegar dados da tela
         DefaultTableModel modelTableAulas = (DefaultTableModel) JTableAulas.getModel();
         DefaultComboBoxModel modelDisciplinas = (DefaultComboBoxModel) JComboBoxDisciplina.getModel();
         DefaultComboBoxModel modelCursos = (DefaultComboBoxModel) JComboBoxCurso.getModel();
@@ -510,6 +564,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         }
 
         if (JButtonCadastrar.getText().equalsIgnoreCase("Cadastrar")) {
+            Turma turma = null;
             try {
                 //Salva a nova turma
                 new TurmaController().salvar(JTextNome.getText(),
@@ -519,23 +574,34 @@ public class JPanelTurmas extends javax.swing.JPanel {
                         (Curso) modelCursos.getSelectedItem());
 
                 //Busca  a nova turma salva
-                Turma turma = new TurmaController().buscaTurmaPorNomeEDisciplina(JTextNome.getText(), (Disciplina) modelDisciplinas.getSelectedItem());
+                turma = new TurmaController().buscaTurmaPorNomeEDisciplina(JTextNome.getText(), (Disciplina) modelDisciplinas.getSelectedItem());
+
+                //Remove todas as aulas da turma para que as novas sejam salvas
+                List<Aula> aulas = new AulaController().buscaTodosPorTurma(turma);
+                for (Aula a : aulas) {
+                    new AulaController().excluir(a.getId());
+                }
 
                 for (int i = 0; i < modelTableAulas.getRowCount(); i++) {
 
+                    //Salva os horários das aulas
                     Horario horario = salvaOuAlteraHorario(i);
 
-                    //Remove todas aulas da turma
-                    turma.getAulas().clear();
-
+                    //Salva as aulas
                     salvaOuAlteraAula(i, horario, turma);
                 }
 
                 JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
 
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Problemas no cadastro!");
-                return;
+            } catch (Exception e) {
+                try {
+                    //Se houve problemas para cadastrar, exclui a turma
+                    new TurmaController().excluir(turma.getId());
+                    JOptionPane.showMessageDialog(this, "Problemas no cadastro!");
+                    return;
+                } catch (Exception ex) {
+                    System.out.println("Problema na exclusao após o cadastro!");
+                }
             }
         }
 
@@ -587,7 +653,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         try {
             DefaultTableModel model = (DefaultTableModel) JTablePesquisa.getModel();
 
-            Turma turmaSelecionado = (Turma) model.getValueAt(JTablePesquisa.getSelectedRow(), 0);            
+            Turma turmaSelecionado = (Turma) model.getValueAt(JTablePesquisa.getSelectedRow(), 0);
 
             new TurmaController().excluir(turmaSelecionado.getId());
             model.removeRow(JTablePesquisa.getSelectedRow());
@@ -637,10 +703,17 @@ public class JPanelTurmas extends javax.swing.JPanel {
         DefaultComboBoxModel modelDiaSemana = (DefaultComboBoxModel) JComboBoxDiaSemana.getModel();
         DefaultComboBoxModel modelSala = (DefaultComboBoxModel) JComboBoxSala.getModel();
 
+        if ((JComboBoxDiaSemana.getSelectedIndex() <= 0)
+                || (JTextHorarioInicial.getText().equalsIgnoreCase(""))
+                || (JTextHorarioFinal.getText().equalsIgnoreCase(""))) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira os campos de horário e dia semana!");
+            return;
+        }
+
         //Cria horario com as definições do horário
         Horario horario = new Horario();
-        horario.setHorarioInicial(Time.valueOf(JFormattedTextHorarioInicial.getText()));
-        horario.setHorarioFinal(Time.valueOf(JFormattedTextHorarioFinal.getText()));
+        horario.setHorarioInicial(Time.valueOf(JTextHorarioInicial.getText()));
+        horario.setHorarioFinal(Time.valueOf(JTextHorarioFinal.getText()));
 
         //Cria uma aula com as definições de aula
         Aula aula = new Aula();
@@ -660,6 +733,10 @@ public class JPanelTurmas extends javax.swing.JPanel {
         DefaultComboBoxModel modelSala = (DefaultComboBoxModel) JComboBoxSala.getModel();
         DefaultTableModel modelAulas = (DefaultTableModel) JTableAulas.getModel();
 
+        if (modelAulas.getRowCount() == 0) {
+            return;
+        }
+
         //Cria horario com as definições do horário
         Horario horario = new Horario();
         horario.setHorarioInicial(Time.valueOf(modelAulas.getValueAt(JTableAulas.getSelectedRow(), 0).toString()));
@@ -673,8 +750,8 @@ public class JPanelTurmas extends javax.swing.JPanel {
 
         //Retira aula aula da tabela e insire nos respectivos campos
         modelDiaSemana.setSelectedItem(aula.getDiaSemana());
-        JFormattedTextHorarioInicial.setText(aula.getHorario().getHorarioInicial().toString());
-        JFormattedTextHorarioFinal.setText(aula.getHorario().getHorarioFinal().toString());
+        JTextHorarioInicial.setText(aula.getHorario().getHorarioInicial().toString());
+        JTextHorarioFinal.setText(aula.getHorario().getHorarioFinal().toString());
         if (aula.getSala() != null) {
             modelSala.setSelectedItem(aula.getSala());
         }
@@ -746,12 +823,120 @@ public class JPanelTurmas extends javax.swing.JPanel {
         definirLayout(EstadoTela.inicial);
     }//GEN-LAST:event_JButtonBuscarActionPerformed
 
+    private void JTextHorarioFinalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTextHorarioFinalKeyReleased
+        if (!(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+            JTextHorarioFinal.setText(insereMascaraHorario(JTextHorarioFinal.getText()));
+        }
+    }//GEN-LAST:event_JTextHorarioFinalKeyReleased
+
+    private void JTextHorarioInicialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTextHorarioInicialKeyReleased
+        if (!(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+            JTextHorarioInicial.setText(insereMascaraHorario(JTextHorarioInicial.getText()));
+        }
+    }//GEN-LAST:event_JTextHorarioInicialKeyReleased
+
+    private void JTextHorarioInicialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTextHorarioInicialFocusLost
+        if (JTextHorarioInicial.getText().length() < 8) {
+            JTextHorarioInicial.setText(completaHora(JTextHorarioInicial.getText()));
+        }
+    }//GEN-LAST:event_JTextHorarioInicialFocusLost
+
+    private void JTextHorarioFinalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTextHorarioFinalFocusLost
+        if (JTextHorarioFinal.getText().length() < 8) {
+            JTextHorarioFinal.setText(completaHora(JTextHorarioFinal.getText()));
+        }
+    }//GEN-LAST:event_JTextHorarioFinalFocusLost
+
+    private void JSpinnerQuantidadeAlunosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JSpinnerQuantidadeAlunosStateChanged
+        preencherComboSalas();
+    }//GEN-LAST:event_JSpinnerQuantidadeAlunosStateChanged
+
+    private void JButtonExcluirTodasTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirTodasTurmasActionPerformed
+        try {
+            List<Turma> turmas = new TurmaController().listaTurmas();
+            List<Horario> horarios = new HorarioController().listaHorarios();
+
+            for (Turma t : turmas) {
+                new TurmaController().excluir(t.getId());
+            }
+
+            for (Horario h : horarios) {
+                new HorarioController().excluir(h.getId());
+            }
+
+            DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+            modelTable.setRowCount(0);
+
+            JOptionPane.showMessageDialog(this, "Todos registros excluidos!");
+            definirLayout(EstadoTela.inicial);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Problemas ao excluir todas as turmas e horarios!");
+        }
+    }//GEN-LAST:event_JButtonExcluirTodasTurmasActionPerformed
+
+    private String completaHora(String texto) {
+        while (texto.length() < 8) {
+            texto = insereMascaraHorario(texto + "0");
+        }
+        return texto;
+    }
+
+    private String insereMascaraHorario(String texto) {
+
+        if (texto.isEmpty()) {
+            return "";
+        }
+
+        if (!((texto.charAt(texto.length() - 1) >= 48) && (texto.charAt(texto.length() - 1) <= 57))) {
+            texto = texto.substring(0, (texto.length() - 1));
+        }
+
+        if (texto.length() == 3) {
+            if (texto.charAt(texto.length() - 1) != 58) {
+                texto = texto.substring(0, 2) + ":";
+            }
+        }
+
+        if (texto.length() == 6) {
+            if (texto.charAt(texto.length() - 1) != 58) {
+                texto = texto.substring(0, 5) + ":";
+            }
+        }
+
+        if (texto.length() == 2) {
+            int hora = Integer.parseInt(texto.substring(0, 2));
+            if (hora > 24) {
+                texto = "24";
+            }
+            texto = texto + ":";
+        }
+
+        if (texto.length() == 5) {
+            int minuto = Integer.parseInt(texto.substring(3, 5));
+            if (minuto > 59) {
+                texto = texto.substring(0, 3) + "59";
+            }
+            texto = texto + ":";
+        }
+
+        if (texto.length() > 8) {
+            int segundo = Integer.parseInt(texto.substring(6, 8));
+            if (segundo > 59) {
+                texto = texto.substring(0, 6) + "59";
+            }
+            texto = texto.substring(0, 8);
+        }
+
+        return texto;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonAlterar;
     private javax.swing.JButton JButtonBuscar;
     private javax.swing.JButton JButtonCadastrar;
     private javax.swing.JButton JButtonExcluir;
+    private javax.swing.JButton JButtonExcluirTodasTurmas;
     private javax.swing.JButton JButtonIncluiAula;
     private javax.swing.JButton JButtonRemoveAula;
     private javax.swing.JComboBox JComboBoxCurso;
@@ -759,14 +944,15 @@ public class JPanelTurmas extends javax.swing.JPanel {
     private javax.swing.JComboBox JComboBoxDisciplina;
     private javax.swing.JComboBox JComboBoxProfessor;
     private javax.swing.JComboBox JComboBoxSala;
-    private javax.swing.JFormattedTextField JFormattedTextHorarioFinal;
-    private javax.swing.JFormattedTextField JFormattedTextHorarioInicial;
     private javax.swing.JSpinner JSpinnerQuantidadeAlunos;
     private javax.swing.JTable JTableAulas;
     private javax.swing.JTable JTablePesquisa;
+    private javax.swing.JTextField JTextHorarioFinal;
+    private javax.swing.JTextField JTextHorarioInicial;
     private javax.swing.JTextField JTextNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -789,6 +975,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
         this.JButtonBuscar.setBackground(c);
         this.JButtonCadastrar.setBackground(c);
         this.JButtonExcluir.setBackground(c);
+        this.JButtonExcluirTodasTurmas.setBackground(c);
     }
 
     private void definirLayout(EstadoTela estado) {
@@ -808,6 +995,12 @@ public class JPanelTurmas extends javax.swing.JPanel {
             this.JComboBoxSala.setSelectedIndex(0);
             this.JComboBoxProfessor.setSelectedIndex(0);
             this.JComboBoxDiaSemana.setSelectedIndex(0);
+            this.JTextHorarioInicial.setText("");
+            this.JTextHorarioFinal.setText("");
+            this.JSpinnerQuantidadeAlunos.setValue(0);
+
+            DefaultTableModel modelTable = (DefaultTableModel) JTableAulas.getModel();
+            modelTable.setRowCount(0);
         }
 
         if (estadoTela.equals(EstadoTela.alterando)) {
@@ -849,7 +1042,7 @@ public class JPanelTurmas extends javax.swing.JPanel {
             String mensagem = "Preencha com uma disciplina!";
             modelDisciplina.addElement(mensagem);
 
-            List<Disciplina> disciplinas = new DisciplinaController().buscaTodasDisciplinaPorCurso(curso);
+            List<Disciplina> disciplinas = new DisciplinaController().buscaTodasDisciplinasPorCurso(curso);
 
             for (Disciplina d : disciplinas) {
                 modelDisciplina.addElement(d);
@@ -901,13 +1094,17 @@ public class JPanelTurmas extends javax.swing.JPanel {
     private void preencherComboSalas() {
         try {
             DefaultComboBoxModel modelSalas = (DefaultComboBoxModel) JComboBoxSala.getModel();
+            modelSalas.removeAllElements();
+
             String mensagem = "Preenche a sala!";
             modelSalas.addElement(mensagem);
 
             List<Sala> salas = new SalaController().listaSalas();
 
             for (Sala s : salas) {
-                modelSalas.addElement(s);
+                if (s.getQuantidadeUtil() >= (int) JSpinnerQuantidadeAlunos.getValue()) {
+                    modelSalas.addElement(s);
+                }
             }
 
             modelSalas.setSelectedItem(mensagem);

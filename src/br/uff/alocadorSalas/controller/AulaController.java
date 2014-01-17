@@ -38,6 +38,16 @@ public class AulaController {
         AulaDao dao = new AulaDao();
         return dao.buscarPorSalaHorarioEDiaSemana(s, h, diaSemana);
     }
+    
+    public Aula buscaPorHorarioEDiaSemana(Horario horario, String diaSemana) {
+        AulaDao dao = new AulaDao();
+        return dao.buscaPorHorarioInicialEDiaSemana(horario, diaSemana);
+    }
+    
+    public List<Aula> buscaTodosPorSalaEDiaSemana(Sala sala, String diaSemana) throws Exception {
+        AulaDao dao = new AulaDao();
+        return dao.buscaTodosPorSalaEDiaSemana(sala, diaSemana);
+    }
 
     public List<Aula> buscaTodosPorTurma(Turma turma) throws Exception {
         AulaDao dao = new AulaDao();
@@ -54,7 +64,7 @@ public class AulaController {
         return dao.buscarTodos();
     }
     
-    public List<Aula> buscaTodosPorHorarioEDiaSemana(Horario horario, String diaSemana) {
+    public List<Aula> buscaTodosPorHorarioEDiaSemana(Horario horario, String diaSemana) throws Exception {
         AulaDao dao = new AulaDao();
         return dao.buscaTodosPorHorarioInicialEDiaSemana(horario, diaSemana);
     }

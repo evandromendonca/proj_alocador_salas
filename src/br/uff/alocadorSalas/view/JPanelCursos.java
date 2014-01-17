@@ -4,8 +4,9 @@ import br.uff.alocadorSalas.controller.CursosController;
 import br.uff.alocadorSalas.model.Curso;
 import java.awt.Color;
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -159,9 +160,9 @@ public class JPanelCursos extends javax.swing.JPanel {
         );
         painelPesquisaCursosLayout.setVerticalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPesquisaCursosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -278,8 +279,8 @@ public class JPanelCursos extends javax.swing.JPanel {
         if (cursosBuscados.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nenhum curso encontrado!");
             return;
-        }        
-        
+        }
+
         DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
         modelTable.setRowCount(0);
         for (Curso c : cursosBuscados) {
@@ -377,6 +378,11 @@ public class JPanelCursos extends javax.swing.JPanel {
         this.JButtonCadastrar.setBackground(c);
         this.JButtonExcluir.setBackground(c);
 
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.LEFT);
+        JTablePesquisa.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
+        JTablePesquisa.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+        JTablePesquisa.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
     }
 
     private void definirLayout(EstadoTela estado) {

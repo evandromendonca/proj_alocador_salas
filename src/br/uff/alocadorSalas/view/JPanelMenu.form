@@ -34,7 +34,6 @@
           <Component id="JButtonDisciplinas" min="-2" max="-2" attributes="0"/>
           <Component id="JButtonTurmas" min="-2" max="-2" attributes="0"/>
           <Component id="JButtonAlocar" min="-2" max="-2" attributes="0"/>
-          <Component id="JButtonGrade" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -52,10 +51,7 @@
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="JButtonTurmas" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="JButtonAlocar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="JButtonGrade" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="JButtonAlocar" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -72,14 +68,14 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 40]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 40]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="JButtonInicio" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 40]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
       </Properties>
       <Events>
@@ -97,14 +93,14 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="JButtonSalas" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
       </Properties>
       <Events>
@@ -122,14 +118,14 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="JButtonCursos" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
       </Properties>
       <Events>
@@ -147,14 +143,14 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="JButtonProfessores" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
       </Properties>
       <Events>
@@ -172,14 +168,14 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="JButtonDisciplinas" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
       </Properties>
       <Events>
@@ -198,14 +194,14 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="JButtonTurmas" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
       </Properties>
       <Events>
@@ -225,42 +221,19 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="JButtonAlocar" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
+          <Dimension value="[100, 85]"/>
         </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButtonAlocarActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="JButtonGrade">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Grade"/>
-        <Property name="alignmentY" type="float" value="0.0"/>
-        <Property name="autoscrolls" type="boolean" value="true"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
-        </Property>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[0, 0, 0, 0]"/>
-        </Property>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="JButtonGrade" noResource="true"/>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 80]"/>
-        </Property>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

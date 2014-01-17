@@ -11,7 +11,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -50,6 +49,7 @@ public class JPanelSalas extends javax.swing.JPanel {
         JTextNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         JSpinnerQuantidadeAlunos = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
         panelBotoesAcao = new javax.swing.JPanel();
         JButtonExcluir = new javax.swing.JButton();
         JButtonAlterar = new javax.swing.JButton();
@@ -70,8 +70,10 @@ public class JPanelSalas extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Quantidade máxima de alunos.:");
 
-        JSpinnerQuantidadeAlunos.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
+        JSpinnerQuantidadeAlunos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 200, 1));
         JSpinnerQuantidadeAlunos.setName("JSpinnerQuantidadeAlunos"); // NOI18N
+
+        jLabel3.setText("Valor entre 1 e 200");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,16 +81,18 @@ public class JPanelSalas extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JSpinnerQuantidadeAlunos))
+                        .addComponent(JSpinnerQuantidadeAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(JTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +104,8 @@ public class JPanelSalas extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(JSpinnerQuantidadeAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JSpinnerQuantidadeAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -198,6 +203,7 @@ public class JPanelSalas extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        JTablePesquisa.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JTablePesquisa.setShowHorizontalLines(false);
         JTablePesquisa.setShowVerticalLines(false);
         jScrollPane1.setViewportView(JTablePesquisa);
@@ -213,10 +219,10 @@ public class JPanelSalas extends javax.swing.JPanel {
         );
         painelPesquisaCursosLayout.setVerticalGroup(
             painelPesquisaCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPesquisaCursosLayout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                .addGap(37, 37, 37))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPesquisaCursosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -300,8 +306,8 @@ public class JPanelSalas extends javax.swing.JPanel {
     }//GEN-LAST:event_JButtonAlterarActionPerformed
 
     private void JButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCadastrarActionPerformed
-        if (JTextNome.getText().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(this, "Campos de busca 'Nome' vazio!");
+        if (JTextNome.getText().equalsIgnoreCase("") || ((int)JSpinnerQuantidadeAlunos.getValue() <= 0)) {
+            JOptionPane.showMessageDialog(this, "Campos nome ou quantidade de alunos vazios!");
             return;
         }
 
@@ -377,6 +383,7 @@ public class JPanelSalas extends javax.swing.JPanel {
     private javax.swing.JTextField JTextNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel painelPesquisaCursos;

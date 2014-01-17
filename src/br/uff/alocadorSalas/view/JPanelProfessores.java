@@ -5,16 +5,15 @@
  */
 package br.uff.alocadorSalas.view;
 
-import br.uff.alocadorSalas.controller.CursosController;
 import br.uff.alocadorSalas.controller.ProfessorController;
-import br.uff.alocadorSalas.model.Curso;
 import br.uff.alocadorSalas.model.Professor;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -196,9 +195,9 @@ public class JPanelProfessores extends javax.swing.JPanel {
         painelPesquisaCursos4Layout.setVerticalGroup(
             painelPesquisaCursos4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaCursos4Layout.createSequentialGroup()
-                .addGap(134, 134, 134)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                .addGap(61, 61, 61))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -363,6 +362,10 @@ public class JPanelProfessores extends javax.swing.JPanel {
         this.JButtonBuscar.setBackground(c);
         this.JButtonCadastrar.setBackground(c);
         this.JButtonExcluir.setBackground(c);
+        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.LEFT);
+        JTablePesquisa.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);        
     }
 
     private void definirLayout(EstadoTela estado) {

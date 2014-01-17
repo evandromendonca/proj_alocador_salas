@@ -25,7 +25,7 @@ public class Curso implements Serializable {
     @Column(name="nome", nullable = false, unique = true)
     private String nome;
 
-    @Column(name="sigla", nullable = false)
+    @Column(name="sigla", nullable = false, unique = true)
     private String sigla;
 
     @Column(name="quantidadePeriodos", nullable = false)

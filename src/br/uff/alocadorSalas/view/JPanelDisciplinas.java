@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -104,13 +105,13 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
                     .addComponent(lNomeDisciplina)
                     .addComponent(lNomeDisciplina1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JTextCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
                     .addGroup(painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(JComboBoxPeriodo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JComboBoxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(JComboBoxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JTextNome))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         painelConfiguracaoDisciplinasLayout.setVerticalGroup(
             painelConfiguracaoDisciplinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,6 +229,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        JTablePesquisa.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JTablePesquisa.setShowHorizontalLines(false);
         JTablePesquisa.setShowVerticalLines(false);
         jScrollPane1.setViewportView(JTablePesquisa);
@@ -243,10 +245,10 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         );
         painelPesquisaCursos4Layout.setVerticalGroup(
             painelPesquisaCursos4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPesquisaCursos4Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPesquisaCursos4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -300,13 +302,13 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         modelTable.setRowCount(0);
         for (Disciplina d : disciplinasBuscados) {
             modelTable.addRow(new Object[]{d, d.getCodigo(), d.getCurso(), d.getPeriodoAssociado()});
-        }
+        }       
 
         definirLayout(EstadoTela.inicial);
     }//GEN-LAST:event_JButtonBuscarActionPerformed
 
     private void JButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCadastrarActionPerformed
-        if ((JTextNome.getText().equalsIgnoreCase("")) || (JComboBoxCurso.getSelectedIndex() == 0) || (JComboBoxPeriodo.getSelectedIndex() == 0)) {
+        if ((JTextNome.getText().equalsIgnoreCase("")) || (JComboBoxCurso.getSelectedIndex() == 0) || (JComboBoxPeriodo.getSelectedIndex() == 0) || (JTextCodigo.getText().isEmpty())) {
             JOptionPane.showMessageDialog(this, "Campos de busca 'Nome'ou 'Curso' ou 'Periodo' vazios!");
             return;
         }
@@ -417,6 +419,14 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
         this.JButtonBuscar.setBackground(c);
         this.JButtonCadastrar.setBackground(c);
         this.JButtonExcluir.setBackground(c);
+        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.LEFT);
+        JTablePesquisa.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
+        JTablePesquisa.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+        JTablePesquisa.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+        JTablePesquisa.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        
     }
 
     private void definirLayout(EstadoTela estado) {
@@ -486,7 +496,7 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
 
         DefaultComboBoxModel modelCurso = (DefaultComboBoxModel) JComboBoxCurso.getModel();
 
-        if ((JTextNome.getText().equalsIgnoreCase("")) && (JComboBoxCurso.getSelectedIndex() <= 0)) {
+        if ((JTextNome.getText().equalsIgnoreCase("")) && (JComboBoxCurso.getSelectedIndex() <= 0) && (JTextCodigo.getText().equalsIgnoreCase(""))) {
             try {
                 return new ArrayList<>(new DisciplinaController().listaDisciplinas());
             } catch (Exception e) {
@@ -495,21 +505,28 @@ public class JPanelDisciplinas extends javax.swing.JPanel {
             }
         } else if (!(JTextNome.getText().equalsIgnoreCase("")) && !(JComboBoxCurso.getSelectedIndex() <= 0)) {
             try {
-                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinaPorNomeECurso(JTextNome.getText(), (Curso) JComboBoxCurso.getSelectedItem()));
+                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinasPorNomeECurso(JTextNome.getText(), (Curso) JComboBoxCurso.getSelectedItem()));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Problemas ao buscar disciplinas por nome e curso!");
                 return null;
             }
         } else if (!JTextNome.getText().equalsIgnoreCase("")) {
             try {
-                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinaPorNome(JTextNome.getText()));
+                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinasPorNome(JTextNome.getText()));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Problemas ao buscar disciplinas por nome!");
                 return null;
             }
+        } else if (!JTextCodigo.getText().equalsIgnoreCase("")) {
+            try {
+                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinasPorCodigo(JTextNome.getText()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Problemas ao buscar disciplinas por código!");
+                return null;
+            }
         } else if (JComboBoxCurso.getSelectedIndex() > 0) {
             try {
-                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinaPorCurso((Curso) modelCurso.getSelectedItem()));
+                return new ArrayList<>(new DisciplinaController().buscaTodasDisciplinasPorCurso((Curso) modelCurso.getSelectedItem()));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Problemas ao buscar disciplinas curso!");
                 return null;
