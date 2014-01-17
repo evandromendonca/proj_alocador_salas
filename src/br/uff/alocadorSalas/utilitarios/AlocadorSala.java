@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uff.alocadorSalas.alocador;
+package br.uff.alocadorSalas.utilitarios;
 
 import br.uff.alocadorSalas.controller.AulaController;
 import br.uff.alocadorSalas.controller.SalaController;

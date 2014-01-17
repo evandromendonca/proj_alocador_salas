@@ -6,7 +6,6 @@ import br.uff.alocadorSalas.model.Horario;
 import br.uff.alocadorSalas.model.Sala;
 import br.uff.alocadorSalas.model.Turma;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 public class AulaController {
 
@@ -50,4 +49,14 @@ public class AulaController {
         return dao.buscarTodosSemSala();
     }
 
+    public List<Aula> listaAulas() throws Exception {
+        AulaDao dao = new AulaDao();
+        return dao.buscarTodos();
+    }
+    
+    public List<Aula> buscaTodosPorHorarioEDiaSemana(Horario horario, String diaSemana) {
+        AulaDao dao = new AulaDao();
+        return dao.buscaTodosPorHorarioInicialEDiaSemana(horario, diaSemana);
+    }
+    
 }

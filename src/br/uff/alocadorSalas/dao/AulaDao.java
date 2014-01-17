@@ -47,4 +47,15 @@ public class AulaDao extends GenericoDao<Aula> {
         return (List<Aula>) session.createCriteria(persistent)
                 .add(Restrictions.isNull("sala.id")).list();
     }
+    
+     public List<Aula> buscaTodosPorHorarioInicialEDiaSemana(Horario horario, String diaSemana) {
+        Class<Aula> persistent = (Class<Aula>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        Session session = (Session) getEntityManager().getDelegate();
+
+        return (List<Aula>) session.createCriteria(persistent)
+                .add(Restrictions.and(
+                        Restrictions.eq("horario.id", horario.getId()),
+                        Restrictions.eq("diaSemana", diaSemana)
+                )).list();
+    }
 }

@@ -5,9 +5,10 @@
  */
 package br.uff.alocadorSalas.view;
 
-import br.uff.alocadorSalas.alocador.AlocadorSala;
+import br.uff.alocadorSalas.utilitarios.AlocadorSala;
 import br.uff.alocadorSalas.controller.AulaController;
 import br.uff.alocadorSalas.model.Aula;
+import br.uff.alocadorSalas.utilitarios.GeradorPlanilha;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -43,6 +44,7 @@ public class JPanelAlocar extends javax.swing.JPanel {
         JTablePesquisa = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         JButtonAlocarDinamicamente = new javax.swing.JButton();
+        JButtonGerarPlanilhas = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(700, 600));
         setMinimumSize(new java.awt.Dimension(700, 600));
@@ -106,6 +108,18 @@ public class JPanelAlocar extends javax.swing.JPanel {
             }
         });
 
+        JButtonGerarPlanilhas.setText("Gerar Planilhas");
+        JButtonGerarPlanilhas.setActionCommand("");
+        JButtonGerarPlanilhas.setMaximumSize(new java.awt.Dimension(150, 50));
+        JButtonGerarPlanilhas.setMinimumSize(new java.awt.Dimension(150, 50));
+        JButtonGerarPlanilhas.setName("JButtonAlocarDinamicamente"); // NOI18N
+        JButtonGerarPlanilhas.setPreferredSize(new java.awt.Dimension(150, 50));
+        JButtonGerarPlanilhas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonGerarPlanilhasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,7 +129,8 @@ public class JPanelAlocar extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelConfiguracaoCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(JButtonGerarPlanilhas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JButtonAlocarDinamicamente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -125,15 +140,27 @@ public class JPanelAlocar extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(painelConfiguracaoCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JButtonAlocarDinamicamente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JButtonAlocarDinamicamente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JButtonGerarPlanilhas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void JButtonAlocarDinamicamenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlocarDinamicamenteActionPerformed
         new AlocadorSala().alocarSalas();
-        inicializarTabela();      
+        inicializarTabela();
     }//GEN-LAST:event_JButtonAlocarDinamicamenteActionPerformed
+
+    private void JButtonGerarPlanilhasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonGerarPlanilhasActionPerformed
+        try {
+            new GeradorPlanilha().gerarQuadroAntigo("QuadroAntigo");
+            new GeradorPlanilha().gerarQuadroNovo("QuadroNovo");
+            JOptionPane.showMessageDialog(this, "Panilha gerada!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Problema ao gerar planilha do quadro antigo!");
+        }
+    }//GEN-LAST:event_JButtonGerarPlanilhasActionPerformed
 
     private void configInicial() {
         Color c = new Color(this.getBackground().getRGB());
@@ -144,16 +171,16 @@ public class JPanelAlocar extends javax.swing.JPanel {
     private void inicializarTabela() {
         try {
             DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
-                        
+
             ArrayList<Aula> aulasSemSala = (ArrayList<Aula>) new AulaController().buscaTodasSemSala();
             for (Aula aula : aulasSemSala) {
-                modelTable.addRow( new Object[] {
-                            aula.getTurma().getDisciplina(), 
-                            aula.getTurma(), 
-                            aula.getHorario().getHorarioInicial(),
-                            aula.getHorario().getHorarioFinal(),
-                            aula.getDiaSemana(),
-                            aula.getSala()
+                modelTable.addRow(new Object[]{
+                    aula.getTurma().getDisciplina(),
+                    aula.getTurma(),
+                    aula.getHorario().getHorarioInicial(),
+                    aula.getHorario().getHorarioFinal(),
+                    aula.getDiaSemana(),
+                    aula.getSala()
                 });
             }
 
@@ -165,6 +192,7 @@ public class JPanelAlocar extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonAlocarDinamicamente;
+    private javax.swing.JButton JButtonGerarPlanilhas;
     private javax.swing.JTable JTablePesquisa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

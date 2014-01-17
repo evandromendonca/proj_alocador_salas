@@ -116,7 +116,7 @@ public class Horario implements Serializable {
 
     @Override
     public String toString() {
-        return this.getHorarioInicial() + " " + this.getHorarioFinal();
+        return this.getHorarioInicial() + "/" + this.getHorarioFinal();
     }
 
 }
