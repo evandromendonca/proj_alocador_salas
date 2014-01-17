@@ -72,6 +72,19 @@ public class JPanelGlobal extends javax.swing.JPanel {
 
     public void alteraVisibilidade(String nomeBotao) {
 
+        if (nomeBotao.equalsIgnoreCase("JButtonAlocar")) {
+
+            JPanelAlocar panelAlocar = new JPanelAlocar();
+            panelAlocar.setVisible(true);
+
+            JPanelTela.setVisible(true);
+            JPanelTela.setLayout(new java.awt.BorderLayout());
+            JPanelTela.removeAll();
+            JPanelTela.add(panelAlocar);
+            JPanelTela.revalidate();
+
+        }
+        
         if (nomeBotao.equalsIgnoreCase("JButtonCursos")) {
 
             JPanelCursos panelCursos = new JPanelCursos();

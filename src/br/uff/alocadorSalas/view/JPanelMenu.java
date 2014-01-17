@@ -41,7 +41,7 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonProfessores = new javax.swing.JButton();
         JButtonDisciplinas = new javax.swing.JButton();
         JButtonTurmas = new javax.swing.JButton();
-        JButtonHorarios = new javax.swing.JButton();
+        JButtonAlocar = new javax.swing.JButton();
         JButtonGrade = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(100, 600));
@@ -133,15 +133,21 @@ public class JPanelMenu extends javax.swing.JPanel {
             }
         });
 
-        JButtonHorarios.setText("Horários");
-        JButtonHorarios.setAlignmentY(0.0F);
-        JButtonHorarios.setAutoscrolls(true);
-        JButtonHorarios.setBorder(null);
-        JButtonHorarios.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        JButtonHorarios.setMaximumSize(new java.awt.Dimension(100, 80));
-        JButtonHorarios.setMinimumSize(new java.awt.Dimension(100, 80));
-        JButtonHorarios.setName("JButtonHorarios"); // NOI18N
-        JButtonHorarios.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonAlocar.setText("Alocar");
+        JButtonAlocar.setActionCommand("");
+        JButtonAlocar.setAlignmentY(0.0F);
+        JButtonAlocar.setAutoscrolls(true);
+        JButtonAlocar.setBorder(null);
+        JButtonAlocar.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        JButtonAlocar.setMaximumSize(new java.awt.Dimension(100, 80));
+        JButtonAlocar.setMinimumSize(new java.awt.Dimension(100, 80));
+        JButtonAlocar.setName("JButtonAlocar"); // NOI18N
+        JButtonAlocar.setPreferredSize(new java.awt.Dimension(100, 80));
+        JButtonAlocar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonAlocarActionPerformed(evt);
+            }
+        });
 
         JButtonGrade.setText("Grade");
         JButtonGrade.setAlignmentY(0.0F);
@@ -163,7 +169,7 @@ public class JPanelMenu extends javax.swing.JPanel {
             .addComponent(JButtonProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(JButtonDisciplinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(JButtonTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(JButtonHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(JButtonAlocar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(JButtonGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
@@ -181,7 +187,7 @@ public class JPanelMenu extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(JButtonTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(JButtonHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JButtonAlocar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(JButtonGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -242,11 +248,20 @@ public class JPanelMenu extends javax.swing.JPanel {
         panelGlobal.alteraVisibilidade("JButtonProfessores");
     }//GEN-LAST:event_JButtonProfessoresActionPerformed
 
+    private void JButtonAlocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlocarActionPerformed
+        definirLayout();
+        Color c = new Color(this.getBackground().getRGB());
+        JButtonAlocar.setBackground(c);
+        
+        JPanelGlobal panelGlobal = (JPanelGlobal)this.getParent();
+        panelGlobal.alteraVisibilidade("JButtonAlocar");
+    }//GEN-LAST:event_JButtonAlocarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JButtonAlocar;
     private javax.swing.JButton JButtonCursos;
     private javax.swing.JButton JButtonDisciplinas;
     private javax.swing.JButton JButtonGrade;
-    private javax.swing.JButton JButtonHorarios;
     private javax.swing.JButton JButtonInicio;
     private javax.swing.JButton JButtonProfessores;
     private javax.swing.JButton JButtonSalas;
@@ -260,7 +275,7 @@ public class JPanelMenu extends javax.swing.JPanel {
         JButtonCursos.setBackground(c);
         JButtonDisciplinas.setBackground(c);
         JButtonGrade.setBackground(c);
-        JButtonHorarios.setBackground(c);
+        JButtonAlocar.setBackground(c);
         JButtonInicio.setBackground(c);
         JButtonProfessores.setBackground(c);
         JButtonSalas.setBackground(c);

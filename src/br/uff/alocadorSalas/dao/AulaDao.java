@@ -4,6 +4,7 @@ import br.uff.alocadorSalas.model.Aula;
 import br.uff.alocadorSalas.model.Horario;
 import br.uff.alocadorSalas.model.Sala;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -24,7 +25,7 @@ public class AulaDao extends GenericoDao<Aula> {
         super.excluir(aula);
     }
 
-    public Aula buscarPorSalaHorarioEDiaSemana(Sala sala, Horario horario, String diaSemana) {
+    public Aula buscarPorSalaHorarioEDiaSemana(Sala sala, Horario horario, String diaSemana) throws Exception {
         Class<Aula> persistent = (Class<Aula>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         Session session = (Session) getEntityManager().getDelegate();
 
@@ -37,5 +38,13 @@ public class AulaDao extends GenericoDao<Aula> {
                                 )
                         )
                 ).uniqueResult();
+    }
+
+    public List<Aula> buscarTodosSemSala() throws Exception {
+        Class<Aula> persistent = (Class<Aula>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        Session session = (Session) getEntityManager().getDelegate();
+
+        return (List<Aula>) session.createCriteria(persistent)
+                .add(Restrictions.isNull("sala.id")).list();
     }
 }

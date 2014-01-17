@@ -6,6 +6,7 @@
 package br.uff.alocadorSalas.model;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.List;
 import javax.persistence.*;
 
@@ -25,10 +26,10 @@ public class Horario implements Serializable {
     private Long id;
 
     @Column(name = "horarioInicial", nullable = false)
-    private Long horarioInicial;
+    private long horarioInicial;
 
     @Column(name = "horarioFinal", nullable = false)
-    private Long horarioFinal;
+    private long horarioFinal;
 
     @OneToMany(mappedBy = "horario", targetEntity = Aula.class, cascade = CascadeType.ALL)
     private List<Aula> aulas;
@@ -50,29 +51,29 @@ public class Horario implements Serializable {
     /**
      * @return the horarioInicial
      */
-    public Long getHorarioInicial() {
-        return horarioInicial;
+    public Time getHorarioInicial() {
+        return new Time(horarioInicial);
     }
 
     /**
      * @param horarioInicial the horarioInicial to set
      */
-    public void setHorarioInicial(Long horarioInicial) {
-        this.horarioInicial = horarioInicial;
+    public void setHorarioInicial(Time horarioInicial) {
+        this.horarioInicial = horarioInicial.getTime();
     }
 
     /**
      * @return the horarioFinal
      */
-    public Long getHorarioFinal() {
-        return horarioFinal;
+    public Time getHorarioFinal() {
+        return new Time(horarioFinal);
     }
 
     /**
      * @param horarioFinal the horarioFinal to set
      */
-    public void setHorarioFinal(Long horarioFinal) {
-        this.horarioFinal = horarioFinal;
+    public void setHorarioFinal(Time horarioFinal) {
+        this.horarioFinal = horarioFinal.getTime();
     }
 
     /**
@@ -87,6 +88,10 @@ public class Horario implements Serializable {
      */
     public void setAula(List<Aula> aulas) {
         this.aulas = aulas;
+    }
+
+    public Object[] imprimeHorario() {
+        return new Object[]{getHorarioInicial().toString(), getHorarioFinal().toString()};
     }
 
     @Override

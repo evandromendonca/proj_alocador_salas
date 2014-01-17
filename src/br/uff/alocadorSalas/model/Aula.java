@@ -25,7 +25,7 @@ public class Aula implements Serializable {
     private String diaSemana;
 
     @ManyToOne
-    @JoinColumn(name = "id_sala", nullable = false)
+    @JoinColumn(name = "id_sala", nullable = true)
     private Sala sala;
 
     @ManyToOne

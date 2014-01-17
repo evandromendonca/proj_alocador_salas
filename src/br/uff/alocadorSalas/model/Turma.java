@@ -184,7 +184,7 @@ public class Turma implements Serializable, Comparable<Turma> {
 
     @Override
     public String toString() {
-        return this.getNome() + "/" + "/" + this.getDisciplina() + "/" + this.getCurso() + "/" + this.getProfessor();
+        return this.getNome();
     }
 
 }

@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class JPanelSalas extends javax.swing.JPanel {
 
     EstadoTela estadoTela;
-    Long idSalaCorrente;
+    Sala salaCorrente;
 
     /**
      * Creates new form JPanelSalas
@@ -30,7 +30,7 @@ public class JPanelSalas extends javax.swing.JPanel {
     public JPanelSalas() {
         initComponents();
 
-        idSalaCorrente = (long) 0;
+        salaCorrente = null;
 
         configInicial();
         definirLayout(EstadoTela.inicial);
@@ -285,12 +285,11 @@ public class JPanelSalas extends javax.swing.JPanel {
         try {
 
             DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
-            String salaSelecionada = String.valueOf(modelTable.getValueAt(JTablePesquisa.getSelectedRow(), 0));
-            Sala sala = new SalaController().buscaSalaPorNome(salaSelecionada);
+            Sala salaSelecionada = (Sala) modelTable.getValueAt(JTablePesquisa.getSelectedRow(), 0);            
 
-            this.JTextNome.setText(sala.getNome());
-            this.JSpinnerQuantidadeAlunos.setValue(sala.getQuantidadeUtil());
-            idSalaCorrente = sala.getId();
+            this.JTextNome.setText(salaSelecionada.getNome());
+            this.JSpinnerQuantidadeAlunos.setValue(salaSelecionada.getQuantidadeUtil());
+            salaCorrente = salaSelecionada;
 
             modelTable.removeRow(JTablePesquisa.getSelectedRow());
         } catch (Exception ex) {
@@ -317,15 +316,15 @@ public class JPanelSalas extends javax.swing.JPanel {
 
         if (JButtonCadastrar.getText().equalsIgnoreCase("Alterar")) {
 
-            if (idSalaCorrente == 0) {
+            if (salaCorrente == null) {
                 JOptionPane.showMessageDialog(this, "Nenhuma sala para ser alterada!");
                 return;
             }
 
             try {
-                new SalaController().alterar(idSalaCorrente, JTextNome.getText(), Integer.parseInt(JSpinnerQuantidadeAlunos.getValue().toString()));
+                new SalaController().alterar(salaCorrente.getId(), JTextNome.getText(), Integer.parseInt(JSpinnerQuantidadeAlunos.getValue().toString()));
                 JOptionPane.showMessageDialog(this, "Alterada com sucesso!");
-                idSalaCorrente = Long.valueOf(0);
+                salaCorrente = null;
             } catch (Exception ex) {
                 Logger.getLogger(JPanelSalas.class.getName()).log(Level.SEVERE, null, ex);
             }
