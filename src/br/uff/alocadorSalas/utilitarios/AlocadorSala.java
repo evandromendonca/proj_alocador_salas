@@ -9,6 +9,8 @@ import br.uff.alocadorSalas.controller.SalaController;
 import br.uff.alocadorSalas.model.Aula;
 import br.uff.alocadorSalas.model.Sala;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,17 +23,21 @@ public class AlocadorSala {
         try {
 
             ArrayList<Aula> aulasSemSala = (ArrayList<Aula>) new AulaController().buscaTodasSemSala();
-            ArrayList<Sala> salas = (ArrayList<Sala>) new SalaController().listaSalas();
 
             for (Aula aula : aulasSemSala) {
-                for (Sala sala : salas) {
+                List<Sala> salas = new SalaController().listaSalas();
+                Collections.sort(salas);
+                for (Sala sala : salas)  {
                     if (aulaCabeEmSala(aula, sala)) {
                         aula.setSala(sala);
                         new AulaController().alterar(aula.getId(), aula.getDiaSemana(), aula.getTurma(), aula.getSala(), aula.getHorario());
+                        break;
                     }
                 }
             }
 
+            JOptionPane.showMessageDialog(null, "Alocado dinâmica com sucesso!");
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Problemas na alocação dinâmica");
         }
@@ -39,8 +45,12 @@ public class AlocadorSala {
 
     public boolean aulaCabeEmSala(Aula aula, Sala s) {
 
-        ArrayList<Aula> aulasDaSala = (ArrayList<Aula>) s.getAulas();
+        List<Aula> aulasDaSala = s.getAulas();
 
+        if (aula.getTurma().getQuantidadeAlunos() > s.getQuantidadeUtil()) {
+            return false;
+        }
+        
         for (Aula aulaSala : aulasDaSala) {
             if ((aula.getHorario().getHorarioInicial().getTime() < aulaSala.getHorario().getHorarioFinal().getTime())
                     && (aula.getHorario().getHorarioFinal().getTime() > aulaSala.getHorario().getHorarioInicial().getTime())

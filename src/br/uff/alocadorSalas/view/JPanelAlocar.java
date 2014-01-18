@@ -128,10 +128,10 @@ public class JPanelAlocar extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelConfiguracaoCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(JButtonGerarPlanilhas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JButtonAlocarDinamicamente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(JButtonAlocarDinamicamente, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -156,7 +156,7 @@ public class JPanelAlocar extends javax.swing.JPanel {
         try {
             new GeradorPlanilha().gerarQuadroAntigo("QuadroAntigo");
             new GeradorPlanilha().gerarQuadroNovo("QuadroNovo");
-            JOptionPane.showMessageDialog(this, "Panilha gerada!");
+            JOptionPane.showMessageDialog(this, "Panilha gerada!");            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Problema ao gerar planilha do quadro antigo!");
         }
@@ -171,6 +171,7 @@ public class JPanelAlocar extends javax.swing.JPanel {
     private void inicializarTabela() {
         try {
             DefaultTableModel modelTable = (DefaultTableModel) JTablePesquisa.getModel();
+            modelTable.setRowCount(0);
 
             ArrayList<Aula> aulasSemSala = (ArrayList<Aula>) new AulaController().buscaTodasSemSala();
             for (Aula aula : aulasSemSala) {
