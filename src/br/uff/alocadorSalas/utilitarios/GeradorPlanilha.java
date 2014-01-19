@@ -25,7 +25,7 @@ public class GeradorPlanilha {
 
         return "[" + aula.getTurma().getCurso().getSigla() + "] " + aula.getTurma().getDisciplina() + "("
                 + aula.getTurma().getDisciplina().getCodigo() + ") \n" + aula.getHorario() + " "
-                + aula.getTurma().getProfessor() + "\n";
+                + aula.getTurma().getProfessor();
     }
 
     public String textoQuadroNovo(Aula aula) {
@@ -106,32 +106,51 @@ public class GeradorPlanilha {
                 for (Aula aula : aulas) {
                     if (aula.getDiaSemana().equalsIgnoreCase("Segunda")) {
 
-                        celula = linha.createCell(1);
-                        celula.setCellValue(linha.getCell(1).getStringCellValue() + textoQuadroAntigo(aula));
+                        if (linha.getCell(1) == null) {
+                            celula = linha.createCell(1);
+                        } else {
+                            celula = linha.getCell(1);
+                        }
+                        celula.setCellValue(linha.getCell(1).getStringCellValue() + "\n" + textoQuadroAntigo(aula));
                         celula.setCellStyle(cs);
 
                     } else if (aula.getDiaSemana().equalsIgnoreCase("Terça")) {
 
-                        celula = linha.createCell(2);
-                        celula.setCellValue(linha.getCell(2).getStringCellValue() + textoQuadroAntigo(aula));
+                        if (linha.getCell(2) == null) {
+                            celula = linha.createCell(2);
+                        } else {
+                            celula = linha.getCell(2);
+                        }
+                        celula.setCellValue(linha.getCell(2).getStringCellValue() + "\n" + textoQuadroAntigo(aula));
                         celula.setCellStyle(cs);
 
                     } else if (aula.getDiaSemana().equalsIgnoreCase("Quarta")) {
 
-                        celula = linha.createCell(3);
-                        celula.setCellValue(linha.getCell(3).getStringCellValue() + textoQuadroAntigo(aula));
+                        if (linha.getCell(3) == null) {
+                            celula = linha.createCell(3);
+                        } else {
+                            celula = linha.getCell(3);
+                        }
+                        celula.setCellValue(linha.getCell(3).getStringCellValue() + "\n" + textoQuadroAntigo(aula));
                         celula.setCellStyle(cs);
 
                     } else if (aula.getDiaSemana().equalsIgnoreCase("Quinta")) {
 
-                        celula = linha.createCell(4);
-                        celula.setCellValue(linha.getCell(4).getStringCellValue() + textoQuadroAntigo(aula));
+                        if (linha.getCell(4) == null) {
+                            celula = linha.createCell(4);
+                        } else {
+                            celula = linha.getCell(4);
+                        }
+                        celula.setCellValue(linha.getCell(4).getStringCellValue() + "\n" + textoQuadroAntigo(aula));
                         celula.setCellStyle(cs);
 
                     } else if (aula.getDiaSemana().equalsIgnoreCase("Sexta")) {
-
-                        celula = linha.createCell(5);
-                        celula.setCellValue(linha.getCell(5).getStringCellValue() + textoQuadroAntigo(aula));
+                        if (linha.getCell(5) == null) {
+                            celula = linha.createCell(5);
+                        } else {
+                            celula = linha.getCell(5);
+                        }
+                        celula.setCellValue(linha.getCell(5).getStringCellValue() + "\n" + textoQuadroAntigo(aula));
                         celula.setCellStyle(cs);
 
                     }
