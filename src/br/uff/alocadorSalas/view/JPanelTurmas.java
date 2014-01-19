@@ -848,7 +848,35 @@ public class JPanelTurmas extends javax.swing.JPanel {
     }//GEN-LAST:event_JTextHorarioFinalFocusLost
 
     private void JSpinnerQuantidadeAlunosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JSpinnerQuantidadeAlunosStateChanged
-        preencherComboSalas();
+        try {
+            DefaultTableModel modelTableAulas = (DefaultTableModel) JTableAulas.getModel();
+
+            if (estadoTela.equals(EstadoTela.alterando)) {
+
+//                List<Aula> aulas = new AulaController().buscaTodosPorTurma(turmaCorrente);
+//                for (Aula a : aulas) {
+//                    if (a.getSala() != null) {
+//                        if (a.getSala().getQuantidadeUtil() < ((int) JSpinnerQuantidadeAlunos.getValue())) {
+//                            JSpinnerQuantidadeAlunos.setValue(a.getSala().getQuantidadeUtil());
+//                        }
+//                    }
+//                }
+
+                for (int i = 0; i < modelTableAulas.getRowCount(); i++) {
+                    if (modelTableAulas.getValueAt(i, 3) != null) {
+                        Sala sala = (Sala) modelTableAulas.getValueAt(i, 3);
+                        if (sala.getQuantidadeUtil() < ((int) JSpinnerQuantidadeAlunos.getValue())) {
+                            JSpinnerQuantidadeAlunos.setValue(sala.getQuantidadeUtil());
+                        }
+                    }
+                }
+            }
+
+            preencherComboSalas();
+
+        } catch (Exception ex) {
+            Logger.getLogger(JPanelTurmas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_JSpinnerQuantidadeAlunosStateChanged
 
     private void JButtonExcluirTodasTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonExcluirTodasTurmasActionPerformed
